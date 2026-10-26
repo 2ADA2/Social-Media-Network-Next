@@ -19,8 +19,10 @@ import { useMemo, useState } from 'react';
 import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
 import { ROUTES } from '@/app/lib/routes';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function SignUp () {
+  const router = useRouter();
   const { t, i18n } = useTranslation('auth');
   const { signup } = useAuth();
   const { add } = useNotifications();
@@ -39,6 +41,7 @@ export default function SignUp () {
       setIsPending(true);
       await signup(data);
       add({ message: t('signUp.success') });
+      router.refresh();
     } catch (e) {
       const error = e instanceof Error ? e.message : String(e);
       add({

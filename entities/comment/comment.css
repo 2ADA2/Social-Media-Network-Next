@@ -1,0 +1,53 @@
+.post-comment {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  gap: 8px;
+  border-bottom: 1px solid var(--border-primary);
+  padding: 16px 0;
+
+  .post-comment-header {
+    display: flex;
+    gap: 12px;
+
+    .post-comment-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      span:last-child {
+        color: var(--color-muted);
+      }
+    }
+  }
+
+  .post-comment-body {
+    margin: 0;
+  }
+
+  .comment-delete-button {
+    position: absolute;
+    background: none;
+    border: none;
+    cursor: pointer;
+    top: 16px;
+    right: 8px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+
+      path {
+        fill: var(--color-primary);
+      }
+    }
+  }
+
+  .comment-delete-button[disabled] {
+    cursor: default;
+
+    svg path {
+      fill: var(--color-muted);
+    }
+  }
+}

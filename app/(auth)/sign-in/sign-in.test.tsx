@@ -1,8 +1,8 @@
 import { describe, expect, test, vi, beforeEach } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import SignIn from '.';
+import SignIn from './page';
 import { useAuth } from '@/features/auth/use-auth';
-import { useNotifications } from '@/app/providers/notifications-context/useNotifications';
+import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
 import { renderWithRouter } from '@/test/render-with-router';
 
 let user = userEvent.setup();

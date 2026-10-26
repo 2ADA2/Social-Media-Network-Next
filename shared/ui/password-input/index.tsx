@@ -5,11 +5,11 @@ import {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-import CheckIcon from '@/shared/assets/icons/check.svg?react';
-import CrossIcon from '@/shared/assets/icons/cross.svg?react';
-import EyeIcon from '@/shared/assets/icons/eye.svg?react';
-import LikeIcon from '@/shared/assets/icons/thumbs-up.svg?react';
-import EyeCrossedIcon from '@/shared/assets/icons/eye-crossed.svg?react';
+import CheckIcon from '@/shared/assets/icons/check.svg';
+import CrossIcon from '@/shared/assets/icons/cross.svg';
+import EyeIcon from '@/shared/assets/icons/eye.svg';
+import LikeIcon from '@/shared/assets/icons/thumbs-up.svg';
+import EyeCrossedIcon from '@/shared/assets/icons/eye-crossed.svg';
 import './password-input.css';
 import { ShowInputInfo } from '@/shared/ui/show-input-info';
 

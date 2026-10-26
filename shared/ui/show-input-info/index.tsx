@@ -1,4 +1,4 @@
-import InfoIcon from '@/shared/assets/icons/info-filled.svg?react';
+import InfoIcon from '@/shared/assets/icons/info-filled.svg';
 
 export interface ShowInputInfoProps {
   error?: string;

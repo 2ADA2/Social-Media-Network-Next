@@ -2,7 +2,7 @@ import axios from 'axios';
 import { store } from '@/app/store/user-store';
 import { logout } from '@/entities/user/model/user-slice';
 import { refreshRequest } from '@/features/auth/refresh';
-import { fetchLogout } from "@/features/auth/logout.ts";
+import { fetchLogout } from "@/features/auth/logout";
 
 export const apiClient = axios.create({
   baseURL: '/',

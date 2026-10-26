@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Sidebar } from "@/entities/sidebar";
 import { useQuery } from "@tanstack/react-query";
-import { sidebarQueries } from "@/features/sidebar/sidebar.ts";
+import { sidebarQueries } from "@/features/sidebar/sidebar";
 
 export const MainSidebar = () => {
   const { t } = useTranslation('main');

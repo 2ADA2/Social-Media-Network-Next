@@ -5,8 +5,8 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import './file-input.css';
-import DownloadIcon from '@/shared/assets/icons/download-file.svg?react';
-import CrossIcon from '@/shared/assets/icons/cross.svg?react';
+import DownloadIcon from '@/shared/assets/icons/download-file.svg';
+import CrossIcon from '@/shared/assets/icons/cross.svg';
 
 export interface FileInputProps extends InputHTMLAttributes<HTMLInputElement> {
   fileName?: string;
