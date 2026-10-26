@@ -1,9 +1,7 @@
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import { MuiThemeProvider } from "./providers/mui-theme-provider";
-import { I18nProvider } from "./providers/i18-next-provider";
+import { Providers } from "./providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,15 +28,10 @@ export default function RootLayout({
 }) {
   return (
     <html
-      data-theme="dark" // TODO: remove
       lang="en"
       className={`${inter.variable} ${poppins.variable}`}>
       <body>
-        <AppRouterCacheProvider>
-          <I18nProvider>
-            <MuiThemeProvider>{children}</MuiThemeProvider>
-          </I18nProvider>
-        </AppRouterCacheProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

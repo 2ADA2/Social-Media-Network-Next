@@ -20,6 +20,10 @@ body {
   }
 }
 
+svg {
+  object-fit: contain;
+}
+
 :root {
   --font-family-primary: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-family-secondary: var(--font-poppins), system-ui, -apple-system, sans-serif;

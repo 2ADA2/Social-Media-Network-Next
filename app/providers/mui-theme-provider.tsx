@@ -2,11 +2,12 @@
 
 import { ThemeProvider, createTheme } from '@mui/material';
 import { useMemo, type ReactNode } from 'react';
+import { useThemeStore } from '../store/theme-store';
 
 const COLOR_ACCENT = '#FF8811';
 
 export const MuiThemeProvider = ({ children }: { children: ReactNode }) => {
-  const theme = 'dark' // TODO: useThemeProvider
+  const theme = useThemeStore((store) => store.theme);
 
   const muiTheme = useMemo(
     () =>

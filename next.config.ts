@@ -1,6 +1,10 @@
-import type { NextConfig } from 'next';
+import type {NextConfig} from 'next';
 import withBundleAnalyzer from '@next/bundle-analyzer';
-import path from 'path';
+import path from 'path'
+import {createRequire} from 'module';
+
+const require = createRequire(import.meta.url);
+const svgrLoaderPath = require.resolve('@svgr/webpack');
 
 const withAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
@@ -16,10 +20,18 @@ const nextConfig: NextConfig = {
     },
     rules: { 
       '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.tsx',
+        loaders: [svgrLoaderPath], 
+        as: '*.js',
       },
     },
+  },  
+  
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: [svgrLoaderPath],
+    });
+    return config;
   },
 
   async rewrites() {
