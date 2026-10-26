@@ -15,10 +15,6 @@ const nextConfig: NextConfig = {
       '@': path.resolve(__dirname),
     },
     rules: {
-      '*.css': {
-        loaders: ['@tailwindcss/turbopack'],
-        as: '*.css',
-      },
       '*.svg': {
         loaders: ['@svgr/webpack'],
         as: '*.js',
