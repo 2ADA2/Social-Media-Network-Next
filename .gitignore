@@ -1,4 +1,5 @@
 .pglite-data/
+.vitest/
 
 # dependencies
 /node_modules
