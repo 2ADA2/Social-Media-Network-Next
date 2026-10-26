@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { API_URL } from '@/app/lib/config';
 import { Loader } from '@/shared/ui/loader';
 
-async function PostList() {
+async function PostList() {1
   const res = await fetch(`${API_URL}/posts`);
   
   if (!res.ok) {
