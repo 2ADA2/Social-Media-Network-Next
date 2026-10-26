@@ -1,23 +1,26 @@
-import type { Metadata } from 'next';
-import { Inter, Poppins } from 'next/font/google';
-import './globals.css';
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import type { Metadata } from "next";
+import { Inter, Poppins } from "next/font/google";
+import "./globals.css";
+import { MuiThemeProvider } from "./providers/mui-theme-provider";
+import { I18nProvider } from "./providers/i18-next-provider";
 
 const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-poppins',
-  display: 'swap',
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: 'Social Media Network',
-  description: 'Social Media Network by sidekick',
+  title: "Social Media Network",
+  description: "Social Media Network by sidekick",
 };
 
 export default function RootLayout({
@@ -27,10 +30,16 @@ export default function RootLayout({
 }) {
   return (
     <html
+      data-theme="dark" // TODO: remove
       lang="en"
-      className={`${inter.variable} ${poppins.variable}`}
-    >
-      <body>{children}</body>
+      className={`${inter.variable} ${poppins.variable}`}>
+      <body>
+        <AppRouterCacheProvider>
+          <I18nProvider>
+            <MuiThemeProvider>{children}</MuiThemeProvider>
+          </I18nProvider>
+        </AppRouterCacheProvider>
+      </body>
     </html>
   );
 }

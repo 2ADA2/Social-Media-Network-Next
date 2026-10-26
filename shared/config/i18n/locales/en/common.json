@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "profile": "Profile",
+    "statistics": "Statistics",
+    "menu": "menu"
+  },
+  "fileInput": {
+    "selectFile": "Select a file",
+    "orDragAndDrop": "or drag and drop here",
+    "formats": "JPG, PNG",
+    "formatsWithPdf": "JPG, PNG, PDF",
+    "sizeLimit": "file size no more than {{size}} MB",
+    "remove": "Remove file"
+  },
+  "error": {
+    "title": "Oops...",
+    "subtitle": "Something bad has just happened",
+    "youCan": "You can",
+    "backToHome": "Back to home",
+    "orTryTo": "or try to",
+    "reload": "reload",
+    "thePage": "the page",
+    "details": "Details",
+    "unknownError": "unknown error name"
+  },
+  "passwordInput": {
+    "defaultInfo": "Your password is strong"
+  },
+  "notifications": {
+    "region": "Notifications"
+  },
+  "notification": {
+    "close": "Dismiss notification"
+  },
+  "modal": {
+    "defaultTitle": "Dialog",
+    "close": "Close modal"
+  },
+  "navbar": {
+    "label": "Navigation menu",
+    "close": "Close menu"
+  },
+  "loader": {
+    "loading": "Loading"
+  }
+}

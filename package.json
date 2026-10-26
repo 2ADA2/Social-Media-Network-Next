@@ -10,10 +10,12 @@
     "backend": "internship-backend serve social --port 4000"
   },
   "dependencies": {
+    "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@hookform/resolvers": "^6.0.0",
     "@mui/material": "^9.5.0",
+    "@mui/material-nextjs": "^9.5.0",
     "@next/bundle-analyzer": "^16.4.3",
     "@react-spring/web": "^10.1.2",
     "@reduxjs/toolkit": "^2.13.0",
@@ -37,6 +39,7 @@
     "zustand": "^5.0.16"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

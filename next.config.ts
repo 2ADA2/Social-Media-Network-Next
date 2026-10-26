@@ -14,14 +14,10 @@ const nextConfig: NextConfig = {
     resolveAlias: {
       '@': path.resolve(__dirname),
     },
-    rules: {
-      '*.css': {
-        loaders: ['@tailwindcss/turbopack'],
-        as: '*.css',
-      },
+    rules: { 
       '*.svg': {
         loaders: ['@svgr/webpack'],
-        as: '*.js',
+        as: '*.tsx',
       },
     },
   },
