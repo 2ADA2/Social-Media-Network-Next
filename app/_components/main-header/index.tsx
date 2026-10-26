@@ -12,13 +12,14 @@ import {
 import { ROUTES } from "@/app/lib/routes";
 import Link from "next/link";
 import SidekickLogo from "@/shared/assets/icons/sidekick-logo.svg";
+import { useAuth } from "@/features/auth/use-auth";
 
 export interface HeaderProps {
   hiddenNav?: boolean;
 }
 
 export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
-  const { isAuth } = { isAuth: false }; // TODO: useAuth
+  const { isAuth } = useAuth();
   const [isNavBar, setIsNavBar] = useState(false);
 
   const theme = useTheme();

@@ -1,0 +1,48 @@
+.notification {
+  box-sizing: border-box;
+  width: 200px;
+  padding: 16px;
+  color: var(--color-primary-static);
+  background-color: var(--color-accent);
+  line-height: 20px;
+  font-size: 12px;
+  position: relative;
+  border-radius: 8px;
+
+  p {
+    margin: 0;
+    padding-right: 16px;
+  }
+
+  .notification-close {
+    position: absolute;
+    cursor: pointer;
+    background: none;
+    border: none;
+    top: 16px;
+    right: 16px;
+
+    svg {
+      width: 8px;
+      height: 8px;
+    }
+  }
+}
+
+.notification.notification-error {
+  background-color: var(--color-danger);
+}
+
+@media (min-width: 768px) {
+  .notification {
+    width: 350px;
+    padding: 24px;
+    line-height: 28px;
+    font-size: 18px;
+
+    .notification-close svg {
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
