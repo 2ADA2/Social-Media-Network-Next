@@ -1,0 +1,26 @@
+.tabs {
+  box-sizing: border-box;
+  display: inline-flex;
+  gap: 4px;
+  justify-content: center;
+  padding: 4px;
+  background: var(--bg-primary);
+}
+
+.tab {
+  box-sizing: border-box;
+  padding: 0 12px;
+  font-size: 16px;
+  font-weight: 500;
+  height: 32px;
+  background: transparent;
+  color: var(--color-primary);
+  border: none;
+  cursor: pointer;
+  line-height: 150%;
+}
+
+.tab.tab-active {
+  background: var(--color-accent);
+  color: var(--color-primary-static);
+}

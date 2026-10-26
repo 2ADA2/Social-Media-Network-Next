@@ -1,0 +1,74 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.modal-window {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  font-family: var(--font-family-secondary);
+  border: 1px solid var(--border-primary);
+  width: 90%;
+  max-width: 800px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  will-change: transform, opacity;
+
+  .input-label input,
+  button {
+    max-width: 100%;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+
+  svg {
+    width: 16px;
+    height: 16px;
+
+    path {
+      fill: var(--color-primary);
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .modal-window {
+    padding: 24px;
+    gap: 16px;
+  }
+
+  .modal-close {
+    top: 24px;
+    right: 24px;
+    width: 24px;
+    height: 24px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

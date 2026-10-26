@@ -9,10 +9,14 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import SidekickLogo from "@/shared/assets/icons/sidekick-logo.svg";
+import { BurgerMenu } from "./burger-menu";
+import { AuthButtons } from "./auth-buttons";
+import { UserNav } from "./user-nav";
+import { NavBar } from "./navbar";
+import { useAuth } from "@/features/auth/use-auth";
 import { ROUTES } from "@/app/lib/routes";
 import Link from "next/link";
-import SidekickLogo from "@/shared/assets/icons/sidekick-logo.svg";
-import { useAuth } from "@/features/auth/use-auth";
 
 export interface HeaderProps {
   hiddenNav?: boolean;
@@ -58,13 +62,13 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
               display: "flex",
               alignItems: "center",
               "& svg": {
-                width: { xs: 12, md: 24 },
-                height: { xs: 12, md: 24 },
+                transform: {
+                  xs: "scale(0.5)",
+                  md: "scale(1)",
+                },
               },
             }}>
-            <div>
-              <SidekickLogo />
-            </div>
+            <SidekickLogo />
           </Box>
           <Typography
             component={"span"}
@@ -78,7 +82,7 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
           </Typography>
         </Box>
 
-        {/* {!hiddenNav && (
+        {!hiddenNav && (
           <>
             {!isDesktop && <BurgerMenu onClick={toggleNavBar} />}
 
@@ -86,7 +90,7 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
 
             <NavBar setNavBar={toggleNavBar} isOpen={isNavBar} />
           </>
-        )} */}
+        )}
       </Toolbar>
     </AppBar>
   );
