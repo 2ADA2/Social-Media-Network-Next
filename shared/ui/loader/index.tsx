@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import styles from "./loader.module.css";
 
 export interface LoaderProps {
@@ -7,8 +8,7 @@ export interface LoaderProps {
 }
 
 export const Loader = ({ isBlock = true }: LoaderProps) => {
-  // const { t } = useTranslation('common');
-  const t = (text: string) => text; // TODO: localization
+  const { t } = useTranslation('common');
 
   if (isBlock) {
     return (

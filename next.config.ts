@@ -14,10 +14,10 @@ const nextConfig: NextConfig = {
     resolveAlias: {
       '@': path.resolve(__dirname),
     },
-    rules: {
+    rules: { 
       '*.svg': {
         loaders: ['@svgr/webpack'],
-        as: '*.js',
+        as: '*.tsx',
       },
     },
   },

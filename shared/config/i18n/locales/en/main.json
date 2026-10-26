@@ -1,0 +1,61 @@
+{
+  "post": {
+    "likes_one": "{{count}} like",
+    "likes_other": "{{count}} likes",
+    "likesLabel": "likes",
+    "comments_one": "{{count}} Comment",
+    "comments_other": "{{count}} Comments",
+    "commentsLabel": "Comments",
+    "loginToSeeComments": "You have to login to see the comments",
+    "deleteSuccess": "Post deleted",
+    "deleteError": "Cannot delete post",
+    "delete": "Delete post",
+    "likeButton": "Like post",
+    "commentsButton": "View comments"
+  },
+  "comment": {
+    "label": "Add a comment",
+    "placeholder": "Write a comment...",
+    "submit": "Add a comment",
+    "lengthError": "Comment length at least 1, at most 200",
+    "successTitle": "Success",
+    "successMessage": "You commented the post",
+    "errorTitle": "Error",
+    "errorMessage": "Cannot add your comment",
+    "delete": "Delete comment",
+    "deleteSuccess": "Comment deleted",
+    "deleteError": "Cannot delete comment",
+    "addError": "Post created, but failed to add to the feed"
+  },
+  "createPost": {
+    "placeholder": "What's happening?",
+    "submit": "Tell everyone"
+  },
+  "createPostModal": {
+    "title": "Create a new post",
+    "titleLabel": "Post Title",
+    "titlePlaceholder": "Enter post title",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Write description here...",
+    "submit": "Create",
+    "fileTypeError": "File must be .PNG, .JPG or .pdf",
+    "fileSizeError": "no more than 10 MB",
+    "success": "Post created",
+    "error": "Something went wrong: {{message}}"
+  },
+  "validation": {
+    "titleMin": "Title must be at least 2 characters",
+    "titleMax": "Title must be at most 100 characters",
+    "descriptionMax": "Reached the {{count}} text limit",
+    "descriptionMin": "Description required"
+  },
+  "sidebar": {
+    "suggestedPeople": "Suggested people",
+    "communities": "Communities you might like",
+    "members": "members"
+  },
+  "deletePost": {
+    "title": "Are you sure?",
+    "submit": "Delete"
+  }
+}

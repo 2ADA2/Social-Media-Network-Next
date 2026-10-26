@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { MuiThemeProvider } from "./providers/mui-theme-provider";
+import { I18nProvider } from "./providers/i18-next-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,7 +35,9 @@ export default function RootLayout({
       className={`${inter.variable} ${poppins.variable}`}>
       <body>
         <AppRouterCacheProvider>
-          <MuiThemeProvider>{children}</MuiThemeProvider>
+          <I18nProvider>
+            <MuiThemeProvider>{children}</MuiThemeProvider>
+          </I18nProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

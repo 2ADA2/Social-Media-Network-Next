@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-// import { useTranslation } from 'react-i18next';
 import styles from "./fallback.module.css";
 import { ROUTES } from "@/app/lib/routes";
+import { useTranslation } from "react-i18next";
+import CrossIcon from '@/shared/assets/icons/cross-bold.svg';
 
 interface FallbackProps {
   error: Error | null;
@@ -11,8 +12,7 @@ interface FallbackProps {
 }
 
 export const Fallback = ({ error, onReset }: FallbackProps) => {
-  // const { t } = useTranslation('common');
-  const t = (text: string) => text;
+  const { t } = useTranslation('common');
 
   const retry = () => {
     window.location.reload();
@@ -25,9 +25,7 @@ export const Fallback = ({ error, onReset }: FallbackProps) => {
   return (
     <div className={styles.errorPage} data-testid="fallback">
       <div className={styles.errorContainer}>
-        {/* <CrossIcon /> */}
-        {/* TODO: CrossIcon */}
-        <div> CrossIcon </div>
+        <CrossIcon />
         <div className={styles.errorMessage}>
           {t("error.title")}
           <br />

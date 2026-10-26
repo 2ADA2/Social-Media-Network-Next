@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { ROUTES } from "@/app/lib/routes";
 import Link from "next/link";
+import SidekickLogo from "@/shared/assets/icons/sidekick-logo.svg";
 
 export interface HeaderProps {
   hiddenNav?: boolean;
@@ -61,8 +62,7 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
               },
             }}>
             <div>
-              sidekick logo
-              {/* TODO: sidekick logo */}
+              <SidekickLogo />
             </div>
           </Box>
           <Typography
