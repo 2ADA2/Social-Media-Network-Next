@@ -1,6 +1,6 @@
 import { useId, type InputHTMLAttributes, type ReactNode } from 'react';
-import CheckIcon from '@/shared/assets/icons/check.svg?react';
-import CrossIcon from '@/shared/assets/icons/cross.svg?react';
+import CheckIcon from '@/shared/assets/icons/check.svg';
+import CrossIcon from '@/shared/assets/icons/cross.svg';
 import './input.css';
 import { ShowInputInfo } from '@/shared/ui/show-input-info';
 
