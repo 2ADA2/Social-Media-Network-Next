@@ -13,14 +13,18 @@ import SidekickLogo from "@/shared/assets/icons/sidekick-logo.svg";
 import { BurgerMenu } from "./burger-menu";
 import { AuthButtons } from "./auth-buttons";
 import { UserNav } from "./user-nav";
-import { NavBar } from "./navbar";
 import { useAuth } from "@/features/auth/use-auth";
 import { ROUTES } from "@/app/lib/routes";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
 export interface HeaderProps {
   hiddenNav?: boolean;
 }
+
+const NavBar = dynamic(() => import('./navbar').then(m => m.NavBar), {
+  ssr: false,
+})
 
 export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
   const { isAuth } = useAuth();

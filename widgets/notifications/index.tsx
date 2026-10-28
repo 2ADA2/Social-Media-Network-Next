@@ -4,14 +4,18 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslations } from "next-intl";
 import './notifications.css';
-import { Notification } from '@/shared/ui/notification';
 import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
+import dynamic from 'next/dynamic';
 
 export const NOTIFICATIONS_LIMIT = 5;
 
 interface NotificationsProps {
   onDelete: (id: number) => void;
 }
+
+const Notification = dynamic(() => import('@/shared/ui/notification').then(m => m.Notification), {
+  ssr: false,
+})
 
 export const Notifications = ({ onDelete }: NotificationsProps) => {
   const t = useTranslations('common');
