@@ -14,11 +14,11 @@ export const MainSidebar = async () => {
   }
 
   const [peopleRes, communitiesRes] = await Promise.all([
-    fetch(`${API_URL}/api/getSuggested`, { 
+    fetch(`${API_URL}/getSuggested`, { 
       headers: { Authorization: `Bearer ${token}` },
       next: { revalidate: 60 }
     }),
-    fetch(`${API_URL}/api/groups`, { 
+    fetch(`${API_URL}/groups`, { 
       headers: { Authorization: `Bearer ${token}` },
       next: { revalidate: 60 }
     })
