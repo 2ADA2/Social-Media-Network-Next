@@ -5,7 +5,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes = ['', '/sign-in', '/sign-up'].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString(),
     priority: route === '' ? 1 : 0.8,
   }));
 
