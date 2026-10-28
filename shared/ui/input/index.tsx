@@ -30,7 +30,7 @@ export const Input = ({
       <div>
         {icon && <div className="input-icon">{icon}</div>}
         <span>{label}</span>
-        <div className="input-status">
+        <div className={`input-status ${!isOk ? 'input-status-error' : ''}`}>
           {isOk && <CheckIcon data-testid="input-ok-icon" />}
           {error && <CrossIcon data-testid="input-cross-icon" />}
         </div>

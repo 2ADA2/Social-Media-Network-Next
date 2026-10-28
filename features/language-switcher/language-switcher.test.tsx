@@ -1,27 +1,27 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
 import { userEvent } from 'vitest/browser';
-import { useTranslations } from "next-intl";
+import { useLocale } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { LanguageSwitcher } from '.';
 
-vi.mock('react-i18next', () => ({
-  useTranslation: vi.fn(),
-  initReactI18next: { type: '3rdParty', init: vi.fn() },
+vi.mock('next-intl', () => ({
+  useLocale: vi.fn(),
+}));
+
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(),
 }));
 
 describe('LanguageSwitcher', () => {
-  const mockChangeLanguage = vi.fn();
+  const mockRefresh = vi.fn();
 
   beforeEach(() => {
-    mockChangeLanguage.mockClear();
-
-    vi.mocked(useTranslation).mockReturnValue({
-      i18n: {
-        language: 'en',
-        changeLanguage: mockChangeLanguage,
-      },
-      t: (key: string) => key,
-    } as unknown as ReturnType<typeof useTranslation>);
+    vi.clearAllMocks();
+    vi.mocked(useLocale).mockReturnValue('en');
+    vi.mocked(useRouter).mockReturnValue({
+      refresh: mockRefresh,
+    } as unknown as ReturnType<typeof useRouter>);
   });
 
   test('renders options and selects current language', async () => {
@@ -29,24 +29,8 @@ describe('LanguageSwitcher', () => {
     const select = screen.getByRole('combobox', { name: 'Language' });
 
     await expect.element(select).toHaveValue('en');
-    await expect
-      .element(screen.getByRole('option', { name: 'English' }))
-      .toBeInTheDocument();
-    await expect
-      .element(screen.getByRole('option', { name: 'Русский' }))
-      .toBeInTheDocument();
-  });
-
-  test('normalizes language with region code', async () => {
-    vi.mocked(useTranslation).mockReturnValue({
-      i18n: { language: 'en-US', changeLanguage: mockChangeLanguage },
-      t: (key: string) => key,
-    } as unknown as ReturnType<typeof useTranslation>);
-
-    const screen = await render(<LanguageSwitcher />);
-    await expect
-      .element(screen.getByRole('combobox', { name: 'Language' }))
-      .toHaveValue('en');
+    await expect.element(screen.getByRole('option', { name: 'English' })).toBeInTheDocument();
+    await expect.element(screen.getByRole('option', { name: 'Русский' })).toBeInTheDocument();
   });
 
   test('changes language on selection', async () => {
@@ -58,6 +42,7 @@ describe('LanguageSwitcher', () => {
       'ru',
     );
 
-    expect(mockChangeLanguage).toHaveBeenCalledWith('ru');
+    expect(document.cookie).toContain('NEXT_LOCALE=ru');
+    expect(mockRefresh).toHaveBeenCalledTimes(1);
   });
 });

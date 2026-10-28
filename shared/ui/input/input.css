@@ -30,6 +30,10 @@
         fill: var(--color-accent);
       }
     }
+
+    .input-status-error svg path {
+      transform: scale(0.5);
+    }
   }
 
   input {
@@ -94,6 +98,7 @@
 
     svg path {
       fill: var(--color-danger);
+      transform: scale(0.8);
     }
   }
 }

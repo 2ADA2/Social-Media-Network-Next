@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -13,21 +13,30 @@ import SidekickLogo from "@/shared/assets/icons/sidekick-logo.svg";
 import { BurgerMenu } from "./burger-menu";
 import { AuthButtons } from "./auth-buttons";
 import { UserNav } from "./user-nav";
-import { NavBar } from "./navbar";
 import { useAuth } from "@/features/auth/use-auth";
 import { ROUTES } from "@/app/lib/routes";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
 export interface HeaderProps {
   hiddenNav?: boolean;
 }
 
+const NavBar = dynamic(() => import('./navbar').then(m => m.NavBar), {
+  ssr: false,
+})
+
 export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
   const { isAuth } = useAuth();
   const [isNavBar, setIsNavBar] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const toggleNavBar = () => {
     setIsNavBar((prev) => !prev);
@@ -82,15 +91,13 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
           </Typography>
         </Box>
 
-        {!hiddenNav && (
+        {!hiddenNav && isMounted && (
           <>
             {!isDesktop && <BurgerMenu onClick={toggleNavBar} />}
 
             {isDesktop && (isAuth ? <UserNav /> : <AuthButtons />)}
 
-            {isNavBar && (
-              <NavBar setNavBar={toggleNavBar} isOpen={isNavBar} />
-            )}
+            {isNavBar && <NavBar setNavBar={toggleNavBar} isOpen={isNavBar} />}
           </>
         )}
       </Toolbar>

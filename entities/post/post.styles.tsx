@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import styled, { css } from 'styled-components';
+import Image from "next/image";
+import styled, { css } from "styled-components";
 
 export const StyledPost = styled.article`
   box-sizing: border-box;
@@ -65,8 +65,8 @@ export const PostControl = styled.footer<{ $auth: boolean }>`
   text-overflow: ellipsis;
 
   ${({ $auth }) =>
-    !$auth &&
-    css`
+    !$auth
+    && css`
       .cover-button {
         cursor: default;
       }
@@ -94,16 +94,17 @@ export const StyledSVG = styled.div<{ $active: boolean }>`
   align-items: center;
 
   svg {
-    width: 18px;
-    height: 18px;
+    width: 19px;
+    height: 16px;
     ${(props) =>
-      props.$active &&
-      css`
+      props.$active
+      && css`
         fill: red;
       `};
 
     path {
-      stroke: ${({ $active }) => ($active ? 'red' : 'var(--color-primary)')};
+      transform: scale(0.8);
+      stroke: ${({ $active }) => ($active ? "red" : "var(--color-primary)")};
     }
   }
 `;

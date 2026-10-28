@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import { Loader } from "@/shared/ui/loader";
 import { useTranslations } from "next-intl";
 
-const Statistics = dynamic(() => import('./statistics').then(mod => mod.Statistics), {
+const Statistics = dynamic(() => import('./statistics').then(m => m.Statistics), {
   ssr: false,
   loading: () => <Loader isBlock/>
 });

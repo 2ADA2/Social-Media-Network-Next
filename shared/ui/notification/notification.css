@@ -25,6 +25,10 @@
     svg {
       width: 8px;
       height: 8px;
+
+      path {
+        transform: scale(0.3);
+      }
     }
   }
 }
@@ -43,6 +47,10 @@
     .notification-close svg {
       width: 10px;
       height: 10px;
+
+      path {
+        transform: scale(0.4);
+      }
     }
   }
 }
