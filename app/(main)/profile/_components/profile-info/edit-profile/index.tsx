@@ -64,7 +64,7 @@ export const EditProfile = () => {
   } = useForm<EditProfileSchema>({
     resolver: zodResolver(schema),
     defaultValues,
-    mode: 'onTouched',
+    mode: 'onChange',
   });
 
   useEffect(() => {

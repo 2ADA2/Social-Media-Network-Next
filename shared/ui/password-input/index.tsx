@@ -3,15 +3,15 @@ import {
   type ReactNode,
   useId,
   useState,
-} from 'react';
+} from "react";
 import { useTranslations } from "next-intl";
-import CheckIcon from '@/shared/assets/icons/check.svg';
-import CrossIcon from '@/shared/assets/icons/cross.svg';
-import EyeIcon from '@/shared/assets/icons/eye.svg';
-import LikeIcon from '@/shared/assets/icons/thumbs-up.svg';
-import EyeCrossedIcon from '@/shared/assets/icons/eye-crossed.svg';
-import './password-input.css';
-import { ShowInputInfo } from '@/shared/ui/show-input-info';
+import CheckIcon from "@/shared/assets/icons/check.svg";
+import CrossIcon from "@/shared/assets/icons/cross.svg";
+import EyeIcon from "@/shared/assets/icons/eye.svg";
+import LikeIcon from "@/shared/assets/icons/thumbs-up.svg";
+import EyeCrossedIcon from "@/shared/assets/icons/eye-crossed.svg";
+import "./password-input.css";
+import { ShowInputInfo } from "@/shared/ui/show-input-info";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -29,7 +29,7 @@ export const PasswordInput = ({
   error,
   ...props
 }: InputProps) => {
-  const t = useTranslations('common');
+  const t = useTranslations("common");
   const [isShow, setIsShow] = useState(false);
 
   const id = useId();
@@ -39,13 +39,13 @@ export const PasswordInput = ({
   const isOk = custom && !error && props.value;
 
   return (
-    <label htmlFor={id} className={`input-label ${error ? 'error' : ''}`}>
+    <label htmlFor={id} className={`input-label ${error ? "error" : ""}`}>
       <div>
         {icon && <div className="input-icon">{icon}</div>}
         <span>{label}</span>
-        <div className="input-status">
-          {isOk && <CheckIcon data-testid="password-input-ok-icon" />}
-          {error && <CrossIcon data-testid="password-input-cross-icon" />}
+        <div className={`input-status ${!isOk ? "input-status-error" : ""}`}>
+          {isOk && <CheckIcon data-testid="input-ok-icon" />}
+          {error && <CrossIcon data-testid="input-cross-icon" />}
         </div>
       </div>
 
@@ -53,7 +53,7 @@ export const PasswordInput = ({
         <input
           {...props}
           id={id}
-          type={isShow ? 'text' : 'password'}
+          type={isShow ? "text" : "password"}
           aria-invalid={!!error}
           aria-describedby={error ? errorId : undefined}
         />
@@ -62,8 +62,7 @@ export const PasswordInput = ({
           <button
             type="button"
             onClick={changeShow}
-            data-testid="hide-password-button"
-          >
+            data-testid="hide-password-button">
             {isShow ? <EyeIcon /> : <EyeCrossedIcon />}
           </button>
         </div>
@@ -73,7 +72,7 @@ export const PasswordInput = ({
         <ShowInputInfo
           id={errorId}
           error={error}
-          info={info || t('passwordInput.defaultInfo')}
+          info={info || t("passwordInput.defaultInfo")}
           icon={<LikeIcon />}
         />
       )}
