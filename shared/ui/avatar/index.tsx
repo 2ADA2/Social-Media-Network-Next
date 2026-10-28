@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import './avatar.css';
 import React, { useState } from 'react';
 
@@ -24,7 +25,7 @@ export const Avatar = ({
   };
 
   return (
-    <img
+    <Image
       src={hasError || !src ? DEFAULT_AVATAR : src}
       className={'avatar ' + className}
       alt={alt || 'avatar'}

@@ -1,0 +1,83 @@
+.edit-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--color-primary);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    label.error {
+      margin-bottom: 12px;
+    }
+
+    label {
+      input {
+        max-width: 100%;
+      }
+
+      textarea {
+        width: 320px;
+        max-width: 100%;
+        height: 110px;
+      }
+
+      .info {
+        position: absolute;
+        bottom: -22px;
+      }
+    }
+
+    button {
+      margin-top: 12px;
+      max-width: 100%;
+    }
+  }
+
+  .profile-avatar {
+    display: flex;
+    gap: 16px;
+
+    img {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+
+      span {
+        color: var(--color-muted);
+      }
+
+      span:hover {
+        color: var(--color-primary);
+      }
+    }
+  }
+}
+
+@media (min-width: 700px) {
+  .profile-page .edit-profile , .edit-profile form{
+    gap: 32px;
+
+    label.error {
+      margin-bottom: 4px;
+    }
+
+    label textarea {
+      width: 100%;
+    }
+
+    .save-profile-button {
+      width: 244px;
+    }
+  }
+}
