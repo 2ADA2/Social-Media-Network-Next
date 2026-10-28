@@ -1,8 +1,7 @@
+import { API_URL } from "@/app/lib/config";
 import { Sidebar } from "@/entities/sidebar";
 import { getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
-
-const API_URL = process.env.API_URL || 'http://localhost:4000';
 
 export const MainSidebar = async () => {
   const t = await getTranslations("main");
