@@ -35,7 +35,7 @@ const MAX_COMMENTS_HEIGHT = 1000;
 
 interface PostProps {
   post: PostType;
-  isFirst: boolean;
+  isFirst?: boolean;
 }
 
 const checkLiked = (likes: { id: number }[], userId: number) => {
