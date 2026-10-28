@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import { deletePostRequest } from './delete-post-api';
 import { postsQueries } from '@/features/post-feed/posts-query';
 import { removePost } from '@/features/post-feed/update-posts-cache';
@@ -8,7 +8,7 @@ import { useNotifications } from '@/app/providers/notifications-provider/useNoti
 export const useDeletePost = () => {
   const queryClient = useQueryClient();
   const { add } = useNotifications();
-  const { t } = useTranslation('main');
+  const t = useTranslations('main');
 
   return useMutation({
     mutationFn: (postId: number) => deletePostRequest(postId),

@@ -158,7 +158,7 @@ describe('CreatePostModal', () => {
 
     const bigFile = createFile({
       name: 'big-image.png',
-      sizeInBytes: 11 * 1024 * 1024, // 11 МБ
+      sizeInBytes: 11 * 1024 * 1024,
       type: 'image/png',
     });
 

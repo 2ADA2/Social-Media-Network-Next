@@ -1,11 +1,11 @@
 import "./modal.css";
 import React, { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { createPortal } from "react-dom";
 import { useTransition, animated } from "@react-spring/web";
 import CrossIcon from "@/shared/assets/icons/cross.svg";
 import { useFocusTrap } from "@/shared/lib/hooks/use-focus-trap";
 import { useBlockScroll } from "@/shared/lib/hooks/use-block-scroll";
+import { useTranslations } from "next-intl";
 
 export interface ModalProps {
   children?: React.ReactNode;
@@ -22,7 +22,7 @@ export const Modal = ({
   className = "",
   title,
 }: ModalProps) => {
-  const { t } = useTranslation("common");
+  const t = useTranslations("common");
   const modalRef = useRef<HTMLDivElement>(null);
   useFocusTrap(modalRef, isOpen);
   useBlockScroll(isOpen);

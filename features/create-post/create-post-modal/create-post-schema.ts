@@ -1,23 +1,24 @@
 import { z } from 'zod';
-import i18n from '@/shared/config/i18n';
 
 const MAX_DESCRIPTION_LENGTH = 1000;
 
-export const createPostSchema = () =>
+type Translator = (
+  key: string,
+  values?: Record<string, string | number | Date>,
+) => string;
+
+export const createPostSchema = (t: Translator) =>
   z.object({
     title: z
       .string()
-      .min(2, i18n.t('validation.titleMin', { ns: 'main' }))
-      .max(100, i18n.t('validation.titleMax', { ns: 'main' })),
+      .min(2, t('validation.titleMin'))
+      .max(100, t('validation.titleMax')),
     description: z
       .string()
-      .min(1, i18n.t('validation.descriptionMin', { ns: 'main' }))
+      .min(1, t('validation.descriptionMin'))
       .max(
         MAX_DESCRIPTION_LENGTH,
-        i18n.t('validation.descriptionMax', {
-          ns: 'main',
-          count: MAX_DESCRIPTION_LENGTH,
-        }),
+        t('validation.descriptionMax', { count: MAX_DESCRIPTION_LENGTH }),
       ),
   });
 

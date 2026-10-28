@@ -1,9 +1,9 @@
 import { Toggle } from '@/shared/ui/toggle';
 import { useThemeStore } from '@/app/store/theme-store';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 
 export const ThemeSwitcher = () => {
-  const { t } = useTranslation('profile');
+  const t = useTranslations('profile');
   const { theme, toggleTheme } = useThemeStore((state) => state);
 
   const checked = theme === 'dark';

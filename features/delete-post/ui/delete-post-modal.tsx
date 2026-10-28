@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import { Modal } from '@/shared/ui/modal';
 import { StyledTitle } from '@/features/create-post/create-post-modal/create-post-modal.styles';
 import { Button } from '@/shared/ui/button';
@@ -16,7 +16,7 @@ export const DeletePostModal = ({
   onSubmit,
   isPending,
 }: DeletePostModalProps) => {
-  const { t } = useTranslation('main');
+  const t = useTranslations('main');
 
   const handleSubmit = () => {
     onSubmit();

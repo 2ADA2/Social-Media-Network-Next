@@ -1,10 +1,10 @@
 import Link from "next/link";
 import styles from "./auth-buttons.module.css";
-import { useTranslation } from "react-i18next";
 import { ROUTES } from "@/app/lib/routes";
+import { useTranslations } from "next-intl";
 
 export const AuthButtons = () => {
-  const { t } = useTranslation('common');
+  const t = useTranslations('common');
 
   return (
     <nav className={styles.headerAuthNav}>

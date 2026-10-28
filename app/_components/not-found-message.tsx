@@ -1,9 +1,9 @@
 "use client";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 import styles from "../not-found.module.css";
 
 export default function NotFoundMessage() {
-  const { t } = useTranslation("not-found");
+  const t = useTranslations("not-found");
 
   return <div className={styles.notFoundMessage}>{t("title")}</div>;
 }

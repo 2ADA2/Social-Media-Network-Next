@@ -1,0 +1,78 @@
+{
+  "title": "Редактировать профиль",
+  "tabs": {
+    "info": "Профиль",
+    "stats": "Статистика"
+  },
+  "preferences": {
+    "title": "Настройки",
+    "darkTheme": "Тёмная тема",
+    "switchTheme": "Сменить тему"
+  },
+  "actions": {
+    "title": "Действия",
+    "logout": "Выйти"
+  },
+  "editProfile": {
+    "title": "Редактировать профиль",
+    "changePhoto": "Изменить фото профиля",
+    "username": "Имя пользователя",
+    "email": "Email",
+    "emailPlaceholder": "Введите email",
+    "description": "Описание",
+    "descriptionPlaceholder": "Напишите описание...",
+    "maxChars": "Максимум 200 символов",
+    "submit": "Сохранить изменения",
+    "success": "Профиль успешно обновлён",
+    "emailSuccess": "Ваш email успешно обновлен",
+    "error": "Не удалось обновить профиль: {message}",
+    "firstName": "Имя",
+    "firstNamePlaceholder": "Введите имя",
+    "secondName": "Фамилия",
+    "secondNamePlaceholder": "Введите фамилию",
+    "noChanges": "Ничего не изменилось"
+  },
+  "updateAvatar": {
+    "title": "Обновить фото профиля",
+    "submit": "Обновить",
+    "fileTypeError": "Файл должен быть .PNG или .JPG",
+    "fileSizeError": "не более {size} МБ",
+    "noFile": "Выберите новое фото",
+    "success": "Фото профиля обновлено",
+    "error": "Не удалось обновить фото профиля: {message}"
+  },
+  "stats": {
+    "likes": "Лайки",
+    "comments": "Комментарии",
+    "posts": "Посты",
+    "tableView": "Таблица",
+    "enableChartView": "Показать график",
+    "weekOverWeek": "по сравнению с прошлой неделей",
+    "lastWeek": "Последняя неделя",
+    "day": "День",
+    "count": "Количество",
+    "switchView": "Сменить вид"
+  },
+  "validation": {
+    "usernameStart": "Имя пользователя должно начинаться с @",
+    "usernameMin": "Имя должно содержать минимум 4 символа",
+    "usernameMax": "Имя должно содержать максимум 20 символов",
+    "emailRequired": "Email обязателен",
+    "emailInvalid": "Некорректный email",
+    "descriptionMax": "Достигнут лимит в {count} символов",
+    "firstNameMax": "Имя должно содержать максимум {count} символов",
+    "secondNameMax": "Фамилия должна содержать максимум {count} символов",
+    "firstNameRequired": "Введите имя",
+    "secondNameRequired": "Введите фамилию"
+  },
+  "confirmPassword": {
+    "title": "Подтвердите пароль",
+    "password": "Текущий пароль",
+    "passwordPlaceholder": "Введите текущий пароль",
+    "submit": "Подтвердить",
+    "required": "Пароль обязателен",
+    "wrongPassword": "Неверный пароль",
+    "emailTaken": "Этот email уже занят",
+    "validationError": "Проверьте введённые данные"
+  }
+}

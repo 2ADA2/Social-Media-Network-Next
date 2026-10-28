@@ -3,7 +3,7 @@ import React, {
   type InputHTMLAttributes,
   useRef,
 } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import './file-input.css';
 import DownloadIcon from '@/shared/assets/icons/download-file.svg';
 import CrossIcon from '@/shared/assets/icons/cross.svg';
@@ -23,7 +23,7 @@ export const FileInput = ({
   maxSize = DEFAULT_MAX_SIZE,
   ...props
 }: FileInputProps) => {
-  const { t } = useTranslation('common');
+  const t = useTranslations('common');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {

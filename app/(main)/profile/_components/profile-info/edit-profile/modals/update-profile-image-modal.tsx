@@ -1,5 +1,5 @@
 import { type ChangeEvent, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import { StyledTitle } from '@/features/create-post/create-post-modal/create-post-modal.styles';
 import { FileInput } from '@/shared/ui/file-input';
 import { StyledButton } from '@/features/create-post/create-post.styles';
@@ -20,7 +20,7 @@ export const UpdateProfileImageModal = ({
   isOpen,
   onClose,
 }: CreateModalProps) => {
-  const { t } = useTranslation('profile');
+  const t = useTranslations('profile');
   const [file, setFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState('');
   const { add } = useNotifications();

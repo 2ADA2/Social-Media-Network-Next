@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import { ThemeSwitcher } from '@/features/theme-switcher';
 import { Button } from '@/shared/ui/button';
 import { EditProfile } from './edit-profile';
@@ -7,7 +7,7 @@ import { useAuth } from '@/features/auth/use-auth';
 import { LanguageSwitcher } from '@/features/language-switcher';
 
 export const ProfileInfo = () => {
-  const { t } = useTranslation('profile');
+  const t = useTranslations('profile');
   const { logout } = useAuth();
 
   return (

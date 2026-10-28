@@ -1,0 +1,62 @@
+{
+  "post": {
+    "likes": "{count, plural, one {# лайк} few {# лайка} many {# лайков} other {# лайка}}",
+    "likesLabel": "лайков",
+    "comments": "{count, plural, one {# комментарий} few {# комментария} many {# комментариев} other {# комментария}}",
+    "commentsLabel": "комментариев",
+    "loginToSeeComments": "Войдите, чтобы увидеть комментарии",
+    "deleteSuccess": "Пост удалён",
+    "deleteError": "Не удалось удалить пост",
+    "addError": "Пост создан, но не удалось добавить его в ленту",
+    "delete": "Удалить пост",
+    "likeButton": "Поставить лайк",
+    "commentsButton": "Просмотреть комментарии"
+  },
+  "comment": {
+    "label": "Оставить комментарий",
+    "placeholder": "Напишите комментарий...",
+    "submit": "Оставить",
+    "lengthError": "Длина комментария от 1 до 200 символов",
+    "successTitle": "Успех",
+    "successMessage": "Комментарий добавлен",
+    "errorTitle": "Ошибка",
+    "errorMessage": "Не удалось добавить комментарий",
+    "delete": "Удалить комментарий",
+    "deleteSuccess": "Комментарий удалён",
+    "deleteError": "Не удалось удалить комментарий"
+  },
+  "createPost": {
+    "placeholder": "Что нового?",
+    "submit": "Рассказать всем"
+  },
+  "createPostModal": {
+    "title": "Создать новый пост",
+    "titleLabel": "Заголовок поста",
+    "titlePlaceholder": "Введите заголовок",
+    "descriptionLabel": "Описание",
+    "descriptionPlaceholder": "Напишите описание...",
+    "submit": "Создать",
+    "fileTypeError": "Файл должен быть .PNG, .JPG или .pdf",
+    "fileSizeError": "не более 10 МБ",
+    "success": "Пост создан",
+    "error": "Что-то пошло не так: {message}"
+  },
+  "validation": {
+    "titleMin": "Заголовок должен содержать минимум 2 символа",
+    "titleMax": "Заголовок должен содержать максимум 100 символов",
+    "descriptionMax": "Достигнут лимит в {count} символов",
+    "descriptionMin": "Описание обязательно"
+  },
+  "sidebar": {
+    "suggestedPeople": "Рекомендуемые люди",
+    "communities": "Сообщества, которые вам понравятся",
+    "members": "участников"
+  },
+  "deletePost": {
+    "title": "Вы уверены?",
+    "submit": "Удалить"
+  },
+  "nav": {
+    "menu": "меню"
+  }
+}

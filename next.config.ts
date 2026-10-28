@@ -2,6 +2,9 @@ import type {NextConfig} from 'next';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import path from 'path'
 import {createRequire} from 'module';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
 
 const require = createRequire(import.meta.url);
 const svgrLoaderPath = require.resolve('@svgr/webpack');
@@ -44,4 +47,4 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['@electric-sql/pglite'],
 };
 
-export default withAnalyzer(nextConfig);
+export default withAnalyzer(withNextIntl(nextConfig));

@@ -1,0 +1,81 @@
+{
+  "title": "Edit profile",
+  "tabs": {
+    "info": "Profile Info",
+    "stats": "Statistics"
+  },
+  "preferences": {
+    "title": "Preferences",
+    "darkTheme": "Dark theme",
+    "switchTheme": "Switch theme"
+  },
+  "actions": {
+    "title": "Actions",
+    "logout": "Logout"
+  },
+  "editProfile": {
+    "title": "Edit profile",
+    "changePhoto": "Change profile photo",
+    "username": "Username",
+    "email": "Email",
+    "emailPlaceholder": "Enter email",
+    "description": "Description",
+    "descriptionPlaceholder": "Write your description here...",
+    "maxChars": "Max 200 chars",
+    "submit": "Save profile changes",
+    "success": "Your profile successfully updated",
+    "emailSuccess": "Your email successfully updated",
+    "error": "Cannot update your profile: {message}",
+    "firstName": "First name",
+    "firstNamePlaceholder": "Enter first name",
+    "secondName": "Second name",
+    "secondNamePlaceholder": "Enter second name",
+    "noChanges": "Nothing changed",
+    "passwordRequired": "Enter your current password to change email",
+    "currentPassword": "Current password",
+    "currentPasswordPlaceholder": "Enter current password"
+  },
+  "updateAvatar": {
+    "title": "Update your profile photo",
+    "submit": "Update",
+    "fileTypeError": "File must be .PNG or .JPG",
+    "fileSizeError": "no more than {size} MB",
+    "noFile": "You need to choose a new photo",
+    "success": "Profile image updated successfully",
+    "error": "Cannot update your profile img: {message}"
+  },
+  "stats": {
+    "likes": "Likes",
+    "comments": "Comments",
+    "posts": "Posts",
+    "tableView": "Table view",
+    "enableChartView": "Enable Chart view",
+    "weekOverWeek": "week over week",
+    "lastWeek": "Last week",
+    "day": "Day",
+    "count": "Count",
+    "switchView": "Switch view"
+  },
+  "validation": {
+    "usernameStart": "Username must start with @",
+    "usernameMin": "Username must be at least 4 characters",
+    "usernameMax": "Username must be at most 20 characters",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Email is not valid",
+    "descriptionMax": "Reached the {count} text limit",
+    "firstNameMax": "First name must be at most {count} characters",
+    "secondNameMax": "Second name must be at most {count} characters",
+    "firstNameRequired": "First name is required",
+    "secondNameRequired": "Second name is required"
+  },
+  "confirmPassword": {
+    "title": "Confirm password",
+    "password": "Current password",
+    "passwordPlaceholder": "Enter current password",
+    "submit": "Confirm",
+    "required": "Password is required",
+    "wrongPassword": "Wrong password",
+    "emailTaken": "This email is already taken",
+    "validationError": "Please check the entered data"
+  }
+}

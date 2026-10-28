@@ -1,9 +1,8 @@
 import './chart-view.css';
 import Chart from 'react-apexcharts';
 import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useLocale, useTranslations } from "next-intl";
 import type { DailyCount } from '@/shared/lib/stats/count-by-day';
-import i18n from 'i18next';
 import { buildOptions } from './options';
 
 interface ChartViewProps {
@@ -14,7 +13,8 @@ interface ChartViewProps {
 
 const ChartView = React.memo(
   ({ likesByDay, commentsByDay, theme }: ChartViewProps) => {
-    const { t } = useTranslation('profile');
+    const t = useTranslations('profile');
+    const locale = useLocale();
 
     const likesSeries = useMemo(
       () => [{ name: t('stats.likes'), data: likesByDay.map((d) => d.count) }],
@@ -35,7 +35,7 @@ const ChartView = React.memo(
         theme,
         'likes-chart',
         'line',
-        i18n.language,
+        locale,
       );
     }, [likesByDay, theme]);
 
@@ -46,7 +46,7 @@ const ChartView = React.memo(
         theme,
         'comments-chart',
         'bar',
-        i18n.language,
+        locale,
       );
     }, [commentsByDay, theme]);
 

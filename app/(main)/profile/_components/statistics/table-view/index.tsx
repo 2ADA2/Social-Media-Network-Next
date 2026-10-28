@@ -1,5 +1,5 @@
 import "./table-view.css";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 import { type DailyCount } from "@/shared/lib/stats/count-by-day";
 
 interface TableViewProps {
@@ -8,7 +8,7 @@ interface TableViewProps {
 }
 
 export const TableView = ({ likesByDay, commentsByDay }: TableViewProps) => {
-  const { t } = useTranslation('profile');
+  const t = useTranslations('profile');
 
   return (
     <div className='stats-container'>

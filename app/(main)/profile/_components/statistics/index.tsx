@@ -1,7 +1,7 @@
 import { Toggle } from '@/shared/ui/toggle';
 import './statistics.css';
 import { lazy, Suspense, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import { useQuery } from '@tanstack/react-query';
 import { countByDay } from '@/shared/lib/stats/count-by-day';
 import { useThemeStore } from '@/app/store/theme-store';
@@ -14,7 +14,7 @@ import { TableView } from './table-view';
 const ChartView = lazy(() => import('./chart-view'));
 
 export const Statistics = () => {
-  const { t } = useTranslation('profile');
+  const t = useTranslations('profile');
   const [enableChartView, setEnableChartView] = useState(false);
   const { data: posts } = useQuery(statsQueries.posts());
   const { data: comments } = useQuery(statsQueries.comments());

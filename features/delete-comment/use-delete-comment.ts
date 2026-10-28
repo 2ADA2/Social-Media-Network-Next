@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
+import {  useTranslations } from "next-intl";
 import { deleteCommentRequest } from './delete-comment-api';
 import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
 import { postsQueries } from '@/features/post-feed/posts-query';
@@ -13,7 +13,7 @@ interface DeleteCommentVariables {
 export const useDeleteComment = () => {
   const queryClient = useQueryClient();
   const { add } = useNotifications();
-  const { t } = useTranslation('main');
+  const t = useTranslations('main');
 
   return useMutation({
     mutationFn: ({ commentId }: DeleteCommentVariables) =>

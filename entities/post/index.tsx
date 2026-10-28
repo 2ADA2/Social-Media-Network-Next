@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useLocale, useTranslations } from "next-intl";
 import HeartIcon from '@/shared/assets/icons/heart.svg';
 import CommentIcon from '@/shared/assets/icons/comment.svg';
 import { CoverButton } from '@/shared/ui/cover-button';
@@ -42,7 +42,8 @@ const checkLiked = (likes: { id: number }[], userId: number) => {
 };
 
 export const Post = ({ post }: PostProps) => {
-  const { t, i18n } = useTranslation('main');
+  const t = useTranslations('main');
+  const locale = useLocale();
   const { isAuth } = useAuth();
   const [showComments, setShowComments] = useState(false);
   const currentUserId = Number(useAppSelector(selectUserId)) || -1;
@@ -77,7 +78,7 @@ export const Post = ({ post }: PostProps) => {
     setShowComments((prev) => !prev);
   };
 
-  const date = formatRelativeTime(post.creationDate, i18n.language);
+  const date = formatRelativeTime(post.creationDate, locale);
 
   return (
     <StyledPost>
@@ -124,7 +125,7 @@ export const Post = ({ post }: PostProps) => {
             <ControlText>
               {likes < 1000
                 ? t('post.likes', { count: likes })
-                : `${formatCompact(likes, i18n.language)} ${t('post.likesLabel')}`}
+                : `${formatCompact(likes, locale)} ${t('post.likesLabel')}`}
             </ControlText>
           </ControlContainer>
         </CoverButton>
@@ -141,7 +142,7 @@ export const Post = ({ post }: PostProps) => {
               {isAuth
                 ? comments < 1000
                   ? t('post.comments', { count: comments })
-                  : `${formatCompact(comments, i18n.language)} ${t('post.commentsLabel')}`
+                  : `${formatCompact(comments, locale)} ${t('post.commentsLabel')}`
                 : t('post.loginToSeeComments')}
             </ControlText>
             <StyledArrowIcon>

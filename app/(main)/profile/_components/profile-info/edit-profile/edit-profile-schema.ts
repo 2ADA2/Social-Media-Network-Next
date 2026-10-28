@@ -1,56 +1,41 @@
 import { z } from 'zod';
-import i18n from '@/shared/config/i18n';
 
 const MAX_DESCRIPTION_LENGTH = 200;
 const MAX_NAME_LENGTH = 15;
 
-export const editProfileSchema = () =>
+type Translator = (
+  key: string,
+  values?: Record<string, string | number | Date>,
+) => string;
+
+export const editProfileSchema = (t: Translator) =>
   z.object({
     firstName: z
       .string()
       .max(
         MAX_NAME_LENGTH,
-        i18n.t('validation.firstNameMax', {
-          ns: 'profile',
-          count: MAX_NAME_LENGTH,
-        }),
+        t('validation.firstNameMax', { count: MAX_NAME_LENGTH }),
       )
-      .min(
-        1,
-        i18n.t('validation.firstNameRequired', {
-          ns: 'profile',
-        }),
-      ),
+      .min(1, t('validation.firstNameRequired')),
     secondName: z
       .string()
       .max(
         MAX_NAME_LENGTH,
-        i18n.t('validation.secondNameMax', {
-          ns: 'profile',
-          count: MAX_NAME_LENGTH,
-        }),
+        t('validation.secondNameMax', { count: MAX_NAME_LENGTH }),
       )
-      .min(
-        1,
-        i18n.t('validation.secondNameRequired', {
-          ns: 'profile',
-        }),
-      ),
+      .min(1, t('validation.secondNameRequired')),
     username: z
       .string()
-      .regex(/^@/, i18n.t('validation.usernameStart', { ns: 'profile' }))
-      .min(4, i18n.t('validation.usernameMin', { ns: 'profile' }))
-      .max(20, i18n.t('validation.usernameMax', { ns: 'profile' })),
+      .regex(/^@/, t('validation.usernameStart'))
+      .min(4, t('validation.usernameMin'))
+      .max(20, t('validation.usernameMax')),
     email: z
       .string()
-      .min(1, i18n.t('validation.emailRequired', { ns: 'profile' }))
-      .email(i18n.t('validation.emailInvalid', { ns: 'profile' })),
+      .min(1, t('validation.emailRequired'))
+      .email(t('validation.emailInvalid')),
     description: z.string().max(
       MAX_DESCRIPTION_LENGTH,
-      i18n.t('validation.descriptionMax', {
-        ns: 'profile',
-        count: MAX_DESCRIPTION_LENGTH,
-      }),
+      t('validation.descriptionMax', { count: MAX_DESCRIPTION_LENGTH }),
     ),
   });
 
