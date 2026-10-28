@@ -39,6 +39,7 @@
 
       path {
         fill: var(--color-primary);
+        transform: scale(0.7);
       }
     }
   }

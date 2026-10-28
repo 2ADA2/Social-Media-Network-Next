@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image';
 import './avatar.css';
 import React, { useState } from 'react';

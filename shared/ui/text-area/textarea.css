@@ -81,6 +81,7 @@
 
     svg path {
       fill: var(--color-danger);
+      transform: scale(0.8);
     }
   }
 }

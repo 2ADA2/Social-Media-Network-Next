@@ -1,59 +1,37 @@
-"use client";
-
 import { Sidebar } from "@/entities/sidebar";
-import { useQuery } from "@tanstack/react-query";
-import { sidebarQueries } from "@/features/sidebar/sidebar";
-import { useAuth } from "@/features/auth/use-auth";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
 
-export const MainSidebar = () => {
-  const t = useTranslations("main");
-  const { isAuth } = useAuth();
-  const {
-    data: suggestedPeople,
-    isPending: isPeoplePending,
-    isError: isPeopleError,
-  } = useQuery(sidebarQueries.suggestedPeople());
-  const {
-    data: communities,
-    isPending: isCommunitiesPending,
-    isError: isCommunitiesError,
-  } = useQuery(sidebarQueries.community());
+const API_URL = process.env.API_URL || 'http://localhost:4000';
 
-  const showPeople = () => {
-    if (isPeopleError) {
-      return <Sidebar title="cannot get people" users={[]} />;
-    }
-
-    if (!isPeoplePending && suggestedPeople) {
-      return (
-        <Sidebar title={t("sidebar.suggestedPeople")} users={suggestedPeople} />
-      );
-    }
-
-    return null;
-  };
-
-  const showCommunities = () => {
-    if (isCommunitiesError) {
-      return <Sidebar title="cannot get communities" users={[]} />;
-    }
-
-    if (!isCommunitiesPending && communities) {
-      return <Sidebar title={t("sidebar.communities")} users={communities} />;
-    }
-
-    return null;
-  };
-
-  if(!isAuth) {
+export const MainSidebar = async () => {
+  const t = await getTranslations("main");
+  
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token')?.value;
+  
+  if (!token) {
     return null;
   }
 
+  const [peopleRes, communitiesRes] = await Promise.all([
+    fetch(`${API_URL}/api/getSuggested`, { 
+      headers: { Authorization: `Bearer ${token}` },
+      next: { revalidate: 60 }
+    }),
+    fetch(`${API_URL}/api/groups`, { 
+      headers: { Authorization: `Bearer ${token}` },
+      next: { revalidate: 60 }
+    })
+  ]);
+
+  const suggestedPeople = peopleRes.ok ? await peopleRes.json() : [];
+  const communities = communitiesRes.ok ? await communitiesRes.json() : [];
+
   return (
     <>
-      {showPeople()}
-      {showCommunities()}
+      <Sidebar title={t("sidebar.suggestedPeople")} users={suggestedPeople} />
+      <Sidebar title={t("sidebar.communities")} users={communities} />
     </>
   );
 };
