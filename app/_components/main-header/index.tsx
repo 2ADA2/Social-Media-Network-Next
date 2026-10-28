@@ -29,7 +29,7 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
-  const toggleNavBar = (isOpen?: boolean) => {
+  const toggleNavBar = () => {
     setIsNavBar((prev) => !prev);
   };
 
@@ -89,7 +89,7 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
             {isDesktop && (isAuth ? <UserNav /> : <AuthButtons />)}
 
             {isNavBar && (
-              <NavBar setNavBar={() => toggleNavBar(false)} isOpen={isNavBar} />
+              <NavBar setNavBar={toggleNavBar} isOpen={isNavBar} />
             )}
           </>
         )}

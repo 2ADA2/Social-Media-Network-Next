@@ -7,7 +7,5 @@ export const fetchLogout = async () => {
   if (!res.ok) {
     throw new Error('logout failed:' + res.status);
   }
-
-  document.cookie = `token=; path=/;`;
 };
 

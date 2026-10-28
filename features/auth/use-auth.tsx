@@ -9,8 +9,10 @@ import { signupRequest } from "@/features/auth/signup";
 import { userQueries } from "@/features/auth/me";
 import { queryClient } from "@/shared/api/queryClient";
 import { fetchLogout } from "@/features/auth/logout";
+import { useRouter } from "next/navigation";
 
 export const useAuth = () => {
+  const router = useRouter();
   const isAuth = useAppSelector(selectIsAuthenticated);
   const dispatch = useAppDispatch();
 
@@ -28,6 +30,8 @@ export const useAuth = () => {
     } catch (e) {
       localStorage.removeItem("token");
       throw e;
+    } finally {
+      router.refresh();
     }
   };
 
@@ -50,6 +54,8 @@ export const useAuth = () => {
       localStorage.removeItem("token");
       dispatch(logoutAction());
       queryClient.clear();
+      document.cookie = `token=; path=/;`;
+      router.refresh();
     }
   };
 
