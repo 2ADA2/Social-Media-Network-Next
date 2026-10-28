@@ -19,7 +19,7 @@ vi.mock('@/features/edit-profile/use-update-profile', () => ({
   useUpdateProfile: vi.fn(),
 }));
 
-vi.mock('@/app/providers/notifications-context/useNotifications', () => ({
+vi.mock('@/app/providers/notifications-provider/useNotifications', () => ({
   useNotifications: vi.fn(),
 }));
 
@@ -28,7 +28,7 @@ vi.mock('@/shared/lib/hooks/use-modal', () => ({
 }));
 
 vi.mock(
-  '@/pages/profile/profile-info/edit-profile/modals/update-profile-image-modal',
+  './modals/update-profile-image-modal',
   () => ({
     UpdateProfileImageModal: () => (
       <div data-testid="image-modal">image-modal</div>
@@ -37,7 +37,7 @@ vi.mock(
 );
 
 vi.mock(
-  '@/pages/profile/profile-info/edit-profile/modals/confirm-password-modal',
+  './modals/confirm-password-modal',
   () => ({
     ConfirmPasswordModal: ({ isOpen }: { isOpen: boolean }) =>
       isOpen ? <div>modal</div> : null,

@@ -17,7 +17,7 @@ vi.mock('@/features/edit-profile/use-update-account', () => ({
   useUpdateAccount: vi.fn(),
 }));
 
-vi.mock('@/app/providers/notifications-context/useNotifications', () => ({
+vi.mock('@/app/providers/notifications-provider/useNotifications', () => ({
   useNotifications: vi.fn(),
 }));
 

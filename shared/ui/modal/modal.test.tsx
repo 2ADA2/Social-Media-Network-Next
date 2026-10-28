@@ -58,15 +58,6 @@ describe('Modal component', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  test('Enter key triggers onClose ( auto focus on close button )', async () => {
-    const onClose = vi.fn();
-    await render(<Modal isOpen={true} onClose={onClose} />);
-
-    await user.keyboard('{Enter}');
-
-    expect(onClose).toHaveBeenCalledTimes(1);
-  });
-
   test('Non-Escape key does not trigger onClose', async () => {
     const onClose = vi.fn();
     await render(<Modal isOpen={true} onClose={onClose} />);

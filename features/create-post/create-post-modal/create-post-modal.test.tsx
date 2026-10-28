@@ -17,7 +17,7 @@ vi.mock('@/features/create-post/hooks/use-create-post', () => ({
   useCreatePost: vi.fn(),
 }));
 
-vi.mock('@/app/providers/notifications-context/useNotifications', () => ({
+vi.mock('@/app/providers/notifications-provider/useNotifications', () => ({
   useNotifications: vi.fn(),
 }));
 

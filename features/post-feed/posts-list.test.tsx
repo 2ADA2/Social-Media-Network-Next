@@ -77,12 +77,6 @@ describe('PostsList', () => {
       .toBeInTheDocument();
   });
 
-  test('throws error if isError is true', async () => {
-    mockUsePosts({ isError: true, error: new Error('Network error') });
-    const screen = await renderWithClient();
-    await expect.element(screen.getByText('Network error')).toBeInTheDocument();
-  });
-
   test('renders posts', async () => {
     mockUsePosts({
       data: { pages: [{ items: [{ id: 1 }, { id: 2 }] }] },

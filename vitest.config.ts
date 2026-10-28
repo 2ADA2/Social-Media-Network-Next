@@ -22,7 +22,7 @@ export default defineConfig({
     env: {
       TZ: 'UTC',
     },
-    setupFiles: ['./vitest.setup.ts'],
+    setupFiles: ['./vitest.setup.tsx'],
     alias: {
       '@': resolve(import.meta.dirname, './'), 
     },
