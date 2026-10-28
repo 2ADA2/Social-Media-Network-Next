@@ -51,8 +51,8 @@ export const PostsList = () => {
     <>
       <CreatePost onAdd={handlePostCreated} />
       <div className="posts-container">
-        {posts.map((post) => (
-          <Post key={post.id} post={post} />
+        {posts.map((post, index) => (
+          <Post key={post.id} post={post} isFirst={index === 0}/>
         ))}
         {!isFetchingNextPage && hasNextPage && <div ref={ref} />}
         {isFetchingNextPage && <Loader isBlock={false} />}

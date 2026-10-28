@@ -101,7 +101,7 @@ describe('PasswordInput component', () => {
       <PasswordInput custom value={inputValue} onChange={vi.fn()} />,
     );
     await expect
-      .element(screen.getByTestId('password-input-ok-icon'))
+      .element(screen.getByTestId('input-ok-icon'))
       .toBeVisible();
     await expect
       .element(screen.getByRole('textbox'))
@@ -109,14 +109,14 @@ describe('PasswordInput component', () => {
 
     await screen.rerender(<PasswordInput custom onChange={vi.fn()} value="" />);
     await expect
-      .element(screen.getByTestId('password-input-ok-icon'))
+      .element(screen.getByTestId('input-ok-icon'))
       .not.toBeInTheDocument();
 
     await screen.rerender(
       <PasswordInput custom error={inputError} onChange={vi.fn()} value="" />,
     );
     await expect
-      .element(screen.getByTestId('password-input-ok-icon'))
+      .element(screen.getByTestId('input-ok-icon'))
       .not.toBeInTheDocument();
   });
 
@@ -127,7 +127,7 @@ describe('PasswordInput component', () => {
 
     await expect.element(screen.getByText(inputError)).toBeVisible();
     await expect
-      .element(screen.getByTestId('password-input-cross-icon'))
+      .element(screen.getByTestId('input-cross-icon'))
       .toBeInTheDocument();
     await expect
       .element(screen.getByRole('textbox'))

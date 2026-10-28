@@ -15,7 +15,6 @@ export const LanguageSwitcher = () => {
   const router = useRouter();
 
   const changeLanguage = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value)
     document.cookie = `NEXT_LOCALE=${e.target.value}; path=/; max-age=31536000; SameSite=Lax`;
 
     router.refresh();
