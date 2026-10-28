@@ -1,3 +1,5 @@
+'use client';
+
 import { Toggle } from '@/shared/ui/toggle';
 import './statistics.css';
 import { lazy, Suspense, useMemo, useState } from 'react';

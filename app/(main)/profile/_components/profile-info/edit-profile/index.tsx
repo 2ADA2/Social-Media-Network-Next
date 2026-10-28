@@ -1,3 +1,5 @@
+'use client';
+
 import { CoverButton } from '@/shared/ui/cover-button';
 import { Input } from '@/shared/ui/input';
 import { useUser } from '@/entities/user/model/use-user';
