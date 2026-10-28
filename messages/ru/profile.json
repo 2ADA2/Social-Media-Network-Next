@@ -25,7 +25,7 @@
     "submit": "Сохранить изменения",
     "success": "Профиль успешно обновлён",
     "emailSuccess": "Ваш email успешно обновлен",
-    "error": "Не удалось обновить профиль: {{message}}",
+    "error": "Не удалось обновить профиль: {message}",
     "firstName": "Имя",
     "firstNamePlaceholder": "Введите имя",
     "secondName": "Фамилия",
@@ -36,10 +36,10 @@
     "title": "Обновить фото профиля",
     "submit": "Обновить",
     "fileTypeError": "Файл должен быть .PNG или .JPG",
-    "fileSizeError": "не более {{size}} МБ",
+    "fileSizeError": "не более {size} МБ",
     "noFile": "Выберите новое фото",
     "success": "Фото профиля обновлено",
-    "error": "Не удалось обновить фото профиля: {{message}}"
+    "error": "Не удалось обновить фото профиля: {message}"
   },
   "stats": {
     "likes": "Лайки",
@@ -59,9 +59,9 @@
     "usernameMax": "Имя должно содержать максимум 20 символов",
     "emailRequired": "Email обязателен",
     "emailInvalid": "Некорректный email",
-    "descriptionMax": "Достигнут лимит в {{count}} символов",
-    "firstNameMax": "Имя должно содержать максимум {{count}} символов",
-    "secondNameMax": "Фамилия должна содержать максимум {{count}} символов",
+    "descriptionMax": "Достигнут лимит в {count} символов",
+    "firstNameMax": "Имя должно содержать максимум {count} символов",
+    "secondNameMax": "Фамилия должна содержать максимум {count} символов",
     "firstNameRequired": "Введите имя",
     "secondNameRequired": "Введите фамилию"
   },

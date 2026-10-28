@@ -11,7 +11,7 @@
     "orDragAndDrop": "или перетащите сюда",
     "formats": "JPG, PNG",
     "formatsWithPdf": "JPG, PNG, PDF",
-    "sizeLimit": "размер файла не более {{size}} МБ",
+    "sizeLimit": "размер файла не более {size} МБ",
     "remove": "Удалить файл"
   },
   "error": {

@@ -1,13 +1,19 @@
 'use client'
 
-import { useTranslation } from "react-i18next";
 import { Tabs } from "@/shared/ui/tabs";
 import { ProfileInfo } from "./profile-info";
-import { Statistics } from "./statistics";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
+import { Loader } from "@/shared/ui/loader";
+import { useTranslations } from "next-intl";
+
+const Statistics = dynamic(() => import('./statistics').then(mod => mod.Statistics), {
+  ssr: false,
+  loading: () => <Loader isBlock/>
+});
 
 export default function ProfilePage() {
-  const { t } = useTranslation('profile');
+  const t = useTranslations('profile');
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();

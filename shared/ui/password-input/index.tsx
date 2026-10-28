@@ -4,7 +4,7 @@ import {
   useId,
   useState,
 } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import CheckIcon from '@/shared/assets/icons/check.svg';
 import CrossIcon from '@/shared/assets/icons/cross.svg';
 import EyeIcon from '@/shared/assets/icons/eye.svg';
@@ -29,7 +29,7 @@ export const PasswordInput = ({
   error,
   ...props
 }: InputProps) => {
-  const { t } = useTranslation('common');
+  const t = useTranslations('common');
   const [isShow, setIsShow] = useState(false);
 
   const id = useId();

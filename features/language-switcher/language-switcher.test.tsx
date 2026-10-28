@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
 import { userEvent } from 'vitest/browser';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from '.';
 
 vi.mock('react-i18next', () => ({

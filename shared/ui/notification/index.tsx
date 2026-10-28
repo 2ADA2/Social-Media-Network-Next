@@ -1,6 +1,6 @@
 import './notification.css';
 import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import { useTransition, animated } from '@react-spring/web';
 import CrossIcon from '@/shared/assets/icons/cross.svg';
 
@@ -19,7 +19,7 @@ export const Notification = ({
   type = 'success',
   onClose,
 }: NotificationProps) => {
-  const { t } = useTranslation('common');
+  const t = useTranslations('common');
   const onCloseRef = useRef(onClose);
   const [isVisible, setIsVisible] = useState(true);
 

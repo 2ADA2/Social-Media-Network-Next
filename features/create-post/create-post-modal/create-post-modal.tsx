@@ -2,7 +2,7 @@ import { type ChangeEvent, useMemo, useState } from 'react';
 import MailIcon from '@/shared/assets/icons/mail.svg';
 import PenIcon from '@/shared/assets/icons/pen.svg';
 import { FileInput } from '@/shared/ui/file-input';
-import { useTranslation } from 'react-i18next';
+import { useLocale, useTranslations } from "next-intl";
 import {
   StyledForm,
   StyledInput,
@@ -34,14 +34,15 @@ export const CreatePostModal = ({
   onClose,
   onAdd,
 }: CreateModalProps) => {
-  const { t, i18n } = useTranslation('main');
+  const t = useTranslations('main');
+  const locale = useLocale();
   const [file, setFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState('');
   const { add } = useNotifications();
 
   const { mutate: createPost } = useCreatePost();
 
-  const schema = useMemo(() => createPostSchema(), [i18n.language]);
+  const schema = useMemo(() => createPostSchema(t), [locale]);
 
   const { control, handleSubmit, reset } = useForm<CreatePostData>({
     resolver: zodResolver(schema),

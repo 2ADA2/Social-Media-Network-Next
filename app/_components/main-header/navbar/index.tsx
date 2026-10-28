@@ -2,7 +2,6 @@
 
 import styles from "./navbar.module.css";
 import { useEffect, useRef } from "react";
-import { useTranslation } from "react-i18next";
 import { useTransition, animated } from "@react-spring/web";
 import SidekickLogo from "@/shared/assets/icons/sidekick-logo.svg";
 import { Avatar } from "@/shared/ui/avatar";
@@ -12,6 +11,7 @@ import { useFocusTrap } from "@/shared/lib/hooks/use-focus-trap";
 import Link from "next/link";
 import { ROUTES } from "@/app/lib/routes";
 import { useUser } from "@/entities/user/model/use-user";
+import { useTranslations } from "next-intl";
 
 interface NavBarProps {
   setNavBar: () => void;
@@ -20,7 +20,7 @@ interface NavBarProps {
 
 export const NavBar = ({ setNavBar, isOpen }: NavBarProps) => {
   const navRef = useRef<HTMLElement>(null);
-  const { t } = useTranslation("common");
+  const t = useTranslations("common");
   const { isAuth } = useAuth();
   const { user } = useUser();
   useBlockScroll(isOpen);

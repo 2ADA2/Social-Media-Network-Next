@@ -11,7 +11,7 @@
     "orDragAndDrop": "or drag and drop here",
     "formats": "JPG, PNG",
     "formatsWithPdf": "JPG, PNG, PDF",
-    "sizeLimit": "file size no more than {{size}} MB",
+    "sizeLimit": "file size no more than {size} MB",
     "remove": "Remove file"
   },
   "error": {

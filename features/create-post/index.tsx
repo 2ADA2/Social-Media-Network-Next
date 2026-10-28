@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import { Card, Text, StyledButton, StyledAvatar } from './create-post.styles';
 import { CreatePostModal } from '@/features/create-post/create-post-modal/create-post-modal';
 import { useAuth } from '@/features/auth/use-auth';
@@ -10,7 +10,7 @@ interface CreatePostProps {
 }
 
 export const CreatePost = ({ onAdd }: CreatePostProps) => {
-  const { t } = useTranslation('main');
+  const t = useTranslations('main');
   const { isAuth } = useAuth();
   const { user } = useUser();
 

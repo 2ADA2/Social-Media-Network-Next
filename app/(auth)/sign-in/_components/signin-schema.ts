@@ -1,7 +1,9 @@
 import { z } from 'zod';
-import type { TFunction } from 'i18next';
+import { useTranslations } from 'next-intl';
 
-export const createSignInSchema = (t: TFunction<'auth'>) =>
+type TFunction = ReturnType<typeof useTranslations<'auth'>>;
+
+export const createSignInSchema = (t: TFunction) =>
   z.object({
     email: z
       .string()

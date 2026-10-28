@@ -4,11 +4,13 @@ import "./comment.css";
 import { useDeleteComment } from "@/features/delete-comment/use-delete-comment";
 import TrashCanIcon from "@/shared/assets/icons/trashcan.svg";
 import { useUser } from "@/entities/user/model/use-user";
-import { useTranslation } from "react-i18next";
 import { formatRelativeTime } from "@/shared/lib/localization/format-relative-time";
+import { useLocale, useTranslations } from "next-intl";
 
 export const Comment = (data: CommentInterface) => {
-  const { t, i18n } = useTranslation("main");
+  const t = useTranslations ("main");
+  const locale = useLocale();
+
   const { mutate: deleteComment, isPending } = useDeleteComment();
   const { user } = useUser();
 
@@ -20,7 +22,7 @@ export const Comment = (data: CommentInterface) => {
   const firstName = data?.author?.firstName || data?.author?.username || "user";
   const secondName = data?.author?.secondName ?? "";
 
-  const date = formatRelativeTime(data.creationDate, i18n.language);
+  const date = formatRelativeTime(data.creationDate, locale);
 
   return (
     <div className="post-comment">

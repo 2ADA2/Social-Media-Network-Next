@@ -1,6 +1,7 @@
-import { useTranslation } from 'react-i18next';
+import { useLocale, useTranslations } from "next-intl";
 import './language-switcher.css';
 import type { ChangeEvent } from 'react';
+import { useRouter } from "next/navigation";
 
 const LANGUAGES = [
   { code: 'en', label: 'English' },
@@ -8,16 +9,20 @@ const LANGUAGES = [
 ] as const;
 
 export const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
+  const locale = useLocale();
+  const router = useRouter();
 
   const changeLanguage = (e: ChangeEvent<HTMLSelectElement>) => {
-    i18n.changeLanguage(e.target.value);
+    console.log(e.target.value)
+    document.cookie = `NEXT_LOCALE=${e.target.value}; path=/; max-age=31536000; SameSite=Lax`;
+
+    router.refresh();
   };
 
   return (
     <select
       className="language-switcher"
-      value={i18n.language.split('-')[0]}
+      value={locale}
       onChange={changeLanguage}
       aria-label="Language"
       name="language"

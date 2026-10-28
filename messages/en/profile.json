@@ -25,7 +25,7 @@
     "submit": "Save profile changes",
     "success": "Your profile successfully updated",
     "emailSuccess": "Your email successfully updated",
-    "error": "Cannot update your profile: {{message}}",
+    "error": "Cannot update your profile: {message}",
     "firstName": "First name",
     "firstNamePlaceholder": "Enter first name",
     "secondName": "Second name",
@@ -39,10 +39,10 @@
     "title": "Update your profile photo",
     "submit": "Update",
     "fileTypeError": "File must be .PNG or .JPG",
-    "fileSizeError": "no more than {{size}} MB",
+    "fileSizeError": "no more than {size} MB",
     "noFile": "You need to choose a new photo",
     "success": "Profile image updated successfully",
-    "error": "Cannot update your profile img: {{message}}"
+    "error": "Cannot update your profile img: {message}"
   },
   "stats": {
     "likes": "Likes",
@@ -62,9 +62,9 @@
     "usernameMax": "Username must be at most 20 characters",
     "emailRequired": "Email is required",
     "emailInvalid": "Email is not valid",
-    "descriptionMax": "Reached the {{count}} text limit",
-    "firstNameMax": "First name must be at most {{count}} characters",
-    "secondNameMax": "Second name must be at most {{count}} characters",
+    "descriptionMax": "Reached the {count} text limit",
+    "firstNameMax": "First name must be at most {count} characters",
+    "secondNameMax": "Second name must be at most {count} characters",
     "firstNameRequired": "First name is required",
     "secondNameRequired": "Second name is required"
   },

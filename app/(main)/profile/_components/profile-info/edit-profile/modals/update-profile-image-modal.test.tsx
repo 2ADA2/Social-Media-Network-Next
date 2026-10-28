@@ -16,7 +16,7 @@ vi.mock('@/features/edit-profile/use-update-avatar', () => ({
   useUpdateAvatar: vi.fn(),
 }));
 
-vi.mock('@/app/providers/notifications-context/useNotifications', () => ({
+vi.mock('@/app/providers/notifications-provider/useNotifications', () => ({
   useNotifications: vi.fn(),
 }));
 

@@ -1,10 +1,8 @@
 {
   "post": {
-    "likes_one": "{{count}} like",
-    "likes_other": "{{count}} likes",
+    "likes": "{count, plural, one {# like} other {# likes}}",
     "likesLabel": "likes",
-    "comments_one": "{{count}} Comment",
-    "comments_other": "{{count}} Comments",
+    "comments": "{count, plural, one {# comment} other {# comments}}",
     "commentsLabel": "Comments",
     "loginToSeeComments": "You have to login to see the comments",
     "deleteSuccess": "Post deleted",
@@ -41,12 +39,12 @@
     "fileTypeError": "File must be .PNG, .JPG or .pdf",
     "fileSizeError": "no more than 10 MB",
     "success": "Post created",
-    "error": "Something went wrong: {{message}}"
+    "error": "Something went wrong: {message}"
   },
   "validation": {
     "titleMin": "Title must be at least 2 characters",
     "titleMax": "Title must be at most 100 characters",
-    "descriptionMax": "Reached the {{count}} text limit",
+    "descriptionMax": "Reached the {count} text limit",
     "descriptionMin": "Description required"
   },
   "sidebar": {
@@ -57,5 +55,8 @@
   "deletePost": {
     "title": "Are you sure?",
     "submit": "Delete"
+  },
+  "nav": {
+    "menu": "menu"
   }
 }

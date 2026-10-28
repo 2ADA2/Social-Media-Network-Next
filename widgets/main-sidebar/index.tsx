@@ -1,13 +1,13 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
 import { Sidebar } from "@/entities/sidebar";
 import { useQuery } from "@tanstack/react-query";
 import { sidebarQueries } from "@/features/sidebar/sidebar";
 import { useAuth } from "@/features/auth/use-auth";
+import { useTranslations } from "next-intl";
 
 export const MainSidebar = () => {
-  const { t } = useTranslation("main");
+  const t = useTranslations("main");
   const { isAuth } = useAuth();
   const {
     data: suggestedPeople,

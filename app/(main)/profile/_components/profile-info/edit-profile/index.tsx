@@ -6,7 +6,7 @@ import UserIcon from '@/shared/assets/icons/user.svg';
 import Pen from '@/shared/assets/icons/pen.svg';
 import { TextArea } from '@/shared/ui/text-area';
 import { Button } from '@/shared/ui/button';
-import { useTranslation } from 'react-i18next';
+import { useLocale, useTranslations } from "next-intl";
 import './edit-profile.css';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,7 +24,8 @@ import { ConfirmPasswordModal } from './modals/confirm-password-modal';
 import { Loader } from '@/shared/ui/loader';
 
 export const EditProfile = () => {
-  const { t, i18n } = useTranslation('profile');
+  const t = useTranslations('profile');
+  const locale = useLocale()
   const { user } = useUser();
   const { mutate: updateProfile, isPending } = useUpdateProfile();
   const {
@@ -40,7 +41,7 @@ export const EditProfile = () => {
   const { add } = useNotifications();
   const [isMounted, setIsMounted] = useState(false)
 
-  const schema = useMemo(() => editProfileSchema(), [i18n.language]);
+  const schema = useMemo(() => editProfileSchema(t), [locale]);
 
   const defaultValues = useMemo(
     () => ({
@@ -69,7 +70,7 @@ export const EditProfile = () => {
   useEffect(() => {
     setIsMounted(true)
     trigger();
-  }, [i18n.language, trigger]);
+  }, [locale, trigger]);
 
   useEffect(() => {
     if (user) {

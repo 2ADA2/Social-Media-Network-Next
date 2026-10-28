@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import TrashCanIcon from '@/shared/assets/icons/trashcan.svg';
 import './delete-post-button.css';
 import { useDeletePost } from '@/features/delete-post/use-delete-post';
@@ -10,7 +10,7 @@ export interface DeletePostButtonProps {
 }
 
 export const DeletePostButton = ({ postId }: DeletePostButtonProps) => {
-  const { t } = useTranslation('main');
+  const t = useTranslations('main');
   const { mutate: deletePost, isPending } = useDeletePost();
   const { isOpen, open, close } = useModal();
 

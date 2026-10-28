@@ -1,10 +1,11 @@
 import { describe, expect, test, vi, beforeEach } from 'vitest';
 import { render } from 'vitest-browser-react';
 import ChartView from '.';
+import { buildOptions } from './options';
 
 const mockBuildOptions = vi.fn();
 
-vi.mock('@/pages/profile/statistics/chart-view/options', () => ({
+vi.mock('./options', () => ({
   buildOptions: (...args: unknown[]) => mockBuildOptions(...args),
 }));
 

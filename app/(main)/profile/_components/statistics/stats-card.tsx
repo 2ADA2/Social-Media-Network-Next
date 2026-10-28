@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 interface StatsCardProps {
   title: string,
@@ -7,7 +7,7 @@ interface StatsCardProps {
 }
 
 export const StatsCard = ({ title, value, percents }: StatsCardProps) => {
-  const { t } = useTranslation('profile');
+  const t = useTranslations('profile');
 
   return (
     <div className="stats-card">

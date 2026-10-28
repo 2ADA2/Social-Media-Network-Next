@@ -10,19 +10,20 @@ import { useAuth } from "@/features/auth/use-auth";
 import { createSignInSchema, type SignInFormData } from "./signin-schema";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslation } from "react-i18next";
 import { useMemo, useState } from "react";
 import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
 import { ROUTES } from "@/app/lib/routes";
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function SignInForm() {
-  const { t, i18n } = useTranslation("auth");
+  const t = useTranslations("auth");
+  const locale = useLocale();
   const { signin } = useAuth();
   const { add } = useNotifications();
   const [isPending, setIsPending] = useState(false);
 
-  const schema = useMemo(() => createSignInSchema(t), [t, i18n.language]);
+  const schema = useMemo(() => createSignInSchema(t), [t, locale]);
 
   const { control, handleSubmit } = useForm<SignInFormData>({
     resolver: zodResolver(schema),

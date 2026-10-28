@@ -14,7 +14,7 @@ vi.mock('@/features/create-comment/use-create-comment', () => ({
   useCreateComment: vi.fn(),
 }));
 
-vi.mock('@/app/providers/notifications-context/useNotifications', () => ({
+vi.mock('@/app/providers/notifications-provider/useNotifications', () => ({
   useNotifications: vi.fn(),
 }));
 

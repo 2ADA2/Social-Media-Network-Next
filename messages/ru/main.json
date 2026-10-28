@@ -1,12 +1,8 @@
 {
   "post": {
-    "likes_one": "{{count}} лайк",
-    "likes_few": "{{count}} лайка",
-    "likes_many": "{{count}} лайков",
+    "likes": "{count, plural, one {# лайк} few {# лайка} many {# лайков} other {# лайка}}",
     "likesLabel": "лайков",
-    "comments_one": "{{count}} комментарий",
-    "comments_few": "{{count}} комментария",
-    "comments_many": "{{count}} комментариев",
+    "comments": "{count, plural, one {# комментарий} few {# комментария} many {# комментариев} other {# комментария}}",
     "commentsLabel": "комментариев",
     "loginToSeeComments": "Войдите, чтобы увидеть комментарии",
     "deleteSuccess": "Пост удалён",
@@ -43,12 +39,12 @@
     "fileTypeError": "Файл должен быть .PNG, .JPG или .pdf",
     "fileSizeError": "не более 10 МБ",
     "success": "Пост создан",
-    "error": "Что-то пошло не так: {{message}}"
+    "error": "Что-то пошло не так: {message}"
   },
   "validation": {
     "titleMin": "Заголовок должен содержать минимум 2 символа",
     "titleMax": "Заголовок должен содержать максимум 100 символов",
-    "descriptionMax": "Достигнут лимит в {{count}} символов",
+    "descriptionMax": "Достигнут лимит в {count} символов",
     "descriptionMin": "Описание обязательно"
   },
   "sidebar": {
@@ -59,5 +55,8 @@
   "deletePost": {
     "title": "Вы уверены?",
     "submit": "Удалить"
+  },
+  "nav": {
+    "menu": "меню"
   }
 }

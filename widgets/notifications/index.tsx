@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from "next-intl";
 import './notifications.css';
 import { Notification } from '@/shared/ui/notification';
 import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
@@ -14,7 +14,7 @@ interface NotificationsProps {
 }
 
 export const Notifications = ({ onDelete }: NotificationsProps) => {
-  const { t } = useTranslation('common');
+  const t = useTranslations('common');
   const { notifications } = useNotifications();
   const [isMounted, setIsMounted] = useState(false);
   
