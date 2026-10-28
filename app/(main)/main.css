@@ -1,0 +1,33 @@
+.main-page {
+  display: flex;
+  flex-direction: column;
+  gap:2px;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted);
+}
+
+.recommend-sidebars{
+  display: none;
+}
+
+@media (min-width: 1330px) {
+  .recommend-sidebars{
+    width: 250px;
+    position: absolute;
+    left: calc(50vw + 340px);
+    top: 84px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1500px) {
+  .recommend-sidebars{
+    left: calc(50vw + 370px);
+    width: 320px;
+  }
+}
+
