@@ -1,0 +1,19 @@
+.posts-container{
+  width: 100%;
+  margin: 16px 0;
+
+  .post:last-child{
+    border: none;
+  }
+}
+
+.posts-list-loader-container {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .posts-container {
+    width: auto;
+    border: 2px solid var(--border-primary);
+  }
+}

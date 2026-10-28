@@ -17,7 +17,7 @@ export const useAuth = () => {
   const auth = async (token: string) => {
     const user = await queryClient.fetchQuery(userQueries.me());
     dispatch(setCredentials({ user, token }));
-    document.cookie = `token=${token}; path=/;`;
+    document.cookie = `token=${token}; path=/; max-age=7200; SameSite=Lax;`;
   };
 
   const signin = async (email: string, password: string) => {

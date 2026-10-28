@@ -1,32 +1,18 @@
-import { Suspense } from 'react';
-import { API_URL } from '@/app/lib/config';
-import { Loader } from '@/shared/ui/loader';
+'use client'
 
-async function PostList() {1
-  const res = await fetch(`${API_URL}/posts`);
-  
-  if (!res.ok) {
-    return <div>Ошибка: {res.status}</div>;
-  }
+import './main.css';
+import { MainSidebar } from '@/widgets/main-sidebar';
+import { useAuth } from '@/features/auth/use-auth';
+import { PostsList } from '@/features/post-feed/posts-list';
 
-  const { items } = await res.json();
+export default function HomePage() {
+  const { isAuth } = useAuth();
 
   return (
-    <ul>
-      {items.map((post: { id: number; title: string }) => (
-        <li key={post.id}>{post.title}</li>
-      ))}
-    </ul>
-  );
-}
+    <div className="main-page">
+      <PostsList />
 
-export default function Home() {
-  return (
-    <div>
-      <h1>Посты</h1>
-      <Suspense fallback={<Loader/>}>
-        <PostList />
-      </Suspense>
+      <div className={'recommend-sidebars'}>{isAuth && <MainSidebar />}</div>
     </div>
   );
-}
+};

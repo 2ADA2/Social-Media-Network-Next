@@ -1,0 +1,38 @@
+.delete-post-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.delete-post-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.delete-post-button svg path {
+  fill: var(--color-primary);
+}
+
+.delete-post-button[disabled] {
+  cursor: default;
+}
+
+.delete-post-button[disabled] svg path {
+  fill: var(--color-muted);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .delete-post-button {
+    opacity: 0;
+  }
+
+  .post:hover .delete-post-button,
+  .post:focus-within .delete-post-button,
+  .delete-post-button:focus {
+    opacity: 1;
+  }
+}
