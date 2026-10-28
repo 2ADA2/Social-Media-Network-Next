@@ -1,10 +1,14 @@
+"use client";
+
 import { useTranslation } from "react-i18next";
 import { Sidebar } from "@/entities/sidebar";
 import { useQuery } from "@tanstack/react-query";
 import { sidebarQueries } from "@/features/sidebar/sidebar";
+import { useAuth } from "@/features/auth/use-auth";
 
 export const MainSidebar = () => {
-  const { t } = useTranslation('main');
+  const { t } = useTranslation("main");
+  const { isAuth } = useAuth();
   const {
     data: suggestedPeople,
     isPending: isPeoplePending,
@@ -18,11 +22,13 @@ export const MainSidebar = () => {
 
   const showPeople = () => {
     if (isPeopleError) {
-      return <Sidebar title='cannot get people' users={ [] }/>;
+      return <Sidebar title="cannot get people" users={[]} />;
     }
 
     if (!isPeoplePending && suggestedPeople) {
-      return <Sidebar title={ t('sidebar.suggestedPeople') } users={ suggestedPeople }/>;
+      return (
+        <Sidebar title={t("sidebar.suggestedPeople")} users={suggestedPeople} />
+      );
     }
 
     return null;
@@ -30,20 +36,24 @@ export const MainSidebar = () => {
 
   const showCommunities = () => {
     if (isCommunitiesError) {
-      return <Sidebar title='cannot get communities' users={ [] }/>;
+      return <Sidebar title="cannot get communities" users={[]} />;
     }
 
     if (!isCommunitiesPending && communities) {
-      return  <Sidebar title={ t('sidebar.communities') } users={ communities }/>;
+      return <Sidebar title={t("sidebar.communities")} users={communities} />;
     }
 
     return null;
   };
 
+  if(!isAuth) {
+    return null;
+  }
+
   return (
     <>
-      { showPeople() }
-      { showCommunities() }
+      {showPeople()}
+      {showCommunities()}
     </>
   );
 };

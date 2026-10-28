@@ -99,7 +99,7 @@ export const Post = ({ post }: PostProps) => {
       </PostHeader>
 
       {post.image && (
-        <PostImage loading="lazy" src={post.image} alt={post.title} />
+        <PostImage loading="lazy" src={post.image} alt={post.title} width={100} height={100}/>
       )}
 
       <Description>{post.content}</Description>
