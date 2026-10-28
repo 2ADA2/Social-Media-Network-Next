@@ -17,7 +17,7 @@ export const Notifications = ({ onDelete }: NotificationsProps) => {
   const { t } = useTranslation('common');
   const { notifications } = useNotifications();
   const [isMounted, setIsMounted] = useState(false);
-
+  
   useEffect(() => {
     setIsMounted(true);
   }, []);

@@ -4,7 +4,7 @@ import { userEvent } from 'vitest/browser';
 import { AxiosError, type AxiosResponse } from 'axios';
 import { ConfirmPasswordModal } from './confirm-password-modal';
 import { useUpdateAccount } from '@/features/edit-profile/use-update-account';
-import { useNotifications } from '@/app/providers/notifications-context/useNotifications';
+import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
 
 let user = userEvent.setup();
 

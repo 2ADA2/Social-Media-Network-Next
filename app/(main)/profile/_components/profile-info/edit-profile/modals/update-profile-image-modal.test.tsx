@@ -3,7 +3,7 @@ import { render } from 'vitest-browser-react';
 import { userEvent } from 'vitest/browser';
 import { UpdateProfileImageModal } from './update-profile-image-modal';
 import { useUpdateAvatar } from '@/features/edit-profile/use-update-avatar';
-import { useNotifications } from '@/app/providers/notifications-context/useNotifications';
+import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
 import { createFile } from '@/test/create=file';
 
 let user = userEvent.setup();

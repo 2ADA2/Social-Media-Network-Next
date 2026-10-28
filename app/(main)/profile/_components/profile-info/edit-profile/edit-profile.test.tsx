@@ -4,7 +4,7 @@ import { userEvent } from 'vitest/browser';
 import { EditProfile } from '.';
 import { useUser } from '@/entities/user/model/use-user';
 import { useUpdateProfile } from '@/features/edit-profile/use-update-profile';
-import { useNotifications } from '@/app/providers/notifications-context/useNotifications';
+import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
 import { useModal } from '@/shared/lib/hooks/use-modal';
 
 let user = userEvent.setup();

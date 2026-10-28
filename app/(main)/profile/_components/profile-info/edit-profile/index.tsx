@@ -18,9 +18,10 @@ import { useUpdateProfile } from '@/features/edit-profile/use-update-profile';
 import { useModal } from '@/shared/lib/hooks/use-modal';
 import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
 import { Avatar } from '@/shared/ui/avatar';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { UpdateProfileImageModal } from './modals/update-profile-image-modal';
 import { ConfirmPasswordModal } from './modals/confirm-password-modal';
+import { Loader } from '@/shared/ui/loader';
 
 export const EditProfile = () => {
   const { t, i18n } = useTranslation('profile');
@@ -37,6 +38,7 @@ export const EditProfile = () => {
     close: closeConfirm,
   } = useModal();
   const { add } = useNotifications();
+  const [isMounted, setIsMounted] = useState(false)
 
   const schema = useMemo(() => editProfileSchema(), [i18n.language]);
 
@@ -61,12 +63,25 @@ export const EditProfile = () => {
   } = useForm<EditProfileSchema>({
     resolver: zodResolver(schema),
     defaultValues,
-    mode: 'onChange',
+    mode: 'onTouched',
   });
 
   useEffect(() => {
+    setIsMounted(true)
     trigger();
   }, [i18n.language, trigger]);
+
+  useEffect(() => {
+    if (user) {
+      reset({
+        firstName: user.name ?? '',
+        secondName: user.surname ?? '',
+        username: '@' + (user.username ?? ''),
+        email: user.email ?? '',
+        description: user.description ?? '',
+      });
+    }
+  }, [user, reset]);
 
   const emailValue = watch('email');
 
@@ -127,6 +142,10 @@ export const EditProfile = () => {
       saveChanges(data);
     }
   };
+
+  if(!isMounted) {
+    return <Loader/>
+  }
 
   return (
     <section className="edit-profile">

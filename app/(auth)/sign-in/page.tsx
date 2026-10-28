@@ -15,10 +15,8 @@ import { useMemo, useState } from "react";
 import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
 import { ROUTES } from "@/app/lib/routes";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function SignIn () {
-  const router = useRouter();
   const { t, i18n } = useTranslation("auth");
   const { signin } = useAuth();
   const { add } = useNotifications();
@@ -37,7 +35,6 @@ export default function SignIn () {
       setIsPending(true);
       await signin(data.email, data.password);
       add({ message: t("signIn.success") });
-      router.refresh();
     } catch (e) {
       const error = e instanceof Error ? e.message : String(e);
       add({

@@ -27,7 +27,7 @@ const format: FormatFunction = (value, formatKey, lng) => {
 
 const options: InitOptions = {
   fallbackLng: 'en',
-  supportedLngs: ['en'],
+  supportedLngs: ['en', 'ru'],
   defaultNS: 'common',
   resources: {
     en: {
