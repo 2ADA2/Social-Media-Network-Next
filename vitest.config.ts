@@ -10,6 +10,10 @@ export default defineConfig({
       'vitest-browser-react',
       '@react-spring/web',
       '@tanstack/react-query',
+      'react',             
+      'react-dom',         
+      'react-apexcharts',  
+      'apexcharts', 
     ],
   },
   plugins: [
