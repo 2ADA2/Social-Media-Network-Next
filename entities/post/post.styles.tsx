@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styled, { css } from 'styled-components';
 
 export const StyledPost = styled.article`
@@ -40,11 +41,13 @@ export const HeaderData = styled.div`
   font-size: 16px;
 `;
 
-export const PostImage = styled.img`
+export const PostImage = styled(Image)`
   border-radius: 4px;
   max-height: 500px;
   object-fit: contain;
   background: var(--bg-primary);
+  width: 100%;
+  height: 100%;
 `;
 
 export const Description = styled.p`
