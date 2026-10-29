@@ -5,6 +5,4 @@ export const ROUTES = {
 
   SIGNIN: "/sign-in",
   SIGNUP: "/sign-up",
-
-  NOT_FOUND: "*",
 };

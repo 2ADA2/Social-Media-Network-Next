@@ -1,14 +1,12 @@
 import { useTranslations } from "next-intl";
 import { ThemeSwitcher } from '@/features/theme-switcher';
-import { Button } from '@/shared/ui/button';
 import { EditProfile } from './edit-profile';
 import './profile-info.css';
-import { useAuth } from '@/features/auth/use-auth';
 import { LanguageSwitcher } from '@/features/language-switcher';
+import { LogoutButton } from "./logout-button";
 
 export const ProfileInfo = () => {
   const t = useTranslations('profile');
-  const { logout } = useAuth();
 
   return (
     <div className="profile-grid">
@@ -24,9 +22,7 @@ export const ProfileInfo = () => {
         </section>
         <section>
           <h2>{t('actions.title')}</h2>
-          <Button className="logout-button" onClick={logout}>
-            {t('actions.logout')}
-          </Button>
+          <LogoutButton/>
         </section>
       </div>
 

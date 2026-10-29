@@ -1,3 +1,5 @@
+'use client';
+
 import { Toggle } from '@/shared/ui/toggle';
 import { useThemeStore } from '@/app/store/theme-store';
 import { useTranslations } from "next-intl";

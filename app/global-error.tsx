@@ -1,7 +1,7 @@
 'use client';
 
-import { Fallback } from "@/shared/ui/fallback";
 import { Metadata } from "next";
+import { Fallback } from "./_components/fallback";
 
 export const metadata: Metadata = {
   title: 'Error | Sidekick Social',

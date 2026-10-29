@@ -1,18 +1,13 @@
 'use client'
 
 import { Tabs } from "@/shared/ui/tabs";
-import { ProfileInfo } from "./profile-info";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import dynamic from "next/dynamic";
-import { Loader } from "@/shared/ui/loader";
 import { useTranslations } from "next-intl";
+import React from "react";
 
-const Statistics = dynamic(() => import('./statistics').then(m => m.Statistics), {
-  ssr: false,
-  loading: () => <Loader isBlock/>
-});
 
-export default function ProfilePage() {
+
+export default function ProfilePage({ProfileInfo, Statistics}:{ProfileInfo: React.ReactNode, Statistics:React.ReactNode}) {
   const t = useTranslations('profile');
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -37,8 +32,8 @@ export default function ProfilePage() {
         <Tabs tabs={ TABS } activeTab={ activeTab } onChange={ handleTabChange }/>
       </div>
 
-      { activeTab === 'info' && <ProfileInfo/> }
-      { activeTab === 'stats' && <Statistics/> }
+      { activeTab === 'info' && ProfileInfo }
+      { activeTab === 'stats' && Statistics }
     </>
   );
 };

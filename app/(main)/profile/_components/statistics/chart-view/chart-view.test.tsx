@@ -1,7 +1,6 @@
 import { describe, expect, test, vi, beforeEach } from 'vitest';
 import { render } from 'vitest-browser-react';
 import ChartView from '.';
-import { buildOptions } from './options';
 
 const mockBuildOptions = vi.fn();
 

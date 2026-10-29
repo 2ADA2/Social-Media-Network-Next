@@ -1,3 +1,5 @@
+'use client';
+
 import { CoverButton } from '@/shared/ui/cover-button';
 import { Input } from '@/shared/ui/input';
 import { useUser } from '@/entities/user/model/use-user';
@@ -64,7 +66,7 @@ export const EditProfile = () => {
   } = useForm<EditProfileSchema>({
     resolver: zodResolver(schema),
     defaultValues,
-    mode: 'onTouched',
+    mode: 'onChange',
   });
 
   useEffect(() => {

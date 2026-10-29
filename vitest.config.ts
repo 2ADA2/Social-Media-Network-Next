@@ -4,6 +4,9 @@ import svgr from 'vite-plugin-svgr';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  resolve: {
+    dedupe: ['react', 'react-dom'],
+  },
   optimizeDeps: {
     include: [
       'react-dom/client',
@@ -46,7 +49,6 @@ export default defineConfig({
     },
     clearMocks: true,
     restoreMocks: true,
-    environment: 'jsdom', 
     globals: true,
     coverage: {
       include: ['app/**/*.{ts,tsx}', 'shared/**/*.{ts,tsx}', 'features/**/*.{ts,tsx}', 'entities/**/*.{ts,tsx}'],

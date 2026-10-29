@@ -1,6 +1,6 @@
 'use client';
 
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v16-appRouter';
 import { MuiThemeProvider } from './mui-theme-provider';
 import { ThemeProvider } from './theme-provider';
 import { NotificationsProvider } from './notifications-provider';
