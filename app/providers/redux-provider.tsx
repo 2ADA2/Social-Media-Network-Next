@@ -35,6 +35,8 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
     } else {
       store.dispatch(initUserStore());
     }
+
+    document.cookie = `token=${token}; path=/; max-age=31536000; SameSite=Lax;`;
   }, []);
 
   return <Provider store={storeRef.current}>{children}</Provider>;

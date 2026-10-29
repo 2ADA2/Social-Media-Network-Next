@@ -20,7 +20,6 @@ export const useAuth = () => {
   const auth = async (token: string) => {
     const user = await queryClient.fetchQuery(userQueries.me());
     dispatch(setCredentials({ user, token }));
-    document.cookie = `token=${token}; path=/; max-age=31536000; SameSite=Lax;`;
   };
 
   const signin = async (email: string, password: string) => {
@@ -28,6 +27,7 @@ export const useAuth = () => {
       const { token } = await signinRequest({ email, password });
       await auth(token);
       localStorage.setItem("token", token);
+      document.cookie = `token=${token}; path=/; max-age=31536000; SameSite=Lax;`;
     } catch (e) {
       localStorage.removeItem("token");
       throw e;
