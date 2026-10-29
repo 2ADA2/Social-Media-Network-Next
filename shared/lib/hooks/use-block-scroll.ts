@@ -9,7 +9,7 @@ export const useBlockScroll = (isOpen: boolean) => {
     }
 
     return () => {
-      document.body.style.overflowY = 'auto';
+      document.body.style.overflow = 'auto';
     };
   }, [isOpen]);
 };

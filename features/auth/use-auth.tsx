@@ -7,19 +7,20 @@ import {
 import { signinRequest } from "@/features/auth/signin";
 import { signupRequest } from "@/features/auth/signup";
 import { userQueries } from "@/features/auth/me";
-import { queryClient } from "@/shared/api/queryClient";
 import { fetchLogout } from "@/features/auth/logout";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const useAuth = () => {
   const router = useRouter();
   const isAuth = useAppSelector(selectIsAuthenticated);
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
 
   const auth = async (token: string) => {
     const user = await queryClient.fetchQuery(userQueries.me());
     dispatch(setCredentials({ user, token }));
-    document.cookie = `token=${token}; path=/; max-age=7200; SameSite=Lax;`;
+    document.cookie = `token=${token}; path=/; max-age=31536000; SameSite=Lax;`;
   };
 
   const signin = async (email: string, password: string) => {
