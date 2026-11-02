@@ -30,13 +30,13 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
           localStorage.removeItem('token');
         } finally {
           store.dispatch(initUserStore());
+          document.cookie = `token=${token}; path=/; max-age=31536000; SameSite=Lax;`;
         }
       })();
     } else {
       store.dispatch(initUserStore());
+      document.cookie = `token=; path=/; max-age=31536000; SameSite=Lax;`;
     }
-
-    document.cookie = `token=${token}; path=/; max-age=31536000; SameSite=Lax;`;
   }, []);
 
   return <Provider store={storeRef.current}>{children}</Provider>;

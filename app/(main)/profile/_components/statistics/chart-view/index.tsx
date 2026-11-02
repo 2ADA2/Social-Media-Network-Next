@@ -37,7 +37,7 @@ const ChartView = React.memo(
         'line',
         locale,
       );
-    }, [likesByDay, theme]);
+    }, [likesByDay, theme, locale]);
 
     const commentsOptions = useMemo(() => {
       const categories = commentsByDay.map((d) => d.date);
@@ -48,7 +48,7 @@ const ChartView = React.memo(
         'bar',
         locale,
       );
-    }, [commentsByDay, theme]);
+    }, [commentsByDay, theme, locale]);
 
     return (
       <div className="stats-container">

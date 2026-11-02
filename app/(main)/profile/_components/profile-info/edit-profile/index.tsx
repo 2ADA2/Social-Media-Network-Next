@@ -90,9 +90,6 @@ export const EditProfile = () => {
 
   const saveChanges = (data: EditProfileSchema) => {
     data.username = data.username.slice(1);
-    reset({
-      email: emailValue,
-    });
 
     const hasProfileChanges =
       dirtyFields.firstName ||
