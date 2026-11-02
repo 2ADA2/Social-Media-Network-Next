@@ -2,7 +2,7 @@ import { TextArea } from '@/shared/ui/text-area';
 import { Button } from '@/shared/ui/button';
 import PenIcon from '@/shared/assets/icons/pen.svg';
 import { type ChangeEvent, useState } from 'react';
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import './create-comment.css';
 import { useCreateComment } from '@/features/create-comment/use-create-comment';
 import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';

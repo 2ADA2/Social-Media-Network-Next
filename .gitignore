@@ -1,8 +1,8 @@
 .pglite-data/
 .vitest/
 **/node_modules/
-/playwright/
-/playwright-report/
+/playwright
+/playwright-report
 
 # dependencies
 /node_modules

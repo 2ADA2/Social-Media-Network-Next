@@ -1,6 +1,7 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 import { refreshRequest } from '@/features/auth/refresh';
 import { fetchLogout } from '@/features/auth/logout';
+import { redirect } from 'next/navigation';
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -28,6 +29,7 @@ const getNewToken = (): Promise<string> => {
     .then((data) => {
       if (typeof window !== 'undefined') {
         localStorage.setItem('token', data.token);
+        document.cookie = `token=${data.token}; path=/; max-age=7200; SameSite=Lax;`;
       }
       return data.token;
     })
@@ -46,7 +48,8 @@ const forceLogout = async () => {
   } finally {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('token');
-      window.location.href = '/'; 
+      document.cookie = `token=; path=/; max-age=7200; SameSite=Lax;`;
+      redirect("/")
     }
   }
 };

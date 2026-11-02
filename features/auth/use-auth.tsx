@@ -27,7 +27,7 @@ export const useAuth = () => {
       const { token } = await signinRequest({ email, password });
       await auth(token);
       localStorage.setItem("token", token);
-      document.cookie = `token=${token}; path=/; max-age=31536000; SameSite=Lax;`;
+      document.cookie = `token=${token}; path=/; max-age=7200; SameSite=Lax;`;
     } catch (e) {
       localStorage.removeItem("token");
       throw e;

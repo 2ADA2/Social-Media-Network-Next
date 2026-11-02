@@ -29,7 +29,6 @@ import { animated, useSpring, useTransition } from "@react-spring/web";
 import { formatRelativeTime } from "@/shared/lib/localization/format-relative-time";
 import { DeletePostButton } from "@/features/delete-post";
 import { useState } from "react";
-import { ZodBooleanDef } from "zod/v3";
 
 const MAX_COMMENTS_HEIGHT = 1000;
 
@@ -99,7 +98,9 @@ export const Post = ({ post, isFirst }: PostProps) => {
     <StyledPost>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
       />
       <PostHeader>
         {isAuth && currentUserId === post.authorId && (

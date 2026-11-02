@@ -42,7 +42,7 @@ export const CreatePostModal = ({
 
   const { mutate: createPost } = useCreatePost();
 
-  const schema = useMemo(() => createPostSchema(t), [locale]);
+  const schema = useMemo(() => createPostSchema(t), [t]);
 
   const { control, handleSubmit, reset } = useForm<CreatePostData>({
     resolver: zodResolver(schema),

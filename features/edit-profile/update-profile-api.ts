@@ -1,7 +1,6 @@
 import { apiClient } from '@/shared/api/api-client';
 import { mapUser, type User, type UserResponse } from '@/entities/user';
 import z from 'zod';
-import { expect } from 'vitest';
 import { AxiosError } from 'axios';
 
 // export interface UpdateProfileParams {

@@ -1,5 +1,4 @@
 import {useAppDispatch} from '@/app/store/hooks';
-import {User} from '@/entities/user';
 import {setUser} from '@/entities/user/model/user-slice';
 import {updateProfileRequest} from '@/features/edit-profile/update-profile-api';
 import {useMutation, useQueryClient} from '@tanstack/react-query';

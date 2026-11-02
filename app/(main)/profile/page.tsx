@@ -30,28 +30,37 @@ export default async function Profile() {
     cache: "no-store",
   });
 
-  if (!response.ok) {
-    redirect("/");
-  }
+  const renderJSONLD = async () => {
+    if (!response.ok) {
+      return null;
+    }
 
-  const user: UserResponse = await response.json();
+    const user: UserResponse = await response.json();
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: user.firstName,
-    alternateName: user.username,
-    image: user.profileImage,
-    description: user.description,
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: user.firstName,
+      alternateName: user.username,
+      image: user.profileImage,
+      description: user.description,
+    };
+    return (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+    );
   };
+
+  const jsonLDScript = await renderJSONLD();
 
   return (
     <div className="profile-page">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <ProfilePage Statistics={<Statistics />} ProfileInfo={<ProfileInfo/>} />
+      {jsonLDScript}
+      <ProfilePage Statistics={<Statistics />} ProfileInfo={<ProfileInfo />} />
     </div>
   );
 }

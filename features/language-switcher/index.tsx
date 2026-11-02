@@ -1,6 +1,6 @@
 'use client';
 
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import './language-switcher.css';
 import type { ChangeEvent } from 'react';
 import { useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ export const LanguageSwitcher = () => {
   const router = useRouter();
 
   const changeLanguage = (e: ChangeEvent<HTMLSelectElement>) => {
-    document.cookie = `NEXT_LOCALE=${e.target.value}; path=/; max-age=31536000; SameSite=Lax`;
+    document.cookie = `NEXT_LOCALE=${e.target.value}; path=/; max-age=7200; SameSite=Lax`;
 
     router.refresh();
   };
