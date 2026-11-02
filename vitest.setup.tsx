@@ -22,7 +22,7 @@ vi.mock('next-intl', () => {
 
 vi.mock('@/features/auth/use-auth', () => ({
   useAuth: () => ({
-    isAuthenticated: false,
+    isAuth: false,
     user: null,
     login: vi.fn(),
     logout: vi.fn(),

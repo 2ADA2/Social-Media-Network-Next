@@ -93,7 +93,7 @@ describe('Post', () => {
     const screen = await render(<Post post={createPost({ image: null })} />);
 
     await expect.element(screen.getByRole('img', { name: 'Title' })).not
-      .toBeInTheDocument;
+      .toBeInTheDocument();
   });
 
   test('calls like when clicking like button', async () => {
@@ -114,14 +114,14 @@ describe('Post', () => {
     const screen = await render(<Post post={createPost({ authorId: 999 })} />);
 
     await expect.element(screen.getByTestId('delete-post')).not
-      .toBeInTheDocument;
+      .toBeInTheDocument();
   });
 
   test('does not show comments by default', async () => {
     const screen = await render(<Post post={createPost()} />);
 
     await expect.element(screen.getByTestId('post-comments')).not
-      .toBeInTheDocument;
+      .toBeInTheDocument();
   });
 
   test('shows comments when clicking comments button', async () => {
