@@ -8,7 +8,7 @@ const likeStatusResponseSchema = z.object({
   newLikesCount: z.number(),
 });
 
-type LikeStatus = z.infer<typeof likeStatusResponseSchema>;
+export type LikeStatus = z.infer<typeof likeStatusResponseSchema>;
 
 export const likePost = async (postId: number): Promise<LikeStatus> => {
   try {

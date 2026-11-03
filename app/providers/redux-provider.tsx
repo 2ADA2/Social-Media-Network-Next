@@ -34,6 +34,7 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
           store.dispatch(logout());
           localStorage.removeItem("token");
           updateToken("");
+          1;
         } finally {
           store.dispatch(initUserStore());
           updateToken(token);
