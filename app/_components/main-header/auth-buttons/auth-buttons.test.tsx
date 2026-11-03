@@ -1,5 +1,4 @@
 import { describe, expect, test } from "vitest";
-import { render } from "vitest-browser-react";
 import { AuthButtons } from "./";
 import { ROUTES } from "@/app/lib/routes";
 import { renderWithRouter } from "@/test/render-with-router";

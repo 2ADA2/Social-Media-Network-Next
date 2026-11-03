@@ -14,11 +14,10 @@ import { useMemo, useState } from "react";
 import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
 import { ROUTES } from "@/app/lib/routes";
 import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 export default function SignInForm() {
   const t = useTranslations("auth");
-  const locale = useLocale();
   const { signin } = useAuth();
   const { add } = useNotifications();
   const [isPending, setIsPending] = useState(false);
