@@ -87,7 +87,7 @@ export default function SignInForm() {
         />
 
         <Button type="submit" disabled={isPending}>
-          {t("signIn.submit")}
+          {isPending ? t("signIn.loading") : t("signIn.submit")}
         </Button>
       </form>
 

@@ -120,7 +120,7 @@ export default function SignUpForm() {
         </div>
 
         <Button type="submit" disabled={isPending} data-testid="submit-button">
-          {t("signUp.submit")}
+          {isPending ? t("signIn.loading") : t("signUp.submit")}
         </Button>
       </form>
 
