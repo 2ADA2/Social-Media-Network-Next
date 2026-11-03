@@ -21,7 +21,7 @@ const createCommentResponseSchema = z.object({
   postId: z.number(),
   creationDate: z.string(),
   modifiedDate: z.string(),
-  author: publicUserResponseSchema.nullable(),
+  author: publicUserResponseSchema.nullable().optional(),
 });
 
 export interface CreateCommentParams {

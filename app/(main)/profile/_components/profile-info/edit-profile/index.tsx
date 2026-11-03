@@ -8,7 +8,7 @@ import UserIcon from "@/shared/assets/icons/user.svg";
 import Pen from "@/shared/assets/icons/pen.svg";
 import { TextArea } from "@/shared/ui/text-area";
 import { Button } from "@/shared/ui/button";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import "./edit-profile.css";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,14 +20,15 @@ import { useUpdateProfile } from "@/features/edit-profile/use-update-profile";
 import { useModal } from "@/shared/lib/hooks/use-modal";
 import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
 import { Avatar } from "@/shared/ui/avatar";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { UpdateProfileImageModal } from "./modals/update-profile-image-modal";
 import { ConfirmPasswordModal } from "./modals/confirm-password-modal";
 import { Loader } from "@/shared/ui/loader";
+import { useAppSelector } from "@/app/store/hooks";
+import { selectIsInit } from "@/entities/user/model/selectors";
 
 export const EditProfile = () => {
   const t = useTranslations("profile");
-  const locale = useLocale();
   const { user } = useUser();
   const { mutate: updateProfile, isPending } = useUpdateProfile();
   const {
@@ -41,7 +42,7 @@ export const EditProfile = () => {
     close: closeConfirm,
   } = useModal();
   const { add } = useNotifications();
-  const [isMounted, setIsMounted] = useState(false);
+  const isUserInit = useAppSelector(selectIsInit);
 
   const schema = useMemo(() => editProfileSchema(t), [t]);
 
@@ -62,17 +63,11 @@ export const EditProfile = () => {
     formState: { dirtyFields },
     reset,
     watch,
-    trigger,
   } = useForm<EditProfileSchema>({
     resolver: zodResolver(schema),
     defaultValues,
     mode: "onChange",
   });
-
-  useEffect(() => {
-    setIsMounted(true);
-    trigger();
-  }, [locale, trigger]);
 
   useEffect(() => {
     if (user) {
@@ -143,7 +138,7 @@ export const EditProfile = () => {
     }
   };
 
-  if (!isMounted) {
+  if (!isUserInit) {
     return <Loader />;
   }
 

@@ -8,9 +8,9 @@ import {
   logout,
   setCredentials,
 } from "@/entities/user/model/user-slice";
-import { userQueries } from "@/features/auth/me";
-import { createQueryClient } from "@/shared/api/queryClient";
 import updateToken from "@/shared/lib/update-token";
+import { apiClient } from "@/shared/api/api-client";
+import { UserResponse, mapUser } from "@/entities/user";
 
 export function ReduxProvider({ children }: { children: React.ReactNode }) {
   const storeRef = useRef<AppStore>(undefined);
@@ -28,16 +28,16 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
     if (token) {
       (async () => {
         try {
-          const user = await createQueryClient().fetchQuery(userQueries.me());
+          const response = await apiClient.get<UserResponse>("/api/me");
+          const user = mapUser(response.data);
           store.dispatch(setCredentials({ user, token }));
+          updateToken(token);
         } catch {
           store.dispatch(logout());
           localStorage.removeItem("token");
           updateToken("");
-          1;
         } finally {
           store.dispatch(initUserStore());
-          updateToken(token);
         }
       })();
     } else {

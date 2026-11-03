@@ -132,8 +132,8 @@ export const Post = ({ post, isFirst }: PostProps) => {
         <PostImage
           src={hasImageError ? DEFAULT_IMAGE : post.image}
           alt={post.title}
-          width={100}
-          height={100}
+          width={1920}
+          height={1080}
           loading={isFirst ? "eager" : "lazy"}
           onError={onImageError}
         />

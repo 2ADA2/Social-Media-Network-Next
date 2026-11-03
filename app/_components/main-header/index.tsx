@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -17,26 +17,24 @@ import { useAuth } from "@/features/auth/use-auth";
 import { ROUTES } from "@/app/lib/routes";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useAppSelector } from "@/app/store/hooks";
+import { selectIsInit } from "@/entities/user/model/selectors";
 
 export interface HeaderProps {
   hiddenNav?: boolean;
 }
 
-const NavBar = dynamic(() => import('./navbar').then(m => m.NavBar), {
+const NavBar = dynamic(() => import("./navbar").then((m) => m.NavBar), {
   ssr: false,
-})
+});
 
 export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
   const { isAuth } = useAuth();
   const [isNavBar, setIsNavBar] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const isUserInit = useAppSelector(selectIsInit);
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const toggleNavBar = () => {
     setIsNavBar((prev) => !prev);
@@ -54,7 +52,8 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
           bgcolor: "var(--bg-primary)",
           display: "flex",
           alignItems: "center",
-        }}>
+        }}
+      >
         <Box
           component={Link}
           href={ROUTES.HOME}
@@ -64,7 +63,8 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
             gap: 0.75,
             color: "var(--color-primary)",
             textDecoration: "none",
-          }}>
+          }}
+        >
           <Box
             sx={{
               height: 24,
@@ -76,7 +76,8 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
                   md: "scale(1)",
                 },
               },
-            }}>
+            }}
+          >
             <SidekickLogo />
           </Box>
           <Typography
@@ -86,18 +87,21 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
               letterSpacing: 0,
               fontSize: { xs: 10, md: 16 },
               fontFamily: "inherit",
-            }}>
+            }}
+          >
             sidekick
           </Typography>
         </Box>
 
-        {!hiddenNav && isMounted && (
+        {!hiddenNav && isUserInit && (
           <>
             {!isDesktop && <BurgerMenu onClick={toggleNavBar} />}
 
             {isDesktop && (isAuth ? <UserNav /> : <AuthButtons />)}
 
-            {isNavBar && <NavBar setNavBar={toggleNavBar} isOpen={isNavBar} />}
+            {isNavBar && !isDesktop && (
+              <NavBar setNavBar={toggleNavBar} isOpen={isNavBar} />
+            )}
           </>
         )}
       </Toolbar>
