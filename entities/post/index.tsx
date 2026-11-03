@@ -31,6 +31,7 @@ import { DeletePostButton } from "@/features/delete-post";
 import { useState } from "react";
 
 const MAX_COMMENTS_HEIGHT = 1000;
+const DEFAULT_IMAGE = "/assets/default-image.png";
 
 interface PostProps {
   post: PostType;
@@ -49,10 +50,12 @@ export const Post = ({ post, isFirst }: PostProps) => {
   const [showComments, setShowComments] = useState(false);
   const currentUserId = Number(useAppSelector(selectUserId)) || -1;
 
+  const [hasImageError, setHasImageError] = useState(false);
+
   const [liked, setLiked] = useState(
     checkLiked(post.likedByUsers, currentUserId),
   );
-  const likes = post.likesCount;
+  const [likes, setLikes] = useState(post.likesCount);
   const comments = post.commentsCount;
 
   const { mutate: toggleLike, isPending: isLiking } = useLikePost();
@@ -71,12 +74,18 @@ export const Post = ({ post, isFirst }: PostProps) => {
 
   const handleLike = () => {
     if (!isAuth || isLiking) return;
+
+    setLikes((prev) => (liked ? prev - 1 : prev + 1));
     setLiked((prev) => !prev);
     toggleLike({ postId: post.id, liked });
   };
 
   const toggleComments = () => {
     setShowComments((prev) => !prev);
+  };
+
+  const onImageError = () => {
+    setHasImageError(true);
   };
 
   const date = formatRelativeTime(post.creationDate, locale);
@@ -121,11 +130,12 @@ export const Post = ({ post, isFirst }: PostProps) => {
 
       {post.image && (
         <PostImage
-          src={post.image}
+          src={hasImageError ? DEFAULT_IMAGE : post.image}
           alt={post.title}
           width={100}
           height={100}
           loading={isFirst ? "eager" : "lazy"}
+          onError={onImageError}
         />
       )}
 
@@ -135,14 +145,16 @@ export const Post = ({ post, isFirst }: PostProps) => {
         <CoverButton
           onClick={handleLike}
           aria-pressed={liked}
-          aria-label={t("post.likeButton")}>
+          aria-label={t("post.likeButton")}
+        >
           <ControlContainer>
             <StyledSVG $active={liked}>
               <animated.div
                 style={{
                   transform: heartSpring.scale.to((s) => `scale(${s})`),
                   display: "flex",
-                }}>
+                }}
+              >
                 <HeartIcon />
               </animated.div>
             </StyledSVG>
@@ -156,7 +168,8 @@ export const Post = ({ post, isFirst }: PostProps) => {
 
         <CoverButton
           onClick={toggleComments}
-          aria-label={t("post.commentsButton")}>
+          aria-label={t("post.commentsButton")}
+        >
           <ControlContainer>
             <StyledSVG $active={false}>
               <CommentIcon />
@@ -175,8 +188,8 @@ export const Post = ({ post, isFirst }: PostProps) => {
         </CoverButton>
       </PostControl>
 
-      {isAuth
-        && transitions(
+      {isAuth &&
+        transitions(
           (style, item) =>
             item && (
               <animated.div style={{ ...style, overflow: "hidden" }}>

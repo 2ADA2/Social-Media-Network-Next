@@ -42,7 +42,6 @@ export const NavBar = ({ setNavBar, isOpen }: NavBarProps) => {
   const transitions = useTransition(isOpen, {
     from: { opacity: 0, transform: "translateX(100%)" },
     enter: { opacity: 1, transform: "translateX(0%)" },
-    leave: { opacity: 0, transform: "translateX(100%)" },
     config: { tension: 300, friction: 30 },
   });
 
@@ -62,13 +61,15 @@ export const NavBar = ({ setNavBar, isOpen }: NavBarProps) => {
           ref={navRef}
           role="dialog"
           aria-modal="true"
-          aria-label={t("navbar.label")}>
+          aria-label={t("navbar.label")}
+        >
           <div className={styles.navHeader}>
             <button
               type="button"
               className={styles.navClose}
               onClick={setNavBar}
-              aria-label={t("navbar.close")}>
+              aria-label={t("navbar.close")}
+            >
               <SidekickLogo />
               <span>sidekick</span>
             </button>

@@ -10,6 +10,7 @@ import { userQueries } from "@/features/auth/me";
 import { fetchLogout } from "@/features/auth/logout";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import updateToken from "@/shared/lib/update-token";
 
 export const useAuth = () => {
   const router = useRouter();
@@ -27,9 +28,10 @@ export const useAuth = () => {
       const { token } = await signinRequest({ email, password });
       await auth(token);
       localStorage.setItem("token", token);
-      document.cookie = `token=${token}; path=/; max-age=7200; SameSite=Lax;`;
+      updateToken(token);
     } catch (e) {
       localStorage.removeItem("token");
+      updateToken("");
       throw e;
     } finally {
       router.refresh();
@@ -55,7 +57,7 @@ export const useAuth = () => {
       localStorage.removeItem("token");
       dispatch(logoutAction());
       queryClient.clear();
-      document.cookie = `token=; path=/;`;
+      updateToken("");
       router.refresh();
     }
   };

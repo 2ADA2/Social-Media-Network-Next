@@ -1,15 +1,20 @@
-'use client';
+"use client";
 
-import { Provider } from 'react-redux';
-import { useRef, useEffect } from 'react';
-import { makeStore, type AppStore } from '@/app/store/user-store';
-import { initUserStore, logout, setCredentials } from '@/entities/user/model/user-slice';
-import { userQueries } from '@/features/auth/me';
-import { createQueryClient } from '@/shared/api/queryClient';
+import { Provider } from "react-redux";
+import { useRef, useEffect } from "react";
+import { makeStore, type AppStore } from "@/app/store/user-store";
+import {
+  initUserStore,
+  logout,
+  setCredentials,
+} from "@/entities/user/model/user-slice";
+import { userQueries } from "@/features/auth/me";
+import { createQueryClient } from "@/shared/api/queryClient";
+import updateToken from "@/shared/lib/update-token";
 
 export function ReduxProvider({ children }: { children: React.ReactNode }) {
   const storeRef = useRef<AppStore>(undefined);
-  
+
   if (!storeRef.current) {
     storeRef.current = makeStore();
   }
@@ -18,7 +23,7 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
     const store = storeRef.current;
     if (!store) return;
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (token) {
       (async () => {
@@ -27,15 +32,16 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
           store.dispatch(setCredentials({ user, token }));
         } catch {
           store.dispatch(logout());
-          localStorage.removeItem('token');
+          localStorage.removeItem("token");
+          updateToken("");
         } finally {
           store.dispatch(initUserStore());
-          document.cookie = `token=${token}; path=/; max-age=7200; SameSite=Lax;`;
+          updateToken(token);
         }
       })();
     } else {
       store.dispatch(initUserStore());
-      document.cookie = `token=; path=/; max-age=7200; SameSite=Lax;`;
+      updateToken("");
     }
   }, []);
 

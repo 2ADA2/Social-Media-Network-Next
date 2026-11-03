@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   const t = useTranslations("not-found");
+
   return (
     <div className={styles.notFoundPage}>
       <NotFoundIcon />
