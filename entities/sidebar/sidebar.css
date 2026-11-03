@@ -1,0 +1,17 @@
+.sidebar {
+  box-sizing: border-box;
+  background-color: var(--bg-primary);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 2px solid var(--border-primary);
+  width: 100%;
+
+  h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+}

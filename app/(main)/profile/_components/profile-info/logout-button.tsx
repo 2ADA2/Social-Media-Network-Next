@@ -1,0 +1,22 @@
+"use client";
+
+import { useAuth } from "@/features/auth/use-auth";
+import { Button } from "@/shared/ui/button";
+import { useTranslations } from "next-intl";
+import { redirect } from "next/navigation";
+
+export const LogoutButton = () => {
+  const t = useTranslations("profile");
+  const { logout } = useAuth();
+
+  const onLogout = () => {
+    logout();
+    redirect("/");
+  };
+
+  return (
+    <Button className="logout-button" onClick={onLogout}>
+      {t("actions.logout")}
+    </Button>
+  );
+};

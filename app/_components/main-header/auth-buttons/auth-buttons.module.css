@@ -1,0 +1,16 @@
+.headerAuthNav {
+  display: flex;
+  gap: 32px;
+  margin-right: 32px;
+}
+
+.headerAuthNav a {
+  text-decoration: none;
+  font-size: 16px;
+  color: var(--color-primary);
+}
+
+.headerAuthNav a:hover {
+  color: var(--color-accent);
+  background-color: var(--bg-primary);
+}

@@ -1,0 +1,23 @@
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+
+  .user-card-info{
+    display: flex;
+    flex-direction: column;
+
+    div {
+      line-height: 150%;
+    }
+
+    .user-card-about {
+      color: var(--color-muted);
+    }
+
+    .user-card-title{
+      color: var(--color-primary);
+    }
+  }
+}

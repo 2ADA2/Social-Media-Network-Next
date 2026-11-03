@@ -1,0 +1,110 @@
+.errorPage {
+  box-sizing: border-box;
+  height: 100dvh;
+  width: 100vw;
+  padding: 12px;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  text-align: center;
+  line-height: 150%;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.errorPage svg {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 24px;
+}
+
+.errorPage svg path {
+  fill: var(--color-primary);
+}
+
+.errorPage button,
+.errorPage a {
+  padding: 0 4px;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.errorPage small {
+  margin-top: 8px;
+  font-weight: 500;
+  line-height: 100%;
+  font-size: 14px;
+}
+
+.detailsContainer {
+  position: relative;
+  width: 100%;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+}
+
+.detailsContainer div {
+  text-align: left;
+  line-height: 130%;
+}
+
+.detailsContainer summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+.errorFallbackDetails {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 768px) {
+  .errorPage {
+    font-size: 40px;
+  }
+  .errorPage svg {
+    width: 120px;
+    height: 120px;
+  }
+  .errorPage details,
+  .errorPage summary,
+  .errorPage pre {
+    height: 36px;
+  }
+  .errorPage small {
+    font-size: 16px;
+  }
+  .errorPage details {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .errorPage {
+    font-size: 60px;
+  }
+  .errorPage svg {
+    width: 120px;
+    height: 120px;
+  }
+  .errorPage small {
+    font-size: 24px;
+  }
+}

@@ -1,0 +1,22 @@
+.stats-chart {
+  flex-grow: 1;
+  width: 100%;
+
+  .chart {
+    height: 450px;
+    box-sizing: border-box;
+    background: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    border: 1px solid var(--border-primary);
+  }
+}
+
+@media ( min-width: 768px) {
+  .stats-chart {
+    flex-grow: 1;
+    width: 50%;
+  }
+}

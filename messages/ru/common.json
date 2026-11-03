@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "signIn": "Войти",
+    "signUp": "Зарегистрироваться",
+    "profile": "Профиль",
+    "statistics": "Статистика",
+    "menu": "Меню"
+  },
+  "fileInput": {
+    "selectFile": "Выберите файл",
+    "orDragAndDrop": "или перетащите сюда",
+    "formats": "JPG, PNG",
+    "formatsWithPdf": "JPG, PNG, PDF",
+    "sizeLimit": "размер файла не более {size} МБ",
+    "remove": "Удалить файл"
+  },
+  "error": {
+    "title": "Ой...",
+    "subtitle": "Что-то пошло не так",
+    "youCan": "Вы можете",
+    "backToHome": "Вернуться на главную",
+    "orTryTo": "или попробовать",
+    "reload": "перезагрузить",
+    "thePage": "страницу",
+    "details": "Детали",
+    "unknownError": "неизвестная ошибка"
+  },
+  "passwordInput": {
+    "defaultInfo": "Ваш пароль надёжный"
+  },
+  "notifications": {
+    "region": "Уведомления"
+  },
+  "notification": {
+    "close": "Закрыть уведомление"
+  },
+  "modal": {
+    "defaultTitle": "Диалог",
+    "close": "Закрыть модальное окно"
+  },
+  "navbar": {
+    "label": "Меню навигации",
+    "close": "Закрыть меню"
+  },
+  "loader": {
+    "loading": "Загрузка"
+  }
+}

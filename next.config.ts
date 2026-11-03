@@ -1,10 +1,12 @@
-import type { NextConfig } from 'next';
-import withBundleAnalyzer from '@next/bundle-analyzer';
-import path from 'path';
+import type {NextConfig} from 'next';
+import path from 'path'
+import {createRequire} from 'module';
+import createNextIntlPlugin from 'next-intl/plugin';
 
-const withAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-});
+const withNextIntl = createNextIntlPlugin();
+
+const require = createRequire(import.meta.url);
+const svgrLoaderPath = require.resolve('@svgr/webpack');
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
@@ -14,16 +16,20 @@ const nextConfig: NextConfig = {
     resolveAlias: {
       '@': path.resolve(__dirname),
     },
-    rules: {
-      '*.css': {
-        loaders: ['@tailwindcss/turbopack'],
-        as: '*.css',
-      },
+    rules: { 
       '*.svg': {
-        loaders: ['@svgr/webpack'],
+        loaders: [svgrLoaderPath], 
         as: '*.js',
       },
     },
+  },  
+  
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: [svgrLoaderPath],
+    });
+    return config;
   },
 
   async rewrites() {
@@ -36,4 +42,4 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['@electric-sql/pglite'],
 };
 
-export default withAnalyzer(nextConfig);
+export default withNextIntl(nextConfig);

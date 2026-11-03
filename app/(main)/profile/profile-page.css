@@ -1,0 +1,9 @@
+.profile-page {
+  padding: 12px;
+
+  .tabs-container {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+  }
+}

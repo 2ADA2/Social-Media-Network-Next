@@ -1,0 +1,84 @@
+.navWrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.navBackground {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+  box-sizing: border-box;
+  background: var(--bg-secondary);
+  height: 100dvh;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 70%;
+  border-left: 2px solid var(--border-primary);
+  will-change: transform;
+}
+
+.navContainer {
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 0 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.navbar a {
+  box-sizing: border-box;
+  text-decoration: none;
+  height: 44px;
+  color: var(--color-muted);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  background: var(--bg-primary);
+  padding: 8px;
+}
+
+.navbar a:hover {
+  background-color: var(--hover-primary);
+  color: var(--color-primary);
+}
+
+.navHeader {
+  box-sizing: border-box;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  background: var(--bg-primary);
+}
+
+.navHeader div {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.navHeader svg {
+  transform: scale(0.75);
+}
+
+.navClose {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  display: flex;
+  height: 24px;
+  padding: 0 4px;
+  align-items: center;
+  gap: 4px;
+}

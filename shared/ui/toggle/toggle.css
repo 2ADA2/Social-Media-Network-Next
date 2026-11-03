@@ -1,0 +1,25 @@
+.toggle {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  background: var(--toggle-bg);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background var(--transition-primary);
+  padding: 4px;
+}
+
+.thumb {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: var(--color-primary-static);
+  border-radius: 50%;
+  transition: transform var(--transition-primary);
+}
+
+.toggle.active .thumb {
+  transform: translateX(20px);
+  background: var(--color-accent);
+}
