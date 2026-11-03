@@ -47,7 +47,7 @@ export const NavBar = ({ setNavBar, isOpen }: NavBarProps) => {
 
   return transitions((style, item) =>
     item ? (
-      <div className={styles.navWrapper}>
+      <div className={styles.navWrapper} data-testid="navbar">
         <div
           className={styles.navBackground}
           onClick={setNavBar}

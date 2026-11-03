@@ -23,7 +23,7 @@ export default function SignInForm() {
   const { add } = useNotifications();
   const [isPending, setIsPending] = useState(false);
 
-  const schema = useMemo(() => createSignInSchema(t), [t, locale]);
+  const schema = useMemo(() => createSignInSchema(t), [t]);
 
   const { control, handleSubmit } = useForm<SignInFormData>({
     resolver: zodResolver(schema),

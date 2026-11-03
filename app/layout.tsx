@@ -3,7 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 import { ThemeScript } from "./lib/themeScript";
 
 export const instant = false;
@@ -32,10 +32,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${poppins.variable}`} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${inter.variable} ${poppins.variable}`}
+      suppressHydrationWarning
+    >
       <body>
         <ThemeScript />
         <NextIntlClientProvider>

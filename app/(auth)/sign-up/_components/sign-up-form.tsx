@@ -18,13 +18,13 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 
 export default function SignUpForm() {
-  const t = useTranslations('auth');
+  const t = useTranslations("auth");
   const locale = useLocale();
   const { signup } = useAuth();
   const { add } = useNotifications();
   const [isPending, setIsPending] = useState(false);
 
-  const schema = useMemo(() => createSignupSchema(t), [t, locale]);
+  const schema = useMemo(() => createSignupSchema(t), [t]);
 
   const { control, handleSubmit } = useForm<SignUpFormData>({
     resolver: zodResolver(schema),

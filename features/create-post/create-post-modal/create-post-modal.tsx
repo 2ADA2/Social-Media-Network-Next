@@ -1,27 +1,27 @@
-import { type ChangeEvent, useMemo, useState } from 'react';
-import MailIcon from '@/shared/assets/icons/mail.svg';
-import PenIcon from '@/shared/assets/icons/pen.svg';
-import { FileInput } from '@/shared/ui/file-input';
-import { useLocale, useTranslations } from "next-intl";
+import { type ChangeEvent, useMemo, useState } from "react";
+import MailIcon from "@/shared/assets/icons/mail.svg";
+import PenIcon from "@/shared/assets/icons/pen.svg";
+import { FileInput } from "@/shared/ui/file-input";
+import { useTranslations } from "next-intl";
 import {
   StyledForm,
   StyledInput,
   StyledTextArea,
   StyledTitle,
-} from '@/features/create-post/create-post-modal/create-post-modal.styles';
-import { StyledButton } from '@/features/create-post/create-post.styles';
-import { Controller, useForm } from 'react-hook-form';
+} from "@/features/create-post/create-post-modal/create-post-modal.styles";
+import { StyledButton } from "@/features/create-post/create-post.styles";
+import { Controller, useForm } from "react-hook-form";
 import {
   createPostSchema,
   type CreatePostData,
-} from '@/features/create-post/create-post-modal/create-post-schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useCreatePost } from '@/features/create-post/hooks/use-create-post';
-import { Modal } from '@/shared/ui/modal';
-import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
+} from "@/features/create-post/create-post-modal/create-post-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useCreatePost } from "@/features/create-post/hooks/use-create-post";
+import { Modal } from "@/shared/ui/modal";
+import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
 
 const MAX_SIZE = 10 * 1024 * 1024;
-const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'application/pdf'];
+const ALLOWED_TYPES = ["image/png", "image/jpeg", "application/pdf"];
 
 export interface CreateModalProps {
   isOpen: boolean;
@@ -34,10 +34,9 @@ export const CreatePostModal = ({
   onClose,
   onAdd,
 }: CreateModalProps) => {
-  const t = useTranslations('main');
-  const locale = useLocale();
+  const t = useTranslations("main");
   const [file, setFile] = useState<File | null>(null);
-  const [fileName, setFileName] = useState('');
+  const [fileName, setFileName] = useState("");
   const { add } = useNotifications();
 
   const { mutate: createPost } = useCreatePost();
@@ -46,8 +45,8 @@ export const CreatePostModal = ({
 
   const { control, handleSubmit, reset } = useForm<CreatePostData>({
     resolver: zodResolver(schema),
-    defaultValues: { title: '', description: '' },
-    mode: 'onTouched',
+    defaultValues: { title: "", description: "" },
+    mode: "onTouched",
   });
 
   const changeFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -55,20 +54,20 @@ export const CreatePostModal = ({
 
     if (!selectedFile) {
       setFile(null);
-      setFileName('');
+      setFileName("");
       return;
     }
 
     if (!ALLOWED_TYPES.includes(selectedFile.type)) {
-      add({ message: t('createPostModal.fileTypeError'), type: 'error' });
-      e.target.value = '';
+      add({ message: t("createPostModal.fileTypeError"), type: "error" });
+      e.target.value = "";
       setFile(null);
       return;
     }
 
     if (selectedFile.size > MAX_SIZE) {
-      add({ message: t('createPostModal.fileSizeError'), type: 'error' });
-      e.target.value = '';
+      add({ message: t("createPostModal.fileSizeError"), type: "error" });
+      e.target.value = "";
       setFile(null);
       return;
     }
@@ -84,15 +83,15 @@ export const CreatePostModal = ({
         onSuccess: (newPost) => {
           reset();
           setFile(null);
-          setFileName('');
+          setFileName("");
           onClose();
-          add({ message: t('createPostModal.success') });
+          add({ message: t("createPostModal.success") });
           onAdd(newPost.id);
         },
         onError: (e) => {
           add({
-            message: t('createPostModal.error', { message: e.message }),
-            type: 'error',
+            message: t("createPostModal.error", { message: e.message }),
+            type: "error",
           });
         },
       },
@@ -102,7 +101,7 @@ export const CreatePostModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <StyledForm onSubmit={handleSubmit(submitForm)} noValidate>
-        <StyledTitle>{t('createPostModal.title')}</StyledTitle>
+        <StyledTitle>{t("createPostModal.title")}</StyledTitle>
         <Controller
           name="title"
           control={control}
@@ -110,10 +109,10 @@ export const CreatePostModal = ({
             <StyledInput
               {...field}
               icon={<MailIcon />}
-              label={t('createPostModal.titleLabel')}
+              label={t("createPostModal.titleLabel")}
               name="title"
               error={error?.message}
-              placeholder={t('createPostModal.titlePlaceholder')}
+              placeholder={t("createPostModal.titlePlaceholder")}
             />
           )}
         />
@@ -125,15 +124,15 @@ export const CreatePostModal = ({
               $filled={!!error?.message}
               {...field}
               icon={<PenIcon />}
-              label={t('createPostModal.descriptionLabel')}
+              label={t("createPostModal.descriptionLabel")}
               name="description"
-              placeholder={t('createPostModal.descriptionPlaceholder')}
+              placeholder={t("createPostModal.descriptionPlaceholder")}
               errorMessage={error?.message}
             />
           )}
         />
         <FileInput name="image" fileName={fileName} onChange={changeFile} />
-        <StyledButton type="submit">{t('createPostModal.submit')}</StyledButton>
+        <StyledButton type="submit">{t("createPostModal.submit")}</StyledButton>
       </StyledForm>
     </Modal>
   );
