@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -32,6 +32,7 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
   const { isAuth } = useAuth();
   const [isNavBar, setIsNavBar] = useState(false);
   const isUserInit = useAppSelector(selectIsInit);
+  const [isMounted, setIsMounted] = useState(false);
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
@@ -39,6 +40,10 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
   const toggleNavBar = () => {
     setIsNavBar((prev) => !prev);
   };
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <AppBar position="static" elevation={0}>
@@ -93,7 +98,7 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
           </Typography>
         </Box>
 
-        {!hiddenNav && isUserInit && (
+        {!hiddenNav && isUserInit && isMounted && (
           <>
             {!isDesktop && <BurgerMenu onClick={toggleNavBar} />}
 
