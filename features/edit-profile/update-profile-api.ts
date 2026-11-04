@@ -8,7 +8,7 @@ const updateProfileRequestSchema = z.object({
   firstName: z.string().optional(),
   secondName: z.string().optional(),
   description: z.string().optional(),
-  profileImage: z.string().optional(),
+  profileImage: z.string().nullable().optional(),
 });
 
 type UpdateProfileParams = z.infer<typeof updateProfileRequestSchema>;

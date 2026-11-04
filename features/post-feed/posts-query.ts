@@ -7,7 +7,7 @@ import z from "zod";
 import { AxiosError } from "axios";
 
 const POSTS_LIMIT = 20;
-const CACHE_TIME = 5 * 60 * 1000;
+const CACHE_TIME = 0;
 
 const postResponseSchema = z.object({
   id: z.number(),
