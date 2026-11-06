@@ -6,12 +6,14 @@ describe("MainFooter", () => {
   test("renders copyright text", async () => {
     const screen = await render(<MainFooter />);
 
-    expect(screen.getByText(/© 2026 Sidekick/i)).toBeInTheDocument();
+    await expect
+      .element(screen.getByText(/© 2026 Sidekick/i))
+      .toBeInTheDocument();
   });
 
   test("renders as footer landmark", async () => {
     const screen = await render(<MainFooter />);
 
-    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+    await expect.element(screen.getByRole("contentinfo")).toBeInTheDocument();
   });
 });
