@@ -109,7 +109,7 @@ test.describe("main page", () => {
       await expect(
         post.getByText("playwright comments this post"),
       ).toBeVisible();
-      await expect.element(page.getByTestId("notification")).toBeVisible();
+      await expect(page.getByTestId("notification")).toBeVisible();
     });
 
     test("Deletes a comment and shows notification", async ({ page }) => {
@@ -129,7 +129,7 @@ test.describe("main page", () => {
       });
       await deleteCommentButton.click();
 
-      await expect.element(page.getByTestId("notification"));
+      await expect(page.getByTestId("notification"));
       await expect(post.getByText(COMMENT_TEXT)).not.toBeVisible();
     });
   });
