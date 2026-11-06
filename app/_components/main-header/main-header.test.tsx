@@ -77,12 +77,12 @@ describe("Header component", () => {
 
       await user.click(screen.getByRole("button", { name: "nav.menu" }));
 
-      await expect(
-        screen.getByRole("link", { name: "nav.profile" }),
-      ).toBeVisible();
-      await expect(
-        screen.getByRole("link", { name: "nav.statistics" }),
-      ).toBeVisible();
+      await expect
+        .element(screen.getByRole("link", { name: "nav.profile" }))
+        .toBeVisible();
+      await expect
+        .element(screen.getByRole("link", { name: "nav.statistics" }))
+        .toBeVisible();
     });
 
     test("shows dialog and closes", async () => {
@@ -92,11 +92,11 @@ describe("Header component", () => {
 
       await user.click(screen.getByRole("button", { name: "nav.menu" }));
 
-      await expect(screen.getByRole("dialog")).toBeVisible();
+      await expect.element(screen.getByRole("dialog")).toBeVisible();
 
       await user.click(screen.getByRole("button", { name: "navbar.close" }));
 
-      await expect(screen.getByRole("dialog")).not.toBeInTheDocument();
+      await expect.element(screen.getByRole("dialog")).not.toBeInTheDocument();
     });
   });
 
@@ -152,7 +152,7 @@ describe("Header component", () => {
 
       await user.click(screen.getByRole("button", { name: "nav.menu" }));
 
-      await expect(screen.getByRole("dialog")).toBeVisible();
+      await expect.element(screen.getByRole("dialog")).toBeVisible();
     });
 
     test("dialog provides sign in and sign up links", async () => {
@@ -177,11 +177,11 @@ describe("Header component", () => {
 
       await user.click(screen.getByRole("button", { name: "nav.menu" }));
 
-      await expect(screen.getByRole("dialog")).toBeVisible();
+      await expect.element(screen.getByRole("dialog")).toBeInTheDocument();
 
       await user.click(screen.getByRole("button", { name: "navbar.close" }));
 
-      await expect(screen.getByRole("dialog")).not.toBeInTheDocument();
+      await expect.element(screen.getByRole("dialog")).not.toBeInTheDocument();
     });
   });
 });

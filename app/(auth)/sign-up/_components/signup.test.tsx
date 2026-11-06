@@ -85,9 +85,15 @@ describe("SignUp", () => {
     await user.click(submitButton);
 
     await expect(firstNameField).not.toHaveAttribute("aria-invalid", "true");
-    await expect(screen.getByText("validation.secondNameMax")).toBeVisible();
-    await expect(screen.getByText("validation.emailInvalid")).toBeVisible();
-    await expect(screen.getByText("validation.passwordDigit")).toBeVisible();
+    await expect
+      .element(screen.getByText("validation.secondNameMax"))
+      .toBeVisible();
+    await expect
+      .element(screen.getByText("validation.emailInvalid"))
+      .toBeVisible();
+    await expect
+      .element(screen.getByText("validation.passwordDigit"))
+      .toBeVisible();
 
     expect(mockSignup).not.toHaveBeenCalled();
     expect(mockAdd).not.toHaveBeenCalled();
