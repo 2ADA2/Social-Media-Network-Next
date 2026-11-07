@@ -1,0 +1,25 @@
+services:
+  frontend:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - WATCHPACK_POLLING=true
+      - TURBOPACK_POLLING=true
+      - API_URL=http://backend:4000
+    command: npm run dev
+    depends_on:
+      - backend
+
+  backend:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run backend

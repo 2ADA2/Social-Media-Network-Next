@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --webpack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -16,7 +16,9 @@
     "dev:all": "concurrently -n next,api \"npm:dev\" \"npm:backend\"",
     "docker:build": "docker build -t social-next .",
     "docker:run": "docker run -d -p 3000:3000 -p 4000:4000 --name social-next social-next",
-    "docker:stop": "docker rm -f social-next"
+    "docker:stop": "docker rm -f social-next",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
