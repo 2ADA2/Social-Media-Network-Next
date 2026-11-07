@@ -13,7 +13,10 @@
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
     "prepare": "husky",
-    "dev:all": "concurrently -n next,api \"npm:dev\" \"npm:backend\""
+    "dev:all": "concurrently -n next,api \"npm:dev\" \"npm:backend\"",
+    "docker:build": "docker build -t social-next .",
+    "docker:run": "docker run -d -p 3000:3000 -p 4000:4000 --name social-next social-next",
+    "docker:stop": "docker rm -f social-next"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
