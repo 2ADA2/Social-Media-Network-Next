@@ -90,9 +90,15 @@ jobs:
           npm run dev > frontend.log 2>&1 &
           echo "Frontend started in background"
 
-      - name: Wait for servers to be ready
+      - name: Wait for backend
         run: |
-          npx wait-on http://127.0.0.1:4000/api/posts http://127.0.0.1:3000 --timeout 60000
+          echo "Trying IPv4..."
+          timeout 60 bash -c 'until curl -4 -s http://127.0.0.1:4000/api/posts > /dev/null; do sleep 2; done' || \
+          (echo "Trying IPv6..." && timeout 60 bash -c 'until curl -6 -s http://[::1]:4000/api/posts > /dev/null; do sleep 2; done')
+
+      - name: Wait for frontend
+        run: |
+          timeout 60 bash -c 'until curl -s http://127.0.0.1:3000 > /dev/null; do sleep 2; done'
 
       - name: Show logs if wait-on failed
         if: failure()
