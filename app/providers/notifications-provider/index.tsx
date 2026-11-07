@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { type PropsWithChildren, useCallback, useRef, useState } from 'react';
-import { type AddNotificationProps, NotificationsContext } from './context';
-import { Notifications } from '@/widgets/notifications';
+import { type PropsWithChildren, useCallback, useRef, useState } from "react";
+import { type AddNotificationProps, NotificationsContext } from "./context";
+import { Notifications } from "@/widgets/notifications";
 
 export interface NotificationItem extends AddNotificationProps {
   id: number;

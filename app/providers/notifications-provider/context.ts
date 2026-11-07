@@ -1,9 +1,9 @@
-import { createContext } from 'react';
-import { NotificationItem } from '.';
+import { createContext } from "react";
+import { NotificationItem } from ".";
 
 export interface AddNotificationProps {
   message: string;
-  type?: 'success' | 'error';
+  type?: "success" | "error";
 }
 
 interface NotificationsContextInterface {

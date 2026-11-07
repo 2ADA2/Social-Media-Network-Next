@@ -1,6 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
-import { uploadImage } from '@/features/create-post/api/upload-image';
-import { createPostRequest } from '@/features/create-post/api/create-post';
+import { useMutation } from "@tanstack/react-query";
+import { uploadImage } from "@/features/create-post/api/upload-image";
+import { createPostRequest } from "@/features/create-post/api/create-post";
 
 export interface UseCreatePostParams {
   title: string;

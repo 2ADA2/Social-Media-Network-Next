@@ -3,7 +3,7 @@
 import Link from "next/link";
 import styles from "./fallback.module.css";
 import { ROUTES } from "@/app/lib/routes";
-import CrossIcon from '@/shared/assets/icons/cross-bold.svg';
+import CrossIcon from "@/shared/assets/icons/cross-bold.svg";
 import { useTranslations } from "next-intl";
 
 interface FallbackProps {
@@ -12,7 +12,7 @@ interface FallbackProps {
 }
 
 export const Fallback = ({ error, onReset }: FallbackProps) => {
-  const t = useTranslations('common');
+  const t = useTranslations("common");
 
   const retry = () => {
     window.location.reload();

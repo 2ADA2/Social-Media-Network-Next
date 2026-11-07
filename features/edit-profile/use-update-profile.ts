@@ -1,7 +1,7 @@
-import {useAppDispatch} from '@/app/store/hooks';
-import {setUser} from '@/entities/user/model/user-slice';
-import {updateProfileRequest} from '@/features/edit-profile/update-profile-api';
-import {useMutation, useQueryClient} from '@tanstack/react-query';
+import { useAppDispatch } from "@/app/store/hooks";
+import { setUser } from "@/entities/user/model/user-slice";
+import { updateProfileRequest } from "@/features/edit-profile/update-profile-api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useUpdateProfile = () => {
   const queryClient = useQueryClient();
@@ -12,9 +12,9 @@ export const useUpdateProfile = () => {
     onSuccess: (user) => {
       if (user !== undefined) {
         dispatch(setUser(user));
-        queryClient.setQueryData(['me'], user);
+        queryClient.setQueryData(["me"], user);
       } else {
-        throw new Error("cannot get user ( undefined )")
+        throw new Error("cannot get user ( undefined )");
       }
     },
   });

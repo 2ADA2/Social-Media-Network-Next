@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { dislikePost, likePost } from '@/features/like-post/like-post-api';
-import { useUser } from '@/entities/user/model/use-user';
-import { postsQueries } from '@/features/post-feed/posts-query';
-import { updatePostLikes } from '@/features/post-feed/update-posts-cache';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { dislikePost, likePost } from "@/features/like-post/like-post-api";
+import { useUser } from "@/entities/user/model/use-user";
+import { postsQueries } from "@/features/post-feed/posts-query";
+import { updatePostLikes } from "@/features/post-feed/update-posts-cache";
 
 interface LikeVariables {
   postId: number;

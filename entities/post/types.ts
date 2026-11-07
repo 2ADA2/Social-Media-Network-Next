@@ -21,21 +21,20 @@ export interface Post {
 }
 
 export interface Like {
-  id: number,
+  id: number;
   postId: number;
   userId: number;
   creationDate: string;
 }
 
 export interface Comment {
-  id: number,
+  id: number;
   text: string;
   postId: number;
   authorId: number;
   creationDate: string;
   modifiedDate: string;
 }
-
 
 export interface PostsPage {
   items: Post[];

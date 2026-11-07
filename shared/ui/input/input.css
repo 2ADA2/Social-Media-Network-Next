@@ -67,7 +67,6 @@
       height: 14px;
 
       path {
-
         fill: var(--color-muted);
       }
     }
@@ -85,7 +84,7 @@
       width: 12px;
       height: 12px;
       position: relative;
-      top:2px;
+      top: 2px;
 
       path {
         fill: var(--color-danger);

@@ -65,7 +65,8 @@
 }
 
 @media (min-width: 700px) {
-  .profile-page .edit-profile , .edit-profile form{
+  .profile-page .edit-profile,
+  .edit-profile form {
     gap: 32px;
 
     label.error {

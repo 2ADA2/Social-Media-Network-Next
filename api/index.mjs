@@ -2,4 +2,4 @@
 //
 // Vercel turns every file under `api/` into a function. This one hands the
 // request to the backend, which routes it exactly as the local server does.
-export { default } from '@sidekick-software/internship-backend/vercel';
+export { default } from "@sidekick-software/internship-backend/vercel";

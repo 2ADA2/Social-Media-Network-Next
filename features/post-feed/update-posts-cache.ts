@@ -1,6 +1,6 @@
-import type { InfiniteData } from '@tanstack/react-query';
-import type { PostsPage } from '@/entities/post/types';
-import type { LikeStatus } from '@/features/like-post/like-post-api';
+import type { InfiniteData } from "@tanstack/react-query";
+import type { PostsPage } from "@/entities/post/types";
+import type { LikeStatus } from "@/features/like-post/like-post-api";
 
 type PostsInfiniteData = InfiniteData<PostsPage>;
 
@@ -27,7 +27,7 @@ export const updatePostLikes = (
   if (!old || !currentUserId) return old;
 
   const userId = Number(currentUserId);
-  const isLiked = data.status === 'liked' || data.status === 'already_liked';
+  const isLiked = data.status === "liked" || data.status === "already_liked";
 
   return {
     ...old,

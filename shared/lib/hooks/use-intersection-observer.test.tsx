@@ -1,6 +1,6 @@
-import { describe, expect, test, vi } from 'vitest';
-import { useIntersectionObserver } from './use-intersection-observer';
-import { render, renderHook } from 'vitest-browser-react';
+import { describe, expect, test, vi } from "vitest";
+import { useIntersectionObserver } from "./use-intersection-observer";
+import { render, renderHook } from "vitest-browser-react";
 
 let intersectCallback: IntersectionObserverCallback;
 
@@ -16,10 +16,10 @@ const IntersectionObserverMock = vi.fn(
   },
 );
 
-vi.stubGlobal('IntersectionObserver', IntersectionObserverMock);
+vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
 
-describe('useIntersectionObserver hook', () => {
-  test('Doesnt create observer when ref is null', () => {
+describe("useIntersectionObserver hook", () => {
+  test("Doesnt create observer when ref is null", () => {
     const onIntersect = vi.fn();
 
     renderHook(() => useIntersectionObserver({ onIntersect }));
@@ -27,21 +27,21 @@ describe('useIntersectionObserver hook', () => {
     expect(IntersectionObserverMock).not.toHaveBeenCalled();
   });
 
-  test('Creates observer when ref is not null', async () => {
+  test("Creates observer when ref is not null", async () => {
     const onIntersect = vi.fn();
 
     const { result, rerender } = await renderHook(() =>
       useIntersectionObserver({ onIntersect: () => onIntersect }),
     );
 
-    result.current.current = document.createElement('div');
+    result.current.current = document.createElement("div");
 
     await rerender({ onIntersect: () => onIntersect });
 
     expect(IntersectionObserverMock).toHaveBeenCalled();
   });
 
-  test('Triggers callback when intersecting', async () => {
+  test("Triggers callback when intersecting", async () => {
     const onIntersect = vi.fn();
 
     const TestComponent = () => {
@@ -59,7 +59,7 @@ describe('useIntersectionObserver hook', () => {
     expect(onIntersect).toHaveBeenCalled();
   });
 
-  test('Doesnt Trigger callback when not intersecting', async () => {
+  test("Doesnt Trigger callback when not intersecting", async () => {
     const onIntersect = vi.fn();
 
     const TestComponent = () => {
@@ -77,7 +77,7 @@ describe('useIntersectionObserver hook', () => {
     expect(onIntersect).not.toHaveBeenCalled();
   });
 
-  test('Disconnects observer on unmount', async () => {
+  test("Disconnects observer on unmount", async () => {
     const onIntersect = vi.fn();
 
     const TestComponent = () => {

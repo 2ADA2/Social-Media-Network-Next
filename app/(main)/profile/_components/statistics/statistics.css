@@ -85,7 +85,7 @@
       flex-grow: 1;
     }
   }
-  .stats-heading{
+  .stats-heading {
     font-size: 28px;
   }
   .stats-cards {
@@ -95,7 +95,7 @@
 
     .stats-card {
       padding: 24px;
-      flex-grow:1;
+      flex-grow: 1;
       max-width: 320px;
 
       .stats-card-value {
@@ -104,4 +104,3 @@
     }
   }
 }
-

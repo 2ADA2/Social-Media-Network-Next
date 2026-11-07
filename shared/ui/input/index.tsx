@@ -1,8 +1,8 @@
-import { useId, type InputHTMLAttributes, type ReactNode } from 'react';
-import CheckIcon from '@/shared/assets/icons/check.svg';
-import CrossIcon from '@/shared/assets/icons/cross.svg';
-import './input.css';
-import { ShowInputInfo } from '@/shared/ui/show-input-info';
+import { useId, type InputHTMLAttributes, type ReactNode } from "react";
+import CheckIcon from "@/shared/assets/icons/check.svg";
+import CrossIcon from "@/shared/assets/icons/cross.svg";
+import "./input.css";
+import { ShowInputInfo } from "@/shared/ui/show-input-info";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -26,18 +26,22 @@ export const Input = ({
   const errorId = `${id}-error`;
 
   return (
-    <label htmlFor={id} className={`input-label ${error ? 'error' : ''}`} data-testid="input-label">
+    <label
+      htmlFor={id}
+      className={`input-label ${error ? "error" : ""}`}
+      data-testid="input-label"
+    >
       <div>
         {icon && <div className="input-icon">{icon}</div>}
         <span>{label}</span>
-        <div className={`input-status ${!isOk ? 'input-status-error' : ''}`}>
+        <div className={`input-status ${!isOk ? "input-status-error" : ""}`}>
           {isOk && <CheckIcon data-testid="input-ok-icon" />}
           {error && <CrossIcon data-testid="input-cross-icon" />}
         </div>
       </div>
 
       <input
-        data-testid='input'
+        data-testid="input"
         id={id}
         aria-invalid={!!error}
         aria-describedby={error ? errorId : undefined}
@@ -45,7 +49,7 @@ export const Input = ({
       />
 
       {(error || isOk) && (
-        <ShowInputInfo id={errorId} error={error} info={info || ''} />
+        <ShowInputInfo id={errorId} error={error} info={info || ""} />
       )}
     </label>
   );

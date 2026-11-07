@@ -5,7 +5,7 @@
   table {
     width: 100%;
 
-    .stats-table-head{
+    .stats-table-head {
       padding: 12px 0 6px 0;
     }
 
@@ -42,7 +42,7 @@
     border-bottom: 1px solid var(--bg-border);
   }
 
-  .text-right{
+  .text-right {
     width: 100px;
     text-align: center;
   }

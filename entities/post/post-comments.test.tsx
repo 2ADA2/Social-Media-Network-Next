@@ -1,31 +1,31 @@
-import { describe, expect, test, vi, beforeEach } from 'vitest';
-import { render } from 'vitest-browser-react';
-import { PostComments } from './post-comments';
-import { useQuery } from '@tanstack/react-query';
-import { useCommentAuthors } from '@/features/get-comments/use-comment-authors';
-import { type CommentInterface, type PublicUser } from '../comment/types';
+import { describe, expect, test, vi, beforeEach } from "vitest";
+import { render } from "vitest-browser-react";
+import { PostComments } from "./post-comments";
+import { useQuery } from "@tanstack/react-query";
+import { useCommentAuthors } from "@/features/get-comments/use-comment-authors";
+import { type CommentInterface, type PublicUser } from "../comment/types";
 
-vi.mock('@tanstack/react-query', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tanstack/react-query')>();
+vi.mock("@tanstack/react-query", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@tanstack/react-query")>();
   return {
     ...actual,
     useQuery: vi.fn(),
   };
 });
 
-vi.mock('@/features/get-comments/use-comment-authors', () => ({
+vi.mock("@/features/get-comments/use-comment-authors", () => ({
   useCommentAuthors: vi.fn(),
 }));
 
-vi.mock('@/entities/comment', () => ({
+vi.mock("@/entities/comment", () => ({
   Comment: ({ id, text, author }: CommentInterface) => (
     <div data-testid={`comment-${id}`}>
-      {text} — {author?.username ?? 'unknown'}
+      {text} — {author?.username ?? "unknown"}
     </div>
   ),
 }));
 
-vi.mock('@/shared/ui/loader', () => ({
+vi.mock("@/shared/ui/loader", () => ({
   Loader: ({ isBlock }: { isBlock?: boolean }) => (
     <div data-testid="loader" data-block={isBlock}>
       Loading...
@@ -33,7 +33,7 @@ vi.mock('@/shared/ui/loader', () => ({
   ),
 }));
 
-vi.mock('@/features/create-comment', () => ({
+vi.mock("@/features/create-comment", () => ({
   CreateComment: ({ postId }: { postId: number }) => (
     <div data-testid="create-comment" data-post-id={postId}>
       Create comment
@@ -41,14 +41,14 @@ vi.mock('@/features/create-comment', () => ({
   ),
 }));
 
-describe('PostComments', () => {
+describe("PostComments", () => {
   const postId = 1;
 
   beforeEach(() => {
     vi.mocked(useCommentAuthors).mockReturnValue(new Map());
   });
 
-  test('shows loader when pending', async () => {
+  test("shows loader when pending", async () => {
     vi.mocked(useQuery).mockReturnValue({
       data: [],
       isPending: true,
@@ -57,11 +57,11 @@ describe('PostComments', () => {
 
     const screen = await render(<PostComments postId={postId} />);
 
-    await expect.element(screen.getByTestId('loader')).toBeInTheDocument();
-    expect(screen.getByTestId('create-comment')).not.toBeInTheDocument();
+    await expect.element(screen.getByTestId("loader")).toBeInTheDocument();
+    expect(screen.getByTestId("create-comment")).not.toBeInTheDocument();
   });
 
-  test('shows error message when isError', async () => {
+  test("shows error message when isError", async () => {
     vi.mocked(useQuery).mockReturnValue({
       data: [],
       isPending: false,
@@ -71,14 +71,14 @@ describe('PostComments', () => {
     const screen = await render(<PostComments postId={postId} />);
 
     await expect
-      .element(screen.getByText('Cannot get comments'))
+      .element(screen.getByText("Cannot get comments"))
       .toBeInTheDocument();
     await expect
-      .element(screen.getByTestId('create-comment'))
+      .element(screen.getByTestId("create-comment"))
       .toBeInTheDocument();
   });
 
-  test('renders empty list when no comments', async () => {
+  test("renders empty list when no comments", async () => {
     vi.mocked(useQuery).mockReturnValue({
       data: [],
       isPending: false,
@@ -87,30 +87,30 @@ describe('PostComments', () => {
 
     const screen = await render(<PostComments postId={postId} />);
 
-    expect(screen.getByText('Cannot get comments')).not.toBeInTheDocument();
+    expect(screen.getByText("Cannot get comments")).not.toBeInTheDocument();
     await expect
-      .element(screen.getByTestId('create-comment'))
+      .element(screen.getByTestId("create-comment"))
       .toBeInTheDocument();
   });
 
-  test('renders comments with authors', async () => {
+  test("renders comments with authors", async () => {
     const comments = [
       {
         id: 1,
-        text: 'First',
+        text: "First",
         authorId: 10,
         postId,
-        creationDate: '',
-        modifiedDate: '',
+        creationDate: "",
+        modifiedDate: "",
         author: null,
       },
       {
         id: 2,
-        text: 'Second',
+        text: "Second",
         authorId: 20,
         postId,
-        creationDate: '',
-        modifiedDate: '',
+        creationDate: "",
+        modifiedDate: "",
         author: null,
       },
     ];
@@ -123,25 +123,25 @@ describe('PostComments', () => {
 
     vi.mocked(useCommentAuthors).mockReturnValue(
       new Map([
-        [10, { id: 10, username: 'alice' } as PublicUser],
-        [20, { id: 20, username: 'bob' } as PublicUser],
+        [10, { id: 10, username: "alice" } as PublicUser],
+        [20, { id: 20, username: "bob" } as PublicUser],
       ]),
     );
 
     const screen = await render(<PostComments postId={postId} />);
 
     await expect
-      .element(screen.getByTestId('comment-1'))
-      .toHaveTextContent('First — alice');
+      .element(screen.getByTestId("comment-1"))
+      .toHaveTextContent("First — alice");
     await expect
-      .element(screen.getByTestId('comment-2'))
-      .toHaveTextContent('Second — bob');
+      .element(screen.getByTestId("comment-2"))
+      .toHaveTextContent("Second — bob");
     await expect
-      .element(screen.getByTestId('create-comment'))
+      .element(screen.getByTestId("create-comment"))
       .toBeInTheDocument();
   });
 
-  test('passes postId to CreateComment', async () => {
+  test("passes postId to CreateComment", async () => {
     vi.mocked(useQuery).mockReturnValue({
       data: [],
       isPending: false,
@@ -151,7 +151,7 @@ describe('PostComments', () => {
     const screen = await render(<PostComments postId={42} />);
 
     await expect
-      .element(screen.getByTestId('create-comment'))
-      .toHaveAttribute('data-post-id', '42');
+      .element(screen.getByTestId("create-comment"))
+      .toHaveAttribute("data-post-id", "42");
   });
 });

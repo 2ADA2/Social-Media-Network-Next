@@ -62,7 +62,8 @@ export const PasswordInput = ({
           <button
             type="button"
             onClick={changeShow}
-            data-testid="hide-password-button">
+            data-testid="hide-password-button"
+          >
             {isShow ? <EyeIcon /> : <EyeCrossedIcon />}
           </button>
         </div>

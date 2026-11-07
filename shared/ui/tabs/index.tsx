@@ -1,4 +1,4 @@
-import './tabs.css';
+import "./tabs.css";
 
 export interface Tab {
   id: string;
@@ -19,7 +19,7 @@ export const Tabs = ({ tabs, activeTab, onChange }: TabsProps) => {
           key={tab.id}
           role="tab"
           aria-selected={activeTab === tab.id}
-          className={`tab ${activeTab === tab.id ? 'tab-active' : ''}`}
+          className={`tab ${activeTab === tab.id ? "tab-active" : ""}`}
           onClick={() => onChange(tab.id)}
         >
           {tab.label}

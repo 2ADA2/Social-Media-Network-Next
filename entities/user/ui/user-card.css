@@ -4,7 +4,7 @@
   gap: 16px;
   padding: 12px 0;
 
-  .user-card-info{
+  .user-card-info {
     display: flex;
     flex-direction: column;
 
@@ -16,7 +16,7 @@
       color: var(--color-muted);
     }
 
-    .user-card-title{
+    .user-card-title {
       color: var(--color-primary);
     }
   }

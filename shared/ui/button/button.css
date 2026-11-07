@@ -10,7 +10,7 @@
   cursor: pointer;
 }
 
-.btn:hover{
+.btn:hover {
   background-color: var(--color-accent-active);
 }
 

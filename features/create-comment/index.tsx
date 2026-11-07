@@ -1,11 +1,11 @@
-import { TextArea } from '@/shared/ui/text-area';
-import { Button } from '@/shared/ui/button';
-import PenIcon from '@/shared/assets/icons/pen.svg';
-import { type ChangeEvent, useState } from 'react';
+import { TextArea } from "@/shared/ui/text-area";
+import { Button } from "@/shared/ui/button";
+import PenIcon from "@/shared/assets/icons/pen.svg";
+import { type ChangeEvent, useState } from "react";
 import { useTranslations } from "next-intl";
-import './create-comment.css';
-import { useCreateComment } from '@/features/create-comment/use-create-comment';
-import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
+import "./create-comment.css";
+import { useCreateComment } from "@/features/create-comment/use-create-comment";
+import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
 
 interface CreateCommentProps {
   postId: number;
@@ -13,18 +13,18 @@ interface CreateCommentProps {
 
 export const CreateComment = ({ postId }: CreateCommentProps) => {
   const { add } = useNotifications();
-  const t = useTranslations('main');
-  const [comment, setComment] = useState('');
-  const [error, setError] = useState('');
+  const t = useTranslations("main");
+  const [comment, setComment] = useState("");
+  const [error, setError] = useState("");
   const { mutate: requestCreateComment, isPending } = useCreateComment();
 
   const check = (length: number) => {
     if (1 > length || length > 200) {
-      setError(t('comment.lengthError'));
+      setError(t("comment.lengthError"));
       return false;
     }
 
-    setError('');
+    setError("");
     return true;
   };
 
@@ -39,11 +39,11 @@ export const CreateComment = ({ postId }: CreateCommentProps) => {
         { text: comment, postId: postId },
         {
           onSuccess: () => {
-            add({ message: t('comment.successMessage') });
-            setComment('');
+            add({ message: t("comment.successMessage") });
+            setComment("");
           },
           onError: () => {
-            add({ message: t('comment.errorMessage'), type: 'error' });
+            add({ message: t("comment.errorMessage"), type: "error" });
           },
         },
       );
@@ -54,15 +54,15 @@ export const CreateComment = ({ postId }: CreateCommentProps) => {
     <div className="add-comment-section">
       <TextArea
         icon={<PenIcon />}
-        label={t('comment.label')}
-        placeholder={t('comment.placeholder')}
+        label={t("comment.label")}
+        placeholder={t("comment.placeholder")}
         onChange={changeComment}
         value={comment}
         errorMessage={error}
         disabled={isPending}
       />
       <Button disabled={isPending} type="button" onClick={createComment}>
-        {t('comment.submit')}
+        {t("comment.submit")}
       </Button>
     </div>
   );

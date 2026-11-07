@@ -8,7 +8,7 @@ import { formatRelativeTime } from "@/shared/lib/localization/format-relative-ti
 import { useLocale, useTranslations } from "next-intl";
 
 export const Comment = (data: CommentInterface) => {
-  const t = useTranslations ("main");
+  const t = useTranslations("main");
   const locale = useLocale();
 
   const { mutate: deleteComment, isPending } = useDeleteComment();
@@ -32,7 +32,8 @@ export const Comment = (data: CommentInterface) => {
             className="comment-delete-button"
             disabled={isPending}
             onClick={handleDelete}
-            aria-label={t("comment.delete")}>
+            aria-label={t("comment.delete")}
+          >
             <TrashCanIcon />
           </button>
         )}
