@@ -60,7 +60,7 @@ jobs:
 
       - name: Build Docker Image
         run: docker build -t social-network:${{ github.sha }} .
-        
+
   e2e:
     name: E2E Tests
     runs-on: ubuntu-latest
@@ -92,7 +92,15 @@ jobs:
 
       - name: Wait for servers to be ready
         run: |
-          npx wait-on http://localhost:4000/api/posts http://localhost:3000 --timeout 30000
+          npx wait-on http://127.0.0.1:4000/api/posts http://127.0.0.1:3000 --timeout 60000
+
+      - name: Show logs if wait-on failed
+        if: failure()
+        run: |
+          echo "=== BACKEND LOGS ==="
+          cat backend.log || echo "backend.log not found"
+          echo "=== FRONTEND LOGS ==="
+          cat frontend.log || echo "frontend.log not found"
 
       - name: Run E2E tests
         run: npm run e2e
