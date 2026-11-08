@@ -87,7 +87,7 @@ jobs:
         run: npm run dev > frontend.log 2>&1 &
 
       - name: Wait for servers
-        run: npx wait-on --timeout 60000 http://127.0.0.1:3000 http://127.0.0.1:4000/api/posts
+        run: npx wait-on --timeout 60000 http://localhost:3000 http://localhost:4000/api/posts
 
       - name: Show logs if wait-on failed
         if: failure()
