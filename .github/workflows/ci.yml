@@ -81,24 +81,13 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Start backend
-        run: |
-          npm run backend > backend.log 2>&1 &
-          echo "Backend started in background"
+        run: npm run backend > backend.log 2>&1 &
 
       - name: Start frontend
-        run: |
-          npm run dev > frontend.log 2>&1 &
-          echo "Frontend started in background"
+        run: npm run dev > frontend.log 2>&1 &
 
-      - name: Wait for backend
-        run: |
-          echo "Trying IPv4..."
-          timeout 60 bash -c 'until curl -4 -s http://127.0.0.1:4000/api/posts > /dev/null; do sleep 2; done' || \
-          (echo "Trying IPv6..." && timeout 60 bash -c 'until curl -6 -s http://[::1]:4000/api/posts > /dev/null; do sleep 2; done')
-
-      - name: Wait for frontend
-        run: |
-          timeout 60 bash -c 'until curl -s http://127.0.0.1:3000 > /dev/null; do sleep 2; done'
+      - name: Wait for servers
+        run: npx wait-on --timeout 60000 http://127.0.0.1:3000 http://127.0.0.1:4000/api/posts
 
       - name: Show logs if wait-on failed
         if: failure()
