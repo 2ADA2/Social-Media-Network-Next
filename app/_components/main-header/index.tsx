@@ -76,10 +76,8 @@ export const MainHeader = ({ hiddenNav = false }: HeaderProps) => {
               display: "flex",
               alignItems: "center",
               "& svg": {
-                transform: {
-                  xs: "scale(0.5)",
-                  md: "scale(1)",
-                },
+                width: { xs: 12, md: 24 },
+                height: { xs: 12, md: 24 },
               },
             }}
           >

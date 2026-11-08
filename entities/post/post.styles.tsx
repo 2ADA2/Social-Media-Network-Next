@@ -103,7 +103,6 @@ export const StyledSVG = styled.div<{ $active: boolean }>`
       `};
 
     path {
-      transform: scale(0.8);
       stroke: ${({ $active }) => ($active ? "red" : "var(--color-primary)")};
     }
   }

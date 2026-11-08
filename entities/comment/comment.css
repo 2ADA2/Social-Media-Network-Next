@@ -23,6 +23,9 @@
 
   .post-comment-body {
     margin: 0;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .comment-delete-button {
@@ -39,7 +42,6 @@
 
       path {
         fill: var(--color-primary);
-        transform: scale(0.7);
       }
     }
   }
