@@ -1,8 +1,7 @@
-import { AxiosError } from "axios";
-import { beforeEach, describe, expect, it, test, vi } from "vitest";
-
 import { apiClient } from "@/shared/api/api-client";
 import { graphqlClient } from "@/shared/api/graphql-client";
+import { AxiosError } from "axios";
+import { beforeEach, describe, expect, it, test, vi } from "vitest";
 
 import { dislikePost, likePost, postsQueries } from "./posts-query";
 
@@ -56,70 +55,44 @@ describe("postsQueries", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
   describe("infinite", () => {
-    test("should fetch posts and total count", async () => {
+    test("should fetch posts from the end and total count", async () => {
       mockedGraphqlRequest
-        .mockResolvedValueOnce({ allPosts: [mockPost] })
-        .mockResolvedValueOnce({ postsTotal: 100 });
+        .mockResolvedValueOnce({ postsTotal: 100 })
+        .mockResolvedValueOnce({ allPosts: [mockPost] });
 
       const options = postsQueries.infinite();
 
-      const result = await options.queryFn!({
-        pageParam: 0,
-      } as never);
+      const result = await options.queryFn!({ pageParam: 0 } as never);
 
       expect(mockedGraphqlRequest).toHaveBeenCalledTimes(2);
 
       expect(mockedGraphqlRequest).toHaveBeenNthCalledWith(
         1,
         expect.anything(),
-        {
-          limit: 20,
-          offset: 0,
-        },
       );
 
       expect(mockedGraphqlRequest).toHaveBeenNthCalledWith(
         2,
         expect.anything(),
+        {
+          limit: 20,
+          offset: 80,
+        },
       );
 
       expect(result).toEqual({
         items: [mockPost],
         total: 100,
         limit: 20,
-        offset: 0,
+        offset: 80,
       });
-    });
-
-    test("should fetch posts with the provided page offset", async () => {
-      mockedGraphqlRequest
-        .mockResolvedValueOnce({ allPosts: [mockPost] })
-        .mockResolvedValueOnce({ postsTotal: 100 });
-
-      const options = postsQueries.infinite();
-
-      const result = await options.queryFn!({
-        pageParam: 20,
-      } as never);
-
-      expect(result.offset).toBe(20);
-
-      expect(mockedGraphqlRequest).toHaveBeenNthCalledWith(
-        1,
-        expect.anything(),
-        {
-          limit: 20,
-          offset: 20,
-        },
-      );
     });
 
     test("should throw a schema error when posts response is invalid", async () => {
       mockedGraphqlRequest
-        .mockResolvedValueOnce({ allPosts: [{ id: "invalid" }] })
-        .mockResolvedValueOnce({ postsTotal: 100 });
+        .mockResolvedValueOnce({ postsTotal: 100 })
+        .mockResolvedValueOnce({ allPosts: [{ id: "invalid" }] });
 
       const options = postsQueries.infinite();
 
@@ -129,9 +102,7 @@ describe("postsQueries", () => {
     });
 
     test("should throw a schema error when total response is invalid", async () => {
-      mockedGraphqlRequest
-        .mockResolvedValueOnce({ allPosts: [mockPost] })
-        .mockResolvedValueOnce({ postsTotal: "invalid" });
+      mockedGraphqlRequest.mockResolvedValueOnce({ postsTotal: "invalid" });
 
       const options = postsQueries.infinite();
 

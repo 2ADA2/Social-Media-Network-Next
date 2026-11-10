@@ -1,6 +1,7 @@
 import { apiClient } from "@/shared/api/api-client";
-import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 import { graphqlClient } from "@/shared/api/graphql-client";
+import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
+
 import type { Post, PostsPage } from "@/entities/post/types";
 import { gql } from "graphql-request";
 import z from "zod";
@@ -32,6 +33,10 @@ const postResponseSchema = z.object({
       username: z.string(),
     }),
   ),
+});
+
+const allPostsResponseSchema = z.object({
+  allPosts: z.array(postResponseSchema),
 });
 
 const postByIdResponseSchema = z.object({
@@ -126,34 +131,47 @@ const fetchPostsFromEnd = async (
   limit = 20,
   offsetFromEnd = 0,
 ): Promise<PostsPage> => {
-  const totalData =
-    await graphqlClient.request<PostsTotalResponse>(POSTS_TOTAL_QUERY);
-  const total = totalData.postsTotal;
+  try {
+    const totalData =
+      await graphqlClient.request<PostsTotalResponse>(POSTS_TOTAL_QUERY);
 
-  const remaining = total - offsetFromEnd;
+    postsTotalResponseSchema.parse(totalData);
+    const total = totalData.postsTotal;
 
-  if (remaining <= 0) {
-    return { items: [], total, limit: 0, offset: 0 };
-  }
+    const remaining = total - offsetFromEnd;
 
-  const currentLimit = Math.min(limit, remaining);
+    if (remaining <= 0) {
+      return { items: [], total, limit: 0, offset: 0 };
+    }
 
-  const actualOffset = Math.max(0, total - offsetFromEnd - currentLimit);
+    const currentLimit = Math.min(limit, remaining);
+    const actualOffset = Math.max(0, total - offsetFromEnd - currentLimit);
 
-  const postsData = await graphqlClient.request<AllPostsResponse>(
-    ALL_POSTS_QUERY,
-    {
+    const postsData = await graphqlClient.request<AllPostsResponse>(
+      ALL_POSTS_QUERY,
+      {
+        limit: currentLimit,
+        offset: actualOffset,
+      },
+    );
+
+    allPostsResponseSchema.parse(postsData);
+
+    return {
+      items: postsData.allPosts.reverse(),
+      total,
       limit: currentLimit,
       offset: actualOffset,
-    },
-  );
+    };
+  } catch (e) {
+    if (e instanceof AxiosError) {
+      throw new Error(`request error : ${e.message}`);
+    } else if (e instanceof Error) {
+      throw new Error(`schema error: ${e.message}`);
+    }
 
-  return {
-    items: postsData.allPosts.reverse(),
-    total,
-    limit: Math.min(limit, actualOffset),
-    offset: actualOffset,
-  };
+    throw new Error("unknown error");
+  }
 };
 
 const fetchPost = async (id: number): Promise<Post | null> => {

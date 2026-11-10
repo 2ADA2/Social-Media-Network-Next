@@ -9,8 +9,8 @@
 }
 
 .delete-post-button svg {
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
 }
 
 .delete-post-button svg path {
@@ -23,6 +23,13 @@
 
 .delete-post-button[disabled] svg path {
   fill: var(--color-muted);
+}
+
+@media (min-width: 768px) {
+  .delete-post-button svg {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {

@@ -30,6 +30,10 @@
   overflow-y: auto;
   will-change: transform, opacity;
 
+  .modal-title {
+    font-size: 16px;
+  }
+
   p {
     margin: 0;
     font-size: 14px;
@@ -68,6 +72,10 @@
     padding: 24px;
     gap: 16px;
 
+    .modal-title {
+      font-size: 24px;
+    }
+
     button {
       width: 144px;
     }
@@ -79,8 +87,8 @@
       height: 24px;
 
       svg {
-        width: 24px;
-        height: 24px;
+        width: 18px;
+        height: 18px;
       }
     }
   }
