@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { TextArea } from '@/shared/ui/text-area';
-import { Input } from '@/shared/ui/input';
-import { Button } from '@/shared/ui/button';
+import styled from "styled-components";
+import { TextArea } from "@/shared/ui/text-area";
+import { Input } from "@/shared/ui/input";
+import { Button } from "@/shared/ui/button";
 
 export const StyledForm = styled.form`
   display: flex;
@@ -23,7 +23,7 @@ export const StyledTitle = styled.span`
 
 export const StyledTextArea = styled(TextArea)<{ $filled: boolean }>`
   width: 100%;
-  margin-bottom: ${({ $filled }) => ($filled ? '16px' : 0)};
+  margin-bottom: ${({ $filled }) => ($filled ? "16px" : 0)};
 `;
 
 export const StyledInput = styled(Input)`

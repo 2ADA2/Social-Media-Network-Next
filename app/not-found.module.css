@@ -12,9 +12,6 @@
 .notFoundPage svg {
   width: 80px;
   height: 80px;
-  path {
-    transform: scale(0.4);
-  }
 }
 
 .notFoundPage svg path {
@@ -30,9 +27,6 @@
   .notFoundPage svg {
     width: 180px;
     height: 180px;
-    path {
-      transform: scale(1);
-    }
   }
 
   .notFoundMessage {

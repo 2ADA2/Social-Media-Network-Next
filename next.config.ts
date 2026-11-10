@@ -8,6 +8,22 @@ const withNextIntl = createNextIntlPlugin();
 const require = createRequire(import.meta.url);
 const svgrLoaderPath = require.resolve("@svgr/webpack");
 
+const svgrOptions = {
+  icon: true,
+  svgoConfig: {
+    plugins: [
+      {
+        name: "preset-default",
+        params: {
+          overrides: {
+            removeViewBox: false,
+          },
+        },
+      },
+    ],
+  },
+};
+
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
@@ -18,7 +34,12 @@ const nextConfig: NextConfig = {
     },
     rules: {
       "*.svg": {
-        loaders: [svgrLoaderPath],
+        loaders: [
+          {
+            loader: svgrLoaderPath,
+            options: svgrOptions,
+          },
+        ],
         as: "*.js",
       },
     },
@@ -27,7 +48,12 @@ const nextConfig: NextConfig = {
   webpack(config, { dev }) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: [svgrLoaderPath],
+      use: [
+        {
+          loader: "@svgr/webpack",
+          options: svgrOptions,
+        },
+      ],
     });
     if (dev) {
       config.watchOptions = {

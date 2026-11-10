@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
 import { useLocale } from "next-intl";
-import './language-switcher.css';
-import type { ChangeEvent } from 'react';
+import "./language-switcher.css";
+import type { ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 
 const LANGUAGES = [
-  { code: 'en', label: 'English' },
-  { code: 'ru', label: 'Русский' },
+  { code: "en", label: "English" },
+  { code: "ru", label: "Русский" },
 ] as const;
 
 export const LanguageSwitcher = () => {

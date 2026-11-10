@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
-import { Modal } from '@/shared/ui/modal';
-import { StyledTitle } from '@/features/create-post/create-post-modal/create-post-modal.styles';
-import { Button } from '@/shared/ui/button';
+import { Modal } from "@/shared/ui/modal";
+import { StyledTitle } from "@/features/create-post/create-post-modal/create-post-modal.styles";
+import { Button } from "@/shared/ui/button";
 
 export interface DeletePostModalProps {
   isOpen: boolean;
@@ -16,7 +16,7 @@ export const DeletePostModal = ({
   onSubmit,
   isPending,
 }: DeletePostModalProps) => {
-  const t = useTranslations('main');
+  const t = useTranslations("main");
 
   const handleSubmit = () => {
     onSubmit();
@@ -24,9 +24,9 @@ export const DeletePostModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="delete-post-modal">
-      <StyledTitle>{t('deletePost.title')}</StyledTitle>
+      <StyledTitle>{t("deletePost.title")}</StyledTitle>
       <Button disabled={isPending} onClick={handleSubmit}>
-        {t('deletePost.submit')}
+        {t("deletePost.submit")}
       </Button>
     </Modal>
   );

@@ -10,7 +10,7 @@ export interface UserCardProps {
 export const UserCard = ({ avatarUrl, title, subtitle }: UserCardProps) => {
   return (
     <div className="user-card">
-      <Avatar src={ avatarUrl } size={ 48 }/>
+      <Avatar src={avatarUrl} size={48} />
       <div className="user-card-info">
         <div className="user-card-title">{title}</div>
         <div className="user-card-subtitle">{subtitle}</div>

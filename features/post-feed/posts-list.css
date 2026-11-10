@@ -1,8 +1,8 @@
-.posts-container{
+.posts-container {
   width: 100%;
   margin: 16px 0;
 
-  .post:last-child{
+  .post:last-child {
     border: none;
   }
 }

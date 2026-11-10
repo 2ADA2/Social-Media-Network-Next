@@ -31,10 +31,6 @@
       svg {
         width: 12px;
         height: 12px;
-
-        path {
-          transform: scale(0.5);
-        }
       }
     }
 

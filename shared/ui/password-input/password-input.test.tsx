@@ -1,8 +1,8 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { render } from 'vitest-browser-react';
-import { PasswordInput } from '.';
-import { userEvent } from 'vitest/browser';
-import { useState } from 'react';
+import { beforeEach, describe, expect, test, vi } from "vitest";
+import { render } from "vitest-browser-react";
+import { PasswordInput } from ".";
+import { userEvent } from "vitest/browser";
+import { useState } from "react";
 
 let user: ReturnType<typeof userEvent.setup>;
 
@@ -10,31 +10,31 @@ beforeEach(() => {
   user = userEvent.setup();
 });
 
-describe('PasswordInput component', () => {
-  const inputValue = 'input-value';
-  const inputLabel = 'input-label';
-  const inputInfo = 'input-info';
-  const inputError = 'input-error';
+describe("PasswordInput component", () => {
+  const inputValue = "input-value";
+  const inputLabel = "input-label";
+  const inputInfo = "input-info";
+  const inputError = "input-error";
 
-  test('PasswordInput type=password', async () => {
+  test("PasswordInput type=password", async () => {
     const screen = await render(
       <PasswordInput value={inputValue} onChange={vi.fn()} />,
     );
 
     await expect
-      .element(screen.getByRole('textbox'))
-      .toHaveAttribute('type', 'password');
+      .element(screen.getByRole("textbox"))
+      .toHaveAttribute("type", "password");
   });
 
-  test('PasswordInput renders with init value', async () => {
+  test("PasswordInput renders with init value", async () => {
     const screen = await render(
       <PasswordInput value={inputValue} onChange={vi.fn()} />,
     );
 
-    await expect.element(screen.getByRole('textbox')).toHaveValue(inputValue);
+    await expect.element(screen.getByRole("textbox")).toHaveValue(inputValue);
   });
 
-  test('PasswordInput renders with label', async () => {
+  test("PasswordInput renders with label", async () => {
     const screen = await render(
       <PasswordInput
         value={inputValue}
@@ -46,20 +46,20 @@ describe('PasswordInput component', () => {
     await expect.element(screen.getByText(inputLabel)).toBeVisible();
   });
 
-  test('PasswordInput renders with icon', async () => {
+  test("PasswordInput renders with icon", async () => {
     const icon = <svg data-testid="password-input-label-icon" />;
     const screen = await render(
       <PasswordInput value={inputValue} onChange={vi.fn()} icon={icon} />,
     );
 
     await expect
-      .element(screen.getByTestId('password-input-label-icon'))
+      .element(screen.getByTestId("password-input-label-icon"))
       .toBeVisible();
   });
 
-  test('PasswordInput works with onChange', async () => {
+  test("PasswordInput works with onChange", async () => {
     function Wrapper() {
-      const [value, setValue] = useState('');
+      const [value, setValue] = useState("");
       return (
         <PasswordInput
           value={value}
@@ -70,11 +70,11 @@ describe('PasswordInput component', () => {
 
     const screen = await render(<Wrapper />);
 
-    await user.type(screen.getByRole('textbox'), inputValue);
-    await expect.element(screen.getByRole('textbox')).toHaveValue(inputValue);
+    await user.type(screen.getByRole("textbox"), inputValue);
+    await expect.element(screen.getByRole("textbox")).toHaveValue(inputValue);
   });
 
-  test('Shows info if custom=true', async () => {
+  test("Shows info if custom=true", async () => {
     const screen = await render(
       <PasswordInput
         value={inputValue}
@@ -100,38 +100,36 @@ describe('PasswordInput component', () => {
     const screen = await render(
       <PasswordInput custom value={inputValue} onChange={vi.fn()} />,
     );
+    await expect.element(screen.getByTestId("input-ok-icon")).toBeVisible();
     await expect
-      .element(screen.getByTestId('input-ok-icon'))
-      .toBeVisible();
-    await expect
-      .element(screen.getByRole('textbox'))
-      .toHaveAttribute('aria-invalid', 'false');
+      .element(screen.getByRole("textbox"))
+      .toHaveAttribute("aria-invalid", "false");
 
     await screen.rerender(<PasswordInput custom onChange={vi.fn()} value="" />);
     await expect
-      .element(screen.getByTestId('input-ok-icon'))
+      .element(screen.getByTestId("input-ok-icon"))
       .not.toBeInTheDocument();
 
     await screen.rerender(
       <PasswordInput custom error={inputError} onChange={vi.fn()} value="" />,
     );
     await expect
-      .element(screen.getByTestId('input-ok-icon'))
+      .element(screen.getByTestId("input-ok-icon"))
       .not.toBeInTheDocument();
   });
 
-  test('Shows error', async () => {
+  test("Shows error", async () => {
     const screen = await render(
       <PasswordInput error={inputError} onChange={vi.fn()} value="" />,
     );
 
     await expect.element(screen.getByText(inputError)).toBeVisible();
     await expect
-      .element(screen.getByTestId('input-cross-icon'))
+      .element(screen.getByTestId("input-cross-icon"))
       .toBeInTheDocument();
     await expect
-      .element(screen.getByRole('textbox'))
-      .toHaveAttribute('aria-invalid', 'true');
+      .element(screen.getByRole("textbox"))
+      .toHaveAttribute("aria-invalid", "true");
   });
 
   test("has default input-info if it's valid", async () => {
@@ -140,25 +138,25 @@ describe('PasswordInput component', () => {
     );
 
     await expect
-      .element(screen.getByText('passwordInput.defaultInfo'))
+      .element(screen.getByText("passwordInput.defaultInfo"))
       .toBeVisible();
   });
 
-  test('shows and hides value', async () => {
+  test("shows and hides value", async () => {
     const screen = await render(
       <PasswordInput custom onChange={vi.fn()} value={inputValue} />,
     );
 
-    await user.click(screen.getByTestId('hide-password-button'));
+    await user.click(screen.getByTestId("hide-password-button"));
 
     await expect
-      .element(screen.getByRole('textbox'))
-      .toHaveAttribute('type', 'text');
+      .element(screen.getByRole("textbox"))
+      .toHaveAttribute("type", "text");
 
-    await user.click(screen.getByTestId('hide-password-button'));
+    await user.click(screen.getByTestId("hide-password-button"));
 
     await expect
-      .element(screen.getByRole('textbox'))
-      .toHaveAttribute('type', 'password');
+      .element(screen.getByRole("textbox"))
+      .toHaveAttribute("type", "password");
   });
 });

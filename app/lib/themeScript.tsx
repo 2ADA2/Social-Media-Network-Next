@@ -1,5 +1,5 @@
-'use client';
-import { useServerInsertedHTML } from 'next/navigation';
+"use client";
+import { useServerInsertedHTML } from "next/navigation";
 
 export function ThemeScript() {
   useServerInsertedHTML(() => {

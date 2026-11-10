@@ -30,10 +30,6 @@
         fill: var(--color-accent);
       }
     }
-
-    .input-status-error svg path {
-      transform: scale(0.5);
-    }
   }
 
   input {
@@ -67,7 +63,6 @@
       height: 14px;
 
       path {
-
         fill: var(--color-muted);
       }
     }
@@ -85,7 +80,7 @@
       width: 12px;
       height: 12px;
       position: relative;
-      top:2px;
+      top: 2px;
 
       path {
         fill: var(--color-danger);
@@ -95,11 +90,6 @@
 
   .info {
     color: var(--color-danger);
-
-    svg path {
-      fill: var(--color-danger);
-      transform: scale(0.8);
-    }
   }
 }
 

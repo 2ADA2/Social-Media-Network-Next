@@ -1,5 +1,5 @@
-import './cover-button.css';
-import type { ButtonProps } from '../button';
+import "./cover-button.css";
+import type { ButtonProps } from "../button";
 
 export const CoverButton = ({ children, onClick, ...props }: ButtonProps) => {
   return (

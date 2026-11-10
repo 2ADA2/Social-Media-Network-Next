@@ -1,5 +1,5 @@
-import { apiClient } from '@/shared/api/api-client';
-import type { UserResponse } from '@/entities/user';
+import { apiClient } from "@/shared/api/api-client";
+import type { UserResponse } from "@/entities/user";
 
 export interface UpdateAccountParams {
   currentPassword: string;
@@ -19,7 +19,7 @@ export const updateAccountRequest = async (
   params: UpdateAccountParams,
 ): Promise<UpdateAccountResponse> => {
   const { data } = await apiClient.put<UpdateAccountResponse>(
-    '/api/account',
+    "/api/account",
     params,
   );
   return data;

@@ -1,0 +1,145 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  quality:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Check Prettier formatting
+        run: npx prettier --check .
+
+  test:
+    name: Unit & Component Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers for Vitest
+        run: npx playwright install chromium --with-deps
+
+      - name: Run tests with coverage
+        run: npm run coverage
+
+  docker:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: docker build -t social-network:${{ github.sha }} .
+
+  e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Start backend
+        run: npm run backend > backend.log 2>&1 &
+
+      - name: Start frontend
+        run: npm run dev > frontend.log 2>&1 &
+
+      - name: Wait for backend
+        run: |
+          echo "Waiting for backend..."
+
+          timeout 60 bash -c '
+            until curl -4 -fsS http://127.0.0.1:4000/api/posts > /dev/null; do
+              sleep 2
+            done
+          ' || {
+            echo "IPv4 failed, trying IPv6..."
+
+            timeout 60 bash -c '
+              until curl -6 -fsS "http://[::1]:4000/api/posts" > /dev/null; do
+                sleep 2
+              done
+            '
+          }
+
+          echo "Backend is ready"
+
+      - name: Wait for frontend
+        run: |
+          echo "Waiting for frontend..."
+
+          timeout 60 bash -c '
+            until curl -fsS http://127.0.0.1:3000 > /dev/null; do
+              sleep 2
+            done
+          '
+
+          echo "Frontend is ready"
+
+      - name: Show logs if wait-on failed
+        if: failure()
+        run: |
+          echo "=== BACKEND LOGS ==="
+          cat backend.log || echo "backend.log not found"
+          echo "=== FRONTEND LOGS ==="
+          cat frontend.log || echo "frontend.log not found"
+
+      - name: Run E2E tests
+        run: npm run e2e
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs
+          path: |
+            backend.log
+            frontend.log
+            playwright-report/
+
+      - name: Kill background processes
+        if: always()
+        run: |
+          kill $(jobs -p) || true

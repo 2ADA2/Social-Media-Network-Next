@@ -67,7 +67,7 @@
     }
   }
 }
-.textarea-label.filled textarea{
+.textarea-label.filled textarea {
   height: 200px;
 }
 .textarea-label.error {
@@ -81,7 +81,6 @@
 
     svg path {
       fill: var(--color-danger);
-      transform: scale(0.8);
     }
   }
 }

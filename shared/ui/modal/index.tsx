@@ -59,7 +59,8 @@ export const Modal = ({
         item ? (
           <animated.div
             className="modal-overlay"
-            style={{ opacity: style.opacity }}>
+            style={{ opacity: style.opacity }}
+          >
             <animated.div
               data-testid="modal"
               className={"modal-window " + className}
@@ -68,13 +69,15 @@ export const Modal = ({
               ref={modalRef}
               role="dialog"
               aria-modal="true"
-              aria-label={title ?? t("modal.defaultTitle")}>
+              aria-label={title ?? t("modal.defaultTitle")}
+            >
               <button
                 type="button"
                 className="modal-close"
                 onClick={onClose}
                 aria-label={t("modal.close")}
-                data-testid="modal-close">
+                data-testid="modal-close"
+              >
                 <CrossIcon />
               </button>
 

@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import { useCallback } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import { Post } from '@/entities/post';
-import { Loader } from '@/shared/ui/loader';
-import { CreatePost } from '@/features/create-post';
-import { usePosts } from '@/features/post-feed/usePosts';
-import { postsQueries } from '@/features/post-feed/posts-query';
-import { useIntersectionObserver } from '@/shared/lib/hooks/use-intersection-observer';
-import './posts-list.css';
+import { useCallback } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Post } from "@/entities/post";
+import { Loader } from "@/shared/ui/loader";
+import { CreatePost } from "@/features/create-post";
+import { usePosts } from "@/features/post-feed/usePosts";
+import { postsQueries } from "@/features/post-feed/posts-query";
+import { useIntersectionObserver } from "@/shared/lib/hooks/use-intersection-observer";
+import "./posts-list.css";
 
 export const PostsList = () => {
   const queryClient = useQueryClient();
@@ -52,7 +52,7 @@ export const PostsList = () => {
       <CreatePost onAdd={handlePostCreated} />
       <div className="posts-container">
         {posts.map((post, index) => (
-          <Post key={post.id} post={post} isFirst={index === 0}/>
+          <Post key={post.id} post={post} isFirst={index === 0} />
         ))}
         {!isFetchingNextPage && hasNextPage && <div ref={ref} />}
         {isFetchingNextPage && <Loader isBlock={false} />}

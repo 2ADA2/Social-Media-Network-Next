@@ -1,50 +1,44 @@
-import { describe, expect, test, vi, beforeEach } from 'vitest';
-import { render } from 'vitest-browser-react';
-import { userEvent } from 'vitest/browser';
-import { EditProfile } from '.';
-import { useUser } from '@/entities/user/model/use-user';
-import { useUpdateProfile } from '@/features/edit-profile/use-update-profile';
-import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
-import { useModal } from '@/shared/lib/hooks/use-modal';
+import { describe, expect, test, vi, beforeEach } from "vitest";
+import { render } from "vitest-browser-react";
+import { userEvent } from "vitest/browser";
+import { EditProfile } from ".";
+import { useUser } from "@/entities/user/model/use-user";
+import { useUpdateProfile } from "@/features/edit-profile/use-update-profile";
+import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
+import { useModal } from "@/shared/lib/hooks/use-modal";
 
 let user = userEvent.setup();
 const mockMutate = vi.fn();
 const mockAdd = vi.fn();
 
-vi.mock('@/entities/user/model/use-user', () => ({
+vi.mock("@/entities/user/model/use-user", () => ({
   useUser: vi.fn(),
 }));
 
-vi.mock('@/features/edit-profile/use-update-profile', () => ({
+vi.mock("@/features/edit-profile/use-update-profile", () => ({
   useUpdateProfile: vi.fn(),
 }));
 
-vi.mock('@/app/providers/notifications-provider/useNotifications', () => ({
+vi.mock("@/app/providers/notifications-provider/useNotifications", () => ({
   useNotifications: vi.fn(),
 }));
 
-vi.mock('@/shared/lib/hooks/use-modal', () => ({
+vi.mock("@/shared/lib/hooks/use-modal", () => ({
   useModal: vi.fn(),
 }));
 
-vi.mock(
-  './modals/update-profile-image-modal',
-  () => ({
-    UpdateProfileImageModal: () => (
-      <div data-testid="image-modal">image-modal</div>
-    ),
-  }),
-);
+vi.mock("./modals/update-profile-image-modal", () => ({
+  UpdateProfileImageModal: () => (
+    <div data-testid="image-modal">image-modal</div>
+  ),
+}));
 
-vi.mock(
-  './modals/confirm-password-modal',
-  () => ({
-    ConfirmPasswordModal: ({ isOpen }: { isOpen: boolean }) =>
-      isOpen ? <div>modal</div> : null,
-  }),
-);
+vi.mock("./modals/confirm-password-modal", () => ({
+  ConfirmPasswordModal: ({ isOpen }: { isOpen: boolean }) =>
+    isOpen ? <div>modal</div> : null,
+}));
 
-describe('EditProfile', () => {
+describe("EditProfile", () => {
   beforeEach(() => {
     user = userEvent.setup();
     mockMutate.mockReset();
@@ -59,12 +53,12 @@ describe('EditProfile', () => {
 
     vi.mocked(useUser).mockReturnValue({
       user: {
-        name: 'Helena',
-        surname: 'Hills',
-        username: 'helenahills',
-        email: 'helena.hills@social.com',
-        description: 'Travel and design enthusiast.',
-        avatar: '/assets/helena.png',
+        name: "Helena",
+        surname: "Hills",
+        username: "helenahills",
+        email: "helena.hills@social.com",
+        description: "Travel and design enthusiast.",
+        avatar: "/assets/helena.png",
       },
     } as unknown as ReturnType<typeof useUser>);
 
@@ -79,65 +73,65 @@ describe('EditProfile', () => {
     } as unknown as ReturnType<typeof useNotifications>);
   });
 
-  test('Shows validation error if invalid', async () => {
+  test("Shows validation error if invalid", async () => {
     const screen = await render(<EditProfile />);
 
     const firstNameField = screen.getByPlaceholder(
-      'editProfile.firstNamePlaceholder',
+      "editProfile.firstNamePlaceholder",
     );
-    const emailField = screen.getByPlaceholder('editProfile.emailPlaceholder');
+    const emailField = screen.getByPlaceholder("editProfile.emailPlaceholder");
 
     await user.clear(firstNameField);
-    await user.type(firstNameField, 'a very long name, invalid name');
-    await user.keyboard('{Tab}');
+    await user.type(firstNameField, "a very long name, invalid name");
+    await user.keyboard("{Tab}");
 
     await user.clear(emailField);
-    await user.type(emailField, 'invalid@mail');
-    await user.keyboard('{Tab}');
+    await user.type(emailField, "invalid@mail");
+    await user.keyboard("{Tab}");
 
     await user.click(
-      screen.getByRole('button', { name: 'editProfile.submit' }),
+      screen.getByRole("button", { name: "editProfile.submit" }),
     );
 
-    await expect(firstNameField).toHaveAttribute('aria-invalid', 'true');
-    await expect(emailField).toHaveAttribute('aria-invalid', 'true');
+    await expect(firstNameField).toHaveAttribute("aria-invalid", "true");
+    await expect(emailField).toHaveAttribute("aria-invalid", "true");
 
     expect(mockMutate).not.toHaveBeenCalled();
     expect(mockAdd).not.toHaveBeenCalled();
   });
 
-  test('Updates profile if valid', async () => {
+  test("Updates profile if valid", async () => {
     mockMutate.mockImplementation((_, opts) => opts.onSuccess());
 
     const screen = await render(<EditProfile />);
 
     const firstNameField = screen.getByPlaceholder(
-      'editProfile.firstNamePlaceholder',
+      "editProfile.firstNamePlaceholder",
     );
     const descriptionField = screen.getByPlaceholder(
-      'editProfile.descriptionPlaceholder',
+      "editProfile.descriptionPlaceholder",
     );
 
     await user.clear(firstNameField);
-    await user.type(firstNameField, 'John');
-    await user.keyboard('{Tab}');
+    await user.type(firstNameField, "John");
+    await user.keyboard("{Tab}");
 
     await user.clear(descriptionField);
-    await user.type(descriptionField, 'New bio');
-    await user.keyboard('{Tab}');
+    await user.type(descriptionField, "New bio");
+    await user.keyboard("{Tab}");
 
     await user.click(
-      screen.getByRole('button', { name: 'editProfile.submit' }),
+      screen.getByRole("button", { name: "editProfile.submit" }),
     );
 
-    await expect(firstNameField).toHaveAttribute('aria-invalid', 'false');
+    await expect(firstNameField).toHaveAttribute("aria-invalid", "false");
 
     expect(mockMutate).toHaveBeenCalledWith(
       {
-        firstName: 'John',
-        secondName: 'Hills',
-        username: 'helenahills',
-        description: 'New bio',
+        firstName: "John",
+        secondName: "Hills",
+        username: "helenahills",
+        description: "New bio",
       },
       expect.objectContaining({
         onError: expect.any(Function),
@@ -145,7 +139,7 @@ describe('EditProfile', () => {
       }),
     );
     expect(mockAdd).toHaveBeenCalledWith({
-      message: 'editProfile.success',
+      message: "editProfile.success",
     });
   });
 });

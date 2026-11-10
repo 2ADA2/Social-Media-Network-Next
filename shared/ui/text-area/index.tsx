@@ -1,6 +1,6 @@
-import { type InputHTMLAttributes, type ReactNode } from 'react';
-import './textarea.css';
-import { ShowInputInfo } from '@/shared/ui/show-input-info';
+import { type InputHTMLAttributes, type ReactNode } from "react";
+import "./textarea.css";
+import { ShowInputInfo } from "@/shared/ui/show-input-info";
 
 interface InputProps extends InputHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
@@ -24,7 +24,7 @@ export const TextArea = ({
 
   return (
     <label
-      className={`textarea-label ${errorMessage ? 'error' : ''} ${isFilled ? 'filled' : ''}`}
+      className={`textarea-label ${errorMessage ? "error" : ""} ${isFilled ? "filled" : ""}`}
       data-testid="textarea-label"
     >
       <div>

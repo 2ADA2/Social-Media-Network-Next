@@ -1,4 +1,4 @@
-import './toggle.css';
+import "./toggle.css";
 
 interface ToggleProps {
   checked: boolean;
@@ -10,7 +10,7 @@ interface ToggleProps {
 export const Toggle = ({ checked, onChange, disabled, label }: ToggleProps) => {
   return (
     <button
-      className={`toggle ${checked ? 'active' : ''}`}
+      className={`toggle ${checked ? "active" : ""}`}
       onClick={onChange}
       type="button"
       aria-pressed={checked}

@@ -8,7 +8,7 @@ interface CreateFileOptions {
 export function createFile({
   name,
   sizeInBytes = 100,
-  type = 'application/octet-stream',
+  type = "application/octet-stream",
   content,
 }: CreateFileOptions): File {
   const data = content ?? new Uint8Array(sizeInBytes);

@@ -37,8 +37,8 @@ export const Sidebar = ({ title, users }: SidebarProps) => {
             key={user.id}
             {...user}
             title={
-              [user.firstName, user.secondName].filter(Boolean).join(" ")
-              || "Unknown"
+              [user.firstName, user.secondName].filter(Boolean).join(" ") ||
+              "Unknown"
             }
             subtitle={"@" + user.username}
             avatarUrl={user.photo || ""}

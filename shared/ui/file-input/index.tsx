@@ -2,11 +2,11 @@ import React, {
   type ChangeEvent,
   type InputHTMLAttributes,
   useRef,
-} from 'react';
+} from "react";
 import { useTranslations } from "next-intl";
-import './file-input.css';
-import DownloadIcon from '@/shared/assets/icons/download-file.svg';
-import CrossIcon from '@/shared/assets/icons/cross.svg';
+import "./file-input.css";
+import DownloadIcon from "@/shared/assets/icons/download-file.svg";
+import CrossIcon from "@/shared/assets/icons/cross.svg";
 
 export interface FileInputProps extends InputHTMLAttributes<HTMLInputElement> {
   fileName?: string;
@@ -18,12 +18,12 @@ export const DEFAULT_MAX_SIZE = 10;
 
 export const FileInput = ({
   onChange,
-  fileName = '',
+  fileName = "",
   hasPDF = true,
   maxSize = DEFAULT_MAX_SIZE,
   ...props
 }: FileInputProps) => {
-  const t = useTranslations('common');
+  const t = useTranslations("common");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -42,7 +42,7 @@ export const FileInput = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLLabelElement>) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       inputRef.current?.click();
     }
@@ -53,19 +53,19 @@ export const FileInput = ({
     e.stopPropagation();
 
     if (inputRef.current) {
-      inputRef.current.value = '';
+      inputRef.current.value = "";
     }
 
     const fakeEvent = {
-      target: { files: null, value: '' },
+      target: { files: null, value: "" },
     } as unknown as ChangeEvent<HTMLInputElement>;
 
     onChange?.(fakeEvent);
   };
 
   const formats = hasPDF
-    ? t('fileInput.formatsWithPdf')
-    : t('fileInput.formats');
+    ? t("fileInput.formatsWithPdf")
+    : t("fileInput.formats");
 
   return (
     <label
@@ -82,7 +82,7 @@ export const FileInput = ({
         {...props}
         onChange={onChange}
         ref={inputRef}
-        aria-label={fileName || t('fileInput.selectFile')}
+        aria-label={fileName || t("fileInput.selectFile")}
       />
 
       <div className="file-input-container">
@@ -91,7 +91,7 @@ export const FileInput = ({
             type="button"
             className="close-button"
             onClick={handleClear}
-            aria-label={t('fileInput.remove')}
+            aria-label={t("fileInput.remove")}
           >
             <CrossIcon />
           </button>
@@ -107,11 +107,11 @@ export const FileInput = ({
           ) : (
             <div className="file-input-caption">
               <div className="input-title">
-                {t('fileInput.selectFile')}{' '}
-                <span>{t('fileInput.orDragAndDrop')}</span>
+                {t("fileInput.selectFile")}{" "}
+                <span>{t("fileInput.orDragAndDrop")}</span>
               </div>
               <div>
-                {formats} — {t('fileInput.sizeLimit', { size: maxSize })}
+                {formats} — {t("fileInput.sizeLimit", { size: maxSize })}
               </div>
             </div>
           )}

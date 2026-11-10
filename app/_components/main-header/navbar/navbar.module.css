@@ -68,7 +68,8 @@
 }
 
 .navHeader svg {
-  transform: scale(0.75);
+  width: 16px;
+  height: 16px;
 }
 
 .navClose {

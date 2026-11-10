@@ -1,24 +1,24 @@
-import { describe, expect, test, vi, beforeEach } from 'vitest';
-import { render } from 'vitest-browser-react';
-import { userEvent } from 'vitest/browser';
-import { CreateComment } from '.';
-import { useCreateComment } from '@/features/create-comment/use-create-comment';
-import { useNotifications } from '@/app/providers/notifications-provider/useNotifications';
+import { describe, expect, test, vi, beforeEach } from "vitest";
+import { render } from "vitest-browser-react";
+import { userEvent } from "vitest/browser";
+import { CreateComment } from ".";
+import { useCreateComment } from "@/features/create-comment/use-create-comment";
+import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
 
 let user: ReturnType<typeof userEvent.setup>;
 
 const mockMutate = vi.fn();
 const mockAdd = vi.fn();
 
-vi.mock('@/features/create-comment/use-create-comment', () => ({
+vi.mock("@/features/create-comment/use-create-comment", () => ({
   useCreateComment: vi.fn(),
 }));
 
-vi.mock('@/app/providers/notifications-provider/useNotifications', () => ({
+vi.mock("@/app/providers/notifications-provider/useNotifications", () => ({
   useNotifications: vi.fn(),
 }));
 
-vi.mock('@/shared/ui/text-area', () => ({
+vi.mock("@/shared/ui/text-area", () => ({
   TextArea: ({
     value,
     onChange,
@@ -35,7 +35,7 @@ vi.mock('@/shared/ui/text-area', () => ({
   ),
 }));
 
-vi.mock('@/shared/ui/button', () => ({
+vi.mock("@/shared/ui/button", () => ({
   Button: ({
     children,
     onClick,
@@ -51,7 +51,7 @@ vi.mock('@/shared/ui/button', () => ({
   ),
 }));
 
-describe('CreateComment', () => {
+describe("CreateComment", () => {
   beforeEach(() => {
     user = userEvent.setup();
     mockMutate.mockReset();
@@ -68,44 +68,44 @@ describe('CreateComment', () => {
     } as unknown as ReturnType<typeof useCreateComment>);
   });
 
-  test('renders textarea and button', async () => {
+  test("renders textarea and button", async () => {
     const screen = await render(<CreateComment postId={1} />);
 
-    await expect.element(screen.getByTestId('textarea')).toBeVisible();
-    await expect.element(screen.getByTestId('submit')).toBeVisible();
+    await expect.element(screen.getByTestId("textarea")).toBeVisible();
+    await expect.element(screen.getByTestId("submit")).toBeVisible();
   });
 
-  test('shows error when submitting empty comment', async () => {
+  test("shows error when submitting empty comment", async () => {
     const screen = await render(<CreateComment postId={1} />);
 
-    await screen.getByTestId('submit').click();
+    await screen.getByTestId("submit").click();
 
     await expect
-      .element(screen.getByTestId('error'))
-      .toHaveTextContent('comment.lengthError');
+      .element(screen.getByTestId("error"))
+      .toHaveTextContent("comment.lengthError");
     expect(mockMutate).not.toHaveBeenCalled();
   });
 
-  test('shows error when comment exceeds 200 characters', async () => {
+  test("shows error when comment exceeds 200 characters", async () => {
     const screen = await render(<CreateComment postId={1} />);
 
-    await screen.getByTestId('textarea').fill('a'.repeat(300));
-    await screen.getByTestId('submit').click();
+    await screen.getByTestId("textarea").fill("a".repeat(300));
+    await screen.getByTestId("submit").click();
 
     await expect
-      .element(screen.getByTestId('error'))
-      .toHaveTextContent('comment.lengthError');
+      .element(screen.getByTestId("error"))
+      .toHaveTextContent("comment.lengthError");
     expect(mockMutate).not.toHaveBeenCalled();
   });
 
-  test('calls mutate with correct params on success', async () => {
+  test("calls mutate with correct params on success", async () => {
     const screen = await render(<CreateComment postId={67} />);
 
-    await user.type(screen.getByTestId('textarea'), 'Hello');
-    await screen.getByTestId('submit').click();
+    await user.type(screen.getByTestId("textarea"), "Hello");
+    await screen.getByTestId("submit").click();
 
     expect(mockMutate).toHaveBeenCalledWith(
-      { text: 'Hello', postId: 67 },
+      { text: "Hello", postId: 67 },
       expect.objectContaining({
         onSuccess: expect.any(Function),
         onError: expect.any(Function),
@@ -113,39 +113,39 @@ describe('CreateComment', () => {
     );
   });
 
-  test('clears textarea and shows success toast on success', async () => {
+  test("clears textarea and shows success toast on success", async () => {
     mockMutate.mockImplementation((_, options) => {
       options.onSuccess();
     });
 
     const screen = await render(<CreateComment postId={1} />);
 
-    await user.type(screen.getByTestId('textarea'), 'Hello');
-    await screen.getByTestId('submit').click();
+    await user.type(screen.getByTestId("textarea"), "Hello");
+    await screen.getByTestId("submit").click();
 
-    await expect.element(screen.getByTestId('textarea')).toHaveValue('');
+    await expect.element(screen.getByTestId("textarea")).toHaveValue("");
     expect(mockAdd).toHaveBeenCalledWith({
-      message: 'comment.successMessage',
+      message: "comment.successMessage",
     });
   });
 
-  test('shows error toast on mutate error', async () => {
+  test("shows error toast on mutate error", async () => {
     mockMutate.mockImplementation((_, options) => {
       options.onError();
     });
 
     const screen = await render(<CreateComment postId={1} />);
 
-    await user.type(screen.getByTestId('textarea'), 'Hello');
-    await screen.getByTestId('submit').click();
+    await user.type(screen.getByTestId("textarea"), "Hello");
+    await screen.getByTestId("submit").click();
 
     expect(mockAdd).toHaveBeenCalledWith({
-      message: 'comment.errorMessage',
-      type: 'error',
+      message: "comment.errorMessage",
+      type: "error",
     });
   });
 
-  test('disables inputs when isPending', async () => {
+  test("disables inputs when isPending", async () => {
     vi.mocked(useCreateComment).mockReturnValue({
       mutate: mockMutate,
       isPending: true,
@@ -153,6 +153,6 @@ describe('CreateComment', () => {
 
     const screen = await render(<CreateComment postId={1} />);
 
-    await expect.element(screen.getByTestId('submit')).toBeDisabled();
+    await expect.element(screen.getByTestId("submit")).toBeDisabled();
   });
 });

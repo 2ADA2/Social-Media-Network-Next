@@ -65,8 +65,8 @@ export const PostControl = styled.footer<{ $auth: boolean }>`
   text-overflow: ellipsis;
 
   ${({ $auth }) =>
-    !$auth
-    && css`
+    !$auth &&
+    css`
       .cover-button {
         cursor: default;
       }
@@ -97,13 +97,12 @@ export const StyledSVG = styled.div<{ $active: boolean }>`
     width: 19px;
     height: 16px;
     ${(props) =>
-      props.$active
-      && css`
+      props.$active &&
+      css`
         fill: red;
       `};
 
     path {
-      transform: scale(0.8);
       stroke: ${({ $active }) => ($active ? "red" : "var(--color-primary)")};
     }
   }

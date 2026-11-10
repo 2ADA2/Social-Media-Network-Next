@@ -1,13 +1,13 @@
-import { apiClient } from '@/shared/api/api-client';
+import { apiClient } from "@/shared/api/api-client";
 
 export const uploadAvatar = async (file: File): Promise<string> => {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append("file", file);
 
   const { data } = await apiClient.post<{ url: string }>(
-    '/api/upload-image',
+    "/api/upload-image",
     formData,
-    { headers: { 'Content-Type': 'multipart/form-data' } },
+    { headers: { "Content-Type": "multipart/form-data" } },
   );
 
   return data.url;

@@ -14,43 +14,45 @@ body {
   min-height: calc(100dvh - 30px - 56px);
 }
 
-@media(min-width: 768px) {
+@media (min-width: 768px) {
   .main {
     min-height: calc(100dvh - 68px - 68px);
   }
 }
 
 :root {
-  --font-family-primary: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-family-secondary: var(--font-poppins), system-ui, -apple-system, sans-serif;
+  --font-family-primary:
+    var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-family-secondary:
+    var(--font-poppins), system-ui, -apple-system, sans-serif;
 
-  --color-primary-static: #FFFFFF;
-  --color-primary: #1B2037;
-  --color-inverse: #FFFFFF;
+  --color-primary-static: #ffffff;
+  --color-primary: #1b2037;
+  --color-inverse: #ffffff;
   --color-muted: #667085;
 
   --bg-primary: #eeeeee;
-  --bg-secondary: #FAFAFA;
+  --bg-secondary: #fafafa;
 
-  --placehloder-color: #8791B7;
-  --bg-border: #E0E2E7;
+  --placehloder-color: #8791b7;
+  --bg-border: #e0e2e7;
 
   --hover-primary: #dcdcdc;
   --chart-primary: #a6a6a6;
 
-  --button-hover: #08B94E;
-  --button-pressed: #6236CC;
-  --button-pressed-border: #F2EDFF;
-  --button-disabled: #BCC3E3;
-  --button-disabled-border: #9DA6CB;
+  --button-hover: #08b94e;
+  --button-pressed: #6236cc;
+  --button-pressed-border: #f2edff;
+  --button-disabled: #bcc3e3;
+  --button-disabled-border: #9da6cb;
 
-  --toggle-bg: #F0F1F3;
-  --toggle-bg-active: #151A2D;
+  --toggle-bg: #f0f1f3;
+  --toggle-bg-active: #151a2d;
 
-  --color-accent: #FF8811;
+  --color-accent: #ff8811;
   --color-accent-disabled: #ff9d3c;
   --color-accent-active: #e87c0f;
-  --color-danger: #FF554A;
+  --color-danger: #ff554a;
 
   --transition-primary: 200ms;
 
@@ -59,21 +61,21 @@ body {
 }
 
 [data-theme="dark"] {
-  --color-primary: #FFFFFF;
-  --color-inverse: #1B2037;
-  --color-muted: #8791B7;
+  --color-primary: #ffffff;
+  --color-inverse: #1b2037;
+  --color-muted: #8791b7;
 
-  --bg-primary: #0E1223;
-  --bg-secondary: #1B2037;
+  --bg-primary: #0e1223;
+  --bg-secondary: #1b2037;
   --bg-border: #384162;
 
-  --input-bg: #151A2D;
+  --input-bg: #151a2d;
 
   --hover-primary: #151a2c;
-  --chart-primary: #2F3757;
+  --chart-primary: #2f3757;
 
-  --toggle-bg: #151A2D;
+  --toggle-bg: #151a2d;
 
   --border-primary: #384162;
-  --input-border-active: #7A44FF;
+  --input-border-active: #7a44ff;
 }

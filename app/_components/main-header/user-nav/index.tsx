@@ -1,8 +1,8 @@
-import { ROUTES } from '@/app/lib/routes';
-import './user-nav.css';
-import { useUser } from '@/entities/user/model/use-user';
-import { Avatar } from '@/shared/ui/avatar';
-import Link from 'next/link';
+import { ROUTES } from "@/app/lib/routes";
+import "./user-nav.css";
+import { useUser } from "@/entities/user/model/use-user";
+import { Avatar } from "@/shared/ui/avatar";
+import Link from "next/link";
 
 export const UserNav = () => {
   const { user } = useUser();

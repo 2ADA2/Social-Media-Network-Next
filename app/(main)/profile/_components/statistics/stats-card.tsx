@@ -1,22 +1,21 @@
 import { useTranslations } from "next-intl";
 
 interface StatsCardProps {
-  title: string,
-  value: number,
-  percents: number,
+  title: string;
+  value: number;
+  percents: number;
 }
 
 export const StatsCard = ({ title, value, percents }: StatsCardProps) => {
-  const t = useTranslations('profile');
+  const t = useTranslations("profile");
 
   return (
     <div className="stats-card">
-      <div className="stats-card-title">{ title }</div>
-      <div className="stats-card-value">{ value || 0 }</div>
-      <div
-        className='stats-card-delta'>
-        { percents >= 0 ? `+${ percents }% ` : `${ percents }% ` }
-        { t('stats.weekOverWeek') }
+      <div className="stats-card-title">{title}</div>
+      <div className="stats-card-value">{value || 0}</div>
+      <div className="stats-card-delta">
+        {percents >= 0 ? `+${percents}% ` : `${percents}% `}
+        {t("stats.weekOverWeek")}
       </div>
     </div>
   );

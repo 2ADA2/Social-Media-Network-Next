@@ -1,6 +1,6 @@
-import { useQueries } from '@tanstack/react-query';
-import { apiClient } from '@/shared/api/api-client';
-import type { CommentInterface, PublicUser } from '@/entities/comment/types';
+import { useQueries } from "@tanstack/react-query";
+import { apiClient } from "@/shared/api/api-client";
+import type { CommentInterface, PublicUser } from "@/entities/comment/types";
 
 const STALE_TIME = 5 * 60 * 1000;
 
@@ -14,7 +14,7 @@ export const useCommentAuthors = (comments: CommentInterface[]) => {
 
   const userQueries = useQueries({
     queries: authorIds.map((id) => ({
-      queryKey: ['user', id],
+      queryKey: ["user", id],
       queryFn: () => fetchUser(id),
       staleTime: STALE_TIME,
     })),

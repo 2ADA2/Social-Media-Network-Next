@@ -1,4 +1,4 @@
-import InfoIcon from '@/shared/assets/icons/info-filled.svg';
+import InfoIcon from "@/shared/assets/icons/info-filled.svg";
 
 export interface ShowInputInfoProps {
   error?: string;

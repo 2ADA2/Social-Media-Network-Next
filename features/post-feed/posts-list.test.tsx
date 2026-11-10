@@ -1,15 +1,15 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { PostsList } from './posts-list';
-import { usePosts } from './usePosts';
-import { postsQueries } from './posts-query';
-import { renderWithRouter } from '@/test/render-with-router';
+import { beforeEach, describe, expect, test, vi } from "vitest";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { PostsList } from "./posts-list";
+import { usePosts } from "./usePosts";
+import { postsQueries } from "./posts-query";
+import { renderWithRouter } from "@/test/render-with-router";
 
-vi.mock('./usePosts', () => ({
+vi.mock("./usePosts", () => ({
   usePosts: vi.fn(),
 }));
 
-vi.mock('@/features/create-post', () => ({
+vi.mock("@/features/create-post", () => ({
   CreatePost: ({ onAdd }: { onAdd: () => void }) => (
     <button type="button" data-testid="mock-create-post" onClick={onAdd}>
       Create Post
@@ -17,27 +17,27 @@ vi.mock('@/features/create-post', () => ({
   ),
 }));
 
-vi.mock('@/entities/post', () => ({
+vi.mock("@/entities/post", () => ({
   Post: ({ post }: { post: { id: number } }) => (
     <div data-testid={`post-${post.id}`}>Post {post.id}</div>
   ),
 }));
 
-vi.mock('@/shared/ui/loader', () => ({
+vi.mock("@/shared/ui/loader", () => ({
   Loader: ({ isBlock }: { isBlock?: boolean }) => (
-    <div data-testid={isBlock !== false ? 'loader-block' : 'loader-inline'} />
+    <div data-testid={isBlock !== false ? "loader-block" : "loader-inline"} />
   ),
 }));
 
 const mockUseIntersectionObserver = vi.fn();
-vi.mock('@/shared/lib/hooks/use-intersection-observer', () => ({
+vi.mock("@/shared/lib/hooks/use-intersection-observer", () => ({
   useIntersectionObserver: (options: { onIntersect: () => void }) => {
     mockUseIntersectionObserver(options);
     return vi.fn();
   },
 }));
 
-describe('PostsList', () => {
+describe("PostsList", () => {
   let queryClient: QueryClient;
   const mockFetchNextPage = vi.fn();
 
@@ -57,7 +57,7 @@ describe('PostsList', () => {
   const renderWithClient = async () =>
     renderWithRouter(
       <QueryClientProvider client={queryClient}>
-          <PostsList />
+        <PostsList />
       </QueryClientProvider>,
     );
 
@@ -69,25 +69,25 @@ describe('PostsList', () => {
     mockUsePosts();
   });
 
-  test('renders block loader while pending and no posts', async () => {
+  test("renders block loader while pending and no posts", async () => {
     mockUsePosts({ isPending: true, data: undefined });
     const screen = await renderWithClient();
     await expect
-      .element(screen.getByTestId('loader-block'))
+      .element(screen.getByTestId("loader-block"))
       .toBeInTheDocument();
   });
 
-  test('renders posts', async () => {
+  test("renders posts", async () => {
     mockUsePosts({
       data: { pages: [{ items: [{ id: 1 }, { id: 2 }] }] },
     });
     const screen = await renderWithClient();
 
-    await expect.element(screen.getByTestId('post-1')).toBeInTheDocument();
-    await expect.element(screen.getByTestId('post-2')).toBeInTheDocument();
+    await expect.element(screen.getByTestId("post-1")).toBeInTheDocument();
+    await expect.element(screen.getByTestId("post-2")).toBeInTheDocument();
   });
 
-  test('renders inline loader when fetching next page', async () => {
+  test("renders inline loader when fetching next page", async () => {
     mockUsePosts({
       data: { pages: [{ items: [{ id: 1 }] }] },
       isFetchingNextPage: true,
@@ -96,21 +96,21 @@ describe('PostsList', () => {
     const screen = await renderWithClient();
 
     await expect
-      .element(screen.getByTestId('loader-inline'))
+      .element(screen.getByTestId("loader-inline"))
       .toBeInTheDocument();
   });
 
-  test('does not render intersection anchor if no next page', async () => {
+  test("does not render intersection anchor if no next page", async () => {
     mockUsePosts({ data: { pages: [{ items: [{ id: 1 }] }] } });
     await renderWithClient();
     const options = mockUseIntersectionObserver.mock.calls[0][0];
 
-    expect(options.onIntersect).toBeTypeOf('function');
+    expect(options.onIntersect).toBeTypeOf("function");
     options.onIntersect();
     expect(mockFetchNextPage).not.toHaveBeenCalled();
   });
 
-  test('calls fetchNextPage when intersected and has next page', async () => {
+  test("calls fetchNextPage when intersected and has next page", async () => {
     mockUsePosts({
       data: { pages: [{ items: [{ id: 1 }] }] },
       hasNextPage: true,
@@ -122,13 +122,13 @@ describe('PostsList', () => {
     expect(mockFetchNextPage).toHaveBeenCalledTimes(1);
   });
 
-  test('invalidates queries when a post is created', async () => {
-    const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+  test("invalidates queries when a post is created", async () => {
+    const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
     mockUsePosts({ data: { pages: [{ items: [] }] } });
     const screen = await renderWithClient();
 
-    const user = (await import('vitest/browser')).userEvent.setup();
-    await user.click(screen.getByTestId('mock-create-post'));
+    const user = (await import("vitest/browser")).userEvent.setup();
+    await user.click(screen.getByTestId("mock-create-post"));
 
     expect(invalidateSpy).toHaveBeenCalledWith({
       queryKey: postsQueries.infinite().queryKey,

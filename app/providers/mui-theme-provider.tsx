@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { ThemeProvider, createTheme } from '@mui/material';
-import { useMemo, type ReactNode } from 'react';
-import { useThemeStore } from '../store/theme-store';
+import { ThemeProvider, createTheme } from "@mui/material";
+import { useMemo, type ReactNode } from "react";
+import { useThemeStore } from "../store/theme-store";
 
-const COLOR_ACCENT = '#FF8811';
+const COLOR_ACCENT = "#FF8811";
 
 export const MuiThemeProvider = ({ children }: { children: ReactNode }) => {
   const theme = useThemeStore((store) => store.theme);
@@ -23,5 +23,5 @@ export const MuiThemeProvider = ({ children }: { children: ReactNode }) => {
     [theme],
   );
 
-  return <ThemeProvider theme={ muiTheme }>{ children }</ThemeProvider>;
+  return <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>;
 };

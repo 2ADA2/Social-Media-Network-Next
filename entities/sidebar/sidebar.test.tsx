@@ -1,15 +1,15 @@
-import { describe, expect, test, vi, beforeEach } from 'vitest';
-import { render } from 'vitest-browser-react';
-import { Sidebar } from '.';
-import { type UserCardProps } from '../user/ui/user-card';
+import { describe, expect, test, vi, beforeEach } from "vitest";
+import { render } from "vitest-browser-react";
+import { Sidebar } from ".";
+import { type UserCardProps } from "../user/ui/user-card";
 import {
   communityReact,
   suggestedUserAlice,
   suggestedUserBob,
   userAlice,
-} from '@/test/mockUsers';
+} from "@/test/mockUsers";
 
-vi.mock('../user/ui/user-card', async () => {
+vi.mock("../user/ui/user-card", async () => {
   return {
     UserCard: (props: UserCardProps) => {
       return (
@@ -23,31 +23,31 @@ vi.mock('../user/ui/user-card', async () => {
   };
 });
 
-describe('Sidebar component', () => {
-  const title = 'sidebar title';
+describe("Sidebar component", () => {
+  const title = "sidebar title";
 
   beforeEach(() => {});
 
-  describe('for users', () => {
-    test('dont renders empty sidebar', async () => {
+  describe("for users", () => {
+    test("dont renders empty sidebar", async () => {
       const screen = await render(<Sidebar title={title} users={[]} />);
 
       await expect.element(screen.getByText(title)).not.toBeInTheDocument();
       await expect
-        .element(screen.getByTestId('usercard'))
+        .element(screen.getByTestId("usercard"))
         .not.toBeInTheDocument();
     });
 
-    test('renders if sidebar has at least 1 user', async () => {
+    test("renders if sidebar has at least 1 user", async () => {
       const screen = await render(
         <Sidebar title={title} users={[suggestedUserAlice]} />,
       );
 
       await expect.element(screen.getByText(title)).toBeVisible();
-      await expect.element(screen.getByTestId('usercard')).toBeVisible();
+      await expect.element(screen.getByTestId("usercard")).toBeVisible();
     });
 
-    test('Combines first name and second name', async () => {
+    test("Combines first name and second name", async () => {
       const screen = await render(
         <Sidebar
           title={title}
@@ -63,7 +63,7 @@ describe('Sidebar component', () => {
         .toBeVisible();
     });
 
-    test('subtitle is @ + username', async () => {
+    test("subtitle is @ + username", async () => {
       const screen = await render(
         <Sidebar
           title={title}
@@ -78,26 +78,26 @@ describe('Sidebar component', () => {
     });
   });
 
-  describe('for groups', () => {
-    test('dont renders empty sidebar', async () => {
+  describe("for groups", () => {
+    test("dont renders empty sidebar", async () => {
       const screen = await render(<Sidebar title={title} users={[]} />);
 
       await expect.element(screen.getByText(title)).not.toBeInTheDocument();
       await expect
-        .element(screen.getByTestId('usercard'))
+        .element(screen.getByTestId("usercard"))
         .not.toBeInTheDocument();
     });
 
-    test('renders if sidebar has at least 1 group', async () => {
+    test("renders if sidebar has at least 1 group", async () => {
       const screen = await render(
         <Sidebar title={title} users={[communityReact]} />,
       );
 
       await expect.element(screen.getByText(title)).toBeVisible();
-      await expect.element(screen.getByTestId('usercard')).toBeVisible();
+      await expect.element(screen.getByTestId("usercard")).toBeVisible();
     });
 
-    test('Shows group name', async () => {
+    test("Shows group name", async () => {
       const screen = await render(
         <Sidebar title={title} users={[communityReact]} />,
       );
@@ -108,7 +108,7 @@ describe('Sidebar component', () => {
         .toBeVisible();
     });
 
-    test('subtitle is member count', async () => {
+    test("subtitle is member count", async () => {
       const screen = await render(
         <Sidebar title={title} users={[communityReact]} />,
       );
