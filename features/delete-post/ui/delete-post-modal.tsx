@@ -30,7 +30,11 @@ export const DeletePostModal = ({
         <Button disabled={isPending} onClick={onClose}>
           {t("deletePost.cancel")}
         </Button>
-        <Button disabled={isPending} onClick={handleSubmit}>
+        <Button
+          disabled={isPending}
+          onClick={handleSubmit}
+          className="button-danger"
+        >
           {t("deletePost.submit")}
         </Button>
       </div>

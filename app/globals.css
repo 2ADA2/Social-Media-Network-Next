@@ -55,6 +55,7 @@ body {
   --color-accent-disabled: #ff9d3c;
   --color-accent-active: #e87c0f;
   --color-danger: #ff554a;
+  --color-danger-hover: #e54f44;
 
   --transition-primary: 200ms;
 
