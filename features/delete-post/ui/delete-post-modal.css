@@ -9,6 +9,14 @@
     button {
       width: 100%;
     }
+
+    .button-danger {
+      background-color: var(--color-danger);
+
+      &:hover {
+        background-color: var(--color-danger-hover);
+      }
+    }
   }
 
   &.modal-window p {
