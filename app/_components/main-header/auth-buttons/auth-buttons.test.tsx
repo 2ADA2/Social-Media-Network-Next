@@ -23,6 +23,6 @@ describe("AuthButtons", () => {
   test("renders navigation landmark", async () => {
     const screen = await renderWithRouter(<AuthButtons />);
 
-    expect(screen.getByRole("navigation")).toBeInTheDocument();
+    await expect.element(screen.getByRole("navigation")).toBeInTheDocument();
   });
 });

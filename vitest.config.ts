@@ -17,15 +17,26 @@ export default defineConfig({
       "react-dom",
       "react-apexcharts",
       "apexcharts",
+      "vitest/internal/browser",
+      "react/jsx-runtime",
+      "react/jsx-dev-runtime",
     ],
   },
   plugins: [
     svgr({
       include: "**/*.svg",
+      svgrOptions: {
+        exportType: "default",
+      },
     }),
   ],
   test: {
     isolate: true,
+    server: {
+      deps: {
+        inline: ["styled-components"],
+      },
+    },
     env: {
       TZ: "UTC",
     },
