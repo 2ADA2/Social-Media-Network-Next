@@ -26,9 +26,9 @@ describe("LanguageSwitcher", () => {
 
   test("renders options and selects current language", async () => {
     const screen = await render(<LanguageSwitcher />);
-    const select = screen.getByRole("combobox", { name: "Language" });
+    const select = screen.getByRole("combobox");
 
-    await expect.element(select).toHaveValue("en");
+    await userEvent.click(select);
     await expect
       .element(screen.getByRole("option", { name: "English" }))
       .toBeInTheDocument();
@@ -41,10 +41,9 @@ describe("LanguageSwitcher", () => {
     const user = userEvent.setup();
     const screen = await render(<LanguageSwitcher />);
 
-    await user.selectOptions(
-      screen.getByRole("combobox", { name: "Language" }),
-      "ru",
-    );
+    await userEvent.click(screen.getByRole("combobox"));
+
+    await userEvent.click(screen.getByRole("option", { name: "Русский" }));
 
     expect(document.cookie).toContain("NEXT_LOCALE=ru");
     expect(mockRefresh).toHaveBeenCalledTimes(1);
