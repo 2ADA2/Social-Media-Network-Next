@@ -4,6 +4,7 @@ import { useLocale } from "next-intl";
 import "./language-switcher.css";
 import type { ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
+import { Select } from "@/shared/ui/select";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
@@ -14,25 +15,20 @@ export const LanguageSwitcher = () => {
   const locale = useLocale();
   const router = useRouter();
 
-  const changeLanguage = (e: ChangeEvent<HTMLSelectElement>) => {
-    document.cookie = `NEXT_LOCALE=${e.target.value}; path=/; max-age=7200; SameSite=Lax`;
+  const changeLanguage = (value: string) => {
+    document.cookie = `NEXT_LOCALE=${value}; path=/; max-age=7200; SameSite=Lax`;
 
     router.refresh();
   };
 
   return (
-    <select
-      className="language-switcher"
+    <Select
+      options={LANGUAGES.map(({ code, label }) => ({
+        value: code,
+        label: label,
+      }))}
       value={locale}
       onChange={changeLanguage}
-      aria-label="Language"
-      name="language"
-    >
-      {LANGUAGES.map(({ code, label }) => (
-        <option key={code} value={code}>
-          {label}
-        </option>
-      ))}
-    </select>
+    />
   );
 };

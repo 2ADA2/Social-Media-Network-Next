@@ -16,6 +16,7 @@ export const Toggle = ({ checked, onChange, disabled, label }: ToggleProps) => {
       aria-pressed={checked}
       disabled={disabled}
       aria-label={label}
+      data-testid="toggle"
     >
       <span className="thumb" />
     </button>
