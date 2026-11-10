@@ -49,7 +49,6 @@ export const useAuth = () => {
   };
 
   const logout = async () => {
-    console.log(1);
     try {
       await fetchLogout();
     } catch (err) {

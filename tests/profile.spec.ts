@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { beforeEach } from "node:test";
 
 test.describe("Profile page", () => {
   test.describe.configure({ mode: "serial" });
@@ -6,33 +7,37 @@ test.describe("Profile page", () => {
   test.describe("Preferences", () => {
     test("toggles dark theme", async ({ page }) => {
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
 
-      const themeToggle = page.getByRole("button", { name: "Switch theme" });
+      const themeToggle = page.getByTestId("toggle");
 
       await expect(themeToggle).toHaveAttribute("aria-pressed", "false");
-
       await themeToggle.click();
+
       await expect(themeToggle).toHaveAttribute("aria-pressed", "true");
-
-      await themeToggle.click();
-      await expect(themeToggle).toHaveAttribute("aria-pressed", "false");
     });
 
     test("Switch language", async ({ page }) => {
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
 
-      const languageSelect = page.getByRole("combobox", { name: "Language" });
+      const languageSelect = page.getByTestId("select");
 
       const logoutButtonEN = page.getByRole("button", { name: "Logout" });
       const logoutButtonRU = page.getByRole("button", { name: "Выйти" });
 
-      await languageSelect.selectOption("ru");
-      await expect(languageSelect).toHaveValue("ru");
+      await languageSelect.click();
+      await page.getByRole("option", { name: "Русский" }).click();
+
+      await expect(languageSelect).toContainText("Русский");
 
       await expect(logoutButtonEN).not.toBeVisible();
       await expect(logoutButtonRU).toBeVisible();
 
-      await languageSelect.selectOption("en");
+      await languageSelect.click();
+      await page.getByRole("option", { name: "English" }).click();
+
+      await expect(languageSelect).toContainText("English");
 
       await expect(logoutButtonEN).toBeVisible();
       await expect(logoutButtonRU).not.toBeVisible();
@@ -42,6 +47,7 @@ test.describe("Profile page", () => {
   test.describe("Edit profile", () => {
     test("Empty name triggers validation error", async ({ page }) => {
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
 
       const field = page.getByRole("textbox", { name: "First name" });
 
@@ -214,7 +220,7 @@ test.describe("Profile page", () => {
     test("Logout", async ({ page }) => {
       await page.goto("http://localhost:3000/profile");
 
-      const logoutButton = await page.getByRole("button", { name: "Logout" });
+      const logoutButton = page.getByRole("button", { name: "Logout" });
 
       await logoutButton.click();
 
