@@ -34,10 +34,6 @@ const postResponseSchema = z.object({
   ),
 });
 
-const allPostsResponseSchema = z.object({
-  allPosts: z.array(postResponseSchema),
-});
-
 const postByIdResponseSchema = z.object({
   post: postResponseSchema.nullable(),
 });
@@ -126,34 +122,38 @@ interface PostsTotalResponse {
   postsTotal: number;
 }
 
-const fetchPosts = async (limit = 20, offset = 0): Promise<PostsPage> => {
-  try {
-    const [postsData, totalData] = await Promise.all([
-      graphqlClient.request<AllPostsResponse>(ALL_POSTS_QUERY, {
-        limit,
-        offset,
-      }),
-      graphqlClient.request<PostsTotalResponse>(POSTS_TOTAL_QUERY),
-    ]);
+const fetchPostsFromEnd = async (
+  limit = 20,
+  offsetFromEnd = 0,
+): Promise<PostsPage> => {
+  const totalData =
+    await graphqlClient.request<PostsTotalResponse>(POSTS_TOTAL_QUERY);
+  const total = totalData.postsTotal;
 
-    allPostsResponseSchema.parse(postsData);
-    postsTotalResponseSchema.parse(totalData);
+  const remaining = total - offsetFromEnd;
 
-    return {
-      items: postsData.allPosts,
-      total: totalData.postsTotal,
-      limit,
-      offset,
-    };
-  } catch (e) {
-    if (e instanceof AxiosError) {
-      throw new Error(`request error : ${e.message}`);
-    } else if (e instanceof Error) {
-      throw new Error(`schema error: ${e.message}`);
-    }
-
-    throw new Error("unknown error");
+  if (remaining <= 0) {
+    return { items: [], total, limit: 0, offset: 0 };
   }
+
+  const currentLimit = Math.min(limit, remaining);
+
+  const actualOffset = Math.max(0, total - offsetFromEnd - currentLimit);
+
+  const postsData = await graphqlClient.request<AllPostsResponse>(
+    ALL_POSTS_QUERY,
+    {
+      limit: currentLimit,
+      offset: actualOffset,
+    },
+  );
+
+  return {
+    items: postsData.allPosts.reverse(),
+    total,
+    limit: Math.min(limit, actualOffset),
+    offset: actualOffset,
+  };
 };
 
 const fetchPost = async (id: number): Promise<Post | null> => {
@@ -180,7 +180,7 @@ export const postsQueries = {
   infinite: () =>
     infiniteQueryOptions({
       queryKey: ["posts"],
-      queryFn: ({ pageParam }) => fetchPosts(POSTS_LIMIT, pageParam),
+      queryFn: ({ pageParam = 0 }) => fetchPostsFromEnd(POSTS_LIMIT, pageParam),
       initialPageParam: 0,
       getNextPageParam: (lastPage, allPages) => {
         const loaded = allPages.reduce(
@@ -188,7 +188,11 @@ export const postsQueries = {
           0,
         );
 
-        return loaded < lastPage.total ? loaded : undefined;
+        if (loaded < lastPage.total) {
+          return loaded;
+        }
+
+        return undefined;
       },
       staleTime: CACHE_TIME,
       gcTime: CACHE_TIME,
