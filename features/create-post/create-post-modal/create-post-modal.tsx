@@ -9,7 +9,10 @@ import {
   StyledTextArea,
   StyledTitle,
 } from "@/features/create-post/create-post-modal/create-post-modal.styles";
-import { StyledButton } from "@/features/create-post/create-post.styles";
+import {
+  StyledButton,
+  StyledButtonContainer,
+} from "@/features/create-post/create-post.styles";
 import { Controller, useForm } from "react-hook-form";
 import {
   createPostSchema,
@@ -99,7 +102,7 @@ export const CreatePostModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size="large">
       <StyledForm onSubmit={handleSubmit(submitForm)} noValidate>
         <StyledTitle>{t("createPostModal.title")}</StyledTitle>
         <Controller
@@ -132,7 +135,11 @@ export const CreatePostModal = ({
           )}
         />
         <FileInput name="image" fileName={fileName} onChange={changeFile} />
-        <StyledButton type="submit">{t("createPostModal.submit")}</StyledButton>
+        <StyledButtonContainer>
+          <StyledButton type="submit">
+            {t("createPostModal.submit")}
+          </StyledButton>
+        </StyledButtonContainer>
       </StyledForm>
     </Modal>
   );

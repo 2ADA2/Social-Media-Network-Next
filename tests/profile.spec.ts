@@ -58,6 +58,7 @@ test.describe("Profile page", () => {
 
     test("overflowing name triggers validation error", async ({ page }) => {
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
 
       const field = page.getByRole("textbox", { name: "First name" });
 
@@ -68,6 +69,7 @@ test.describe("Profile page", () => {
 
     test("empty second name triggers validation error", async ({ page }) => {
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
 
       const field = page.getByRole("textbox", { name: "Second name" });
 
@@ -80,6 +82,7 @@ test.describe("Profile page", () => {
       page,
     }) => {
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
 
       const field = page.getByRole("textbox", { name: "Second name" });
 
@@ -90,6 +93,7 @@ test.describe("Profile page", () => {
 
     test("Username starts with @", async ({ page }) => {
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
 
       const field = page.getByRole("textbox", { name: "Username" });
 
@@ -100,6 +104,7 @@ test.describe("Profile page", () => {
 
     test("Cant save changes while invalid", async ({ page }) => {
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
 
       const saveButton = page.getByRole("button", {
         name: "Save profile changes",
@@ -116,6 +121,8 @@ test.describe("Profile page", () => {
 
     test("updates profile if valid", async ({ page }) => {
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
+
       const newName = "Hanna";
       const newSecondName = "Malek";
       const newUsername = "@hannamalek";
@@ -154,6 +161,7 @@ test.describe("Profile page", () => {
       page,
     }) => {
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
 
       const field = page.getByRole("textbox", { name: "Email" });
       const saveButton = page.getByRole("button", {
@@ -186,6 +194,7 @@ test.describe("Profile page", () => {
     test("Updated email if password is correct", async ({ page }) => {
       const newEmail = "hanna.malek@mail.com";
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
 
       const field = page.getByRole("textbox", { name: "Email" });
       const saveButton = page.getByRole("button", {
@@ -219,6 +228,7 @@ test.describe("Profile page", () => {
   test.describe("Actions", () => {
     test("Logout", async ({ page }) => {
       await page.goto("http://localhost:3000/profile");
+      await page.waitForLoadState("networkidle");
 
       const logoutButton = page.getByRole("button", { name: "Logout" });
 

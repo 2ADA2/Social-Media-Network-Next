@@ -36,7 +36,8 @@
     "currentPasswordPlaceholder": "Enter current password"
   },
   "updateAvatar": {
-    "title": "Update your profile photo",
+    "title": "New avatar",
+    "text": "Choose a new photo for your profile",
     "submit": "Update",
     "fileTypeError": "File must be .PNG or .JPG",
     "fileSizeError": "no more than {size} MB",

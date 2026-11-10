@@ -13,6 +13,7 @@ export interface ModalProps {
   onClose: () => void;
   className?: string;
   title?: string;
+  size?: "small" | "large";
 }
 
 export const Modal = ({
@@ -21,6 +22,7 @@ export const Modal = ({
   onClose,
   className = "",
   title,
+  size = "small",
 }: ModalProps) => {
   const t = useTranslations("common");
   const modalRef = useRef<HTMLDivElement>(null);
@@ -63,7 +65,7 @@ export const Modal = ({
           >
             <animated.div
               data-testid="modal"
-              className={"modal-window " + className}
+              className={`modal-window ${className} modal-${size}`}
               style={style}
               tabIndex={-1}
               ref={modalRef}
