@@ -29,7 +29,10 @@ export const Text = styled.span`
   font-weight: 400;
   flex-grow: 1;
 `;
-
+export const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 export const StyledButton = styled(Button)`
   width: 140px;
   height: 36px;

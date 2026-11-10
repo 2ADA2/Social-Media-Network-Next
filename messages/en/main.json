@@ -53,8 +53,10 @@
     "members": "members"
   },
   "deletePost": {
-    "title": "Are you sure?",
-    "submit": "Delete"
+    "title": "Confirmation",
+    "text": "Are you sure you want to delete your post?",
+    "submit": "Delete",
+    "cancel": "Cancel"
   },
   "nav": {
     "menu": "menu"

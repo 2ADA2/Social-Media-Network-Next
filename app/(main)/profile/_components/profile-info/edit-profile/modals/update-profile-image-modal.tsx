@@ -79,6 +79,7 @@ export const UpdateProfileImageModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <StyledTitle>{t("updateAvatar.title")}</StyledTitle>
+      <p>{t("updateAvatar.text")}</p>
       <FileInput
         name="image"
         hasPDF={false}

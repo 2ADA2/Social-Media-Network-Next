@@ -10,6 +10,10 @@
   backdrop-filter: blur(10px);
 }
 
+.modal-window.modal-large {
+  max-width: 700px;
+}
+
 .modal-window {
   box-sizing: border-box;
   position: relative;
@@ -21,10 +25,37 @@
   font-family: var(--font-family-secondary);
   border: 1px solid var(--border-primary);
   width: 90%;
-  max-width: 800px;
+  max-width: 500px;
   max-height: 90dvh;
   overflow-y: auto;
   will-change: transform, opacity;
+
+  p {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+
+    svg {
+      width: 16px;
+      height: 16px;
+
+      path {
+        fill: var(--color-primary);
+      }
+    }
+  }
 
   .input-label input,
   button {
@@ -32,43 +63,25 @@
   }
 }
 
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  width: 16px;
-  height: 16px;
-  margin: 0;
-
-  svg {
-    width: 16px;
-    height: 16px;
-
-    path {
-      fill: var(--color-primary);
-    }
-  }
-}
-
 @media (min-width: 768px) {
   .modal-window {
     padding: 24px;
     gap: 16px;
-  }
 
-  .modal-close {
-    top: 24px;
-    right: 24px;
-    width: 24px;
-    height: 24px;
+    button {
+      width: 144px;
+    }
 
-    svg {
+    .modal-close {
+      top: 24px;
+      right: 24px;
       width: 24px;
       height: 24px;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 }
