@@ -11,7 +11,7 @@
     }
   }
 
-  p {
+  &.modal-window p {
     margin-bottom: 16px;
   }
 }

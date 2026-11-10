@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Modal } from "@/shared/ui/modal";
-import { StyledTitle } from "@/features/create-post/create-post-modal/create-post-modal.styles";
 import { Button } from "@/shared/ui/button";
 import { useUpdateAccount } from "@/features/edit-profile/use-update-account";
 import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
@@ -100,7 +99,7 @@ export const ConfirmPasswordModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
-      <StyledTitle>{t("confirmPassword.title")}</StyledTitle>
+      <span className="modal-title">{t("confirmPassword.title")}</span>
 
       <PasswordInput
         label={t("confirmPassword.password")}

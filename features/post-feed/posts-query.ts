@@ -1,6 +1,7 @@
 import { apiClient } from "@/shared/api/api-client";
-import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 import { graphqlClient } from "@/shared/api/graphql-client";
+import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
+
 import type { Post, PostsPage } from "@/entities/post/types";
 import { gql } from "graphql-request";
 import z from "zod";
@@ -126,24 +127,41 @@ interface PostsTotalResponse {
   postsTotal: number;
 }
 
-const fetchPosts = async (limit = 20, offset = 0): Promise<PostsPage> => {
+const fetchPostsFromEnd = async (
+  limit = 20,
+  offsetFromEnd = 0,
+): Promise<PostsPage> => {
   try {
-    const [postsData, totalData] = await Promise.all([
-      graphqlClient.request<AllPostsResponse>(ALL_POSTS_QUERY, {
-        limit,
-        offset,
-      }),
-      graphqlClient.request<PostsTotalResponse>(POSTS_TOTAL_QUERY),
-    ]);
+    const totalData =
+      await graphqlClient.request<PostsTotalResponse>(POSTS_TOTAL_QUERY);
+
+    postsTotalResponseSchema.parse(totalData);
+    const total = totalData.postsTotal;
+
+    const remaining = total - offsetFromEnd;
+
+    if (remaining <= 0) {
+      return { items: [], total, limit: 0, offset: 0 };
+    }
+
+    const currentLimit = Math.min(limit, remaining);
+    const actualOffset = Math.max(0, total - offsetFromEnd - currentLimit);
+
+    const postsData = await graphqlClient.request<AllPostsResponse>(
+      ALL_POSTS_QUERY,
+      {
+        limit: currentLimit,
+        offset: actualOffset,
+      },
+    );
 
     allPostsResponseSchema.parse(postsData);
-    postsTotalResponseSchema.parse(totalData);
 
     return {
-      items: postsData.allPosts,
-      total: totalData.postsTotal,
-      limit,
-      offset,
+      items: postsData.allPosts.reverse(),
+      total,
+      limit: currentLimit,
+      offset: actualOffset,
     };
   } catch (e) {
     if (e instanceof AxiosError) {
@@ -180,7 +198,7 @@ export const postsQueries = {
   infinite: () =>
     infiniteQueryOptions({
       queryKey: ["posts"],
-      queryFn: ({ pageParam }) => fetchPosts(POSTS_LIMIT, pageParam),
+      queryFn: ({ pageParam = 0 }) => fetchPostsFromEnd(POSTS_LIMIT, pageParam),
       initialPageParam: 0,
       getNextPageParam: (lastPage, allPages) => {
         const loaded = allPages.reduce(
@@ -188,7 +206,11 @@ export const postsQueries = {
           0,
         );
 
-        return loaded < lastPage.total ? loaded : undefined;
+        if (loaded < lastPage.total) {
+          return loaded;
+        }
+
+        return undefined;
       },
       staleTime: CACHE_TIME,
       gcTime: CACHE_TIME,

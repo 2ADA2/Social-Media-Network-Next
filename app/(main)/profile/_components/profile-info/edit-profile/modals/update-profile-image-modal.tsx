@@ -1,6 +1,5 @@
 import { type ChangeEvent, useState } from "react";
 import { useTranslations } from "next-intl";
-import { StyledTitle } from "@/features/create-post/create-post-modal/create-post-modal.styles";
 import { FileInput } from "@/shared/ui/file-input";
 import { StyledButton } from "@/features/create-post/create-post.styles";
 import { useUpdateAvatar } from "@/features/edit-profile/use-update-avatar";
@@ -78,7 +77,7 @@ export const UpdateProfileImageModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <StyledTitle>{t("updateAvatar.title")}</StyledTitle>
+      <span className="modal-title">{t("updateAvatar.title")}</span>
       <p>{t("updateAvatar.text")}</p>
       <FileInput
         name="image"
