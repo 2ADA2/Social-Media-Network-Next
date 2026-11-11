@@ -2,7 +2,6 @@ import { apiClient } from "@/shared/api/api-client";
 import { AxiosError } from "axios";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { deleteCommentRequest } from "./delete-comment-api";
-import { useDeleteComment } from "./use-delete-comment";
 import { QueryClient } from "@tanstack/react-query";
 
 vi.mock("@/shared/api/api-client", async () => ({
@@ -16,7 +15,6 @@ describe("deleteCommentApi", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    // Создаем новый QueryClient для каждого теста, чтобы изолировать кэш
     queryClient = new QueryClient({
       defaultOptions: {
         mutations: { retry: false },
