@@ -36,7 +36,7 @@ describe("MUI theme provider", () => {
       .toHaveTextContent("light");
   });
 
-  test("Provides current theme", async () => {
+  test("Sets theme and provides current", async () => {
     const screen = await render(
       <MuiThemeProvider>
         <ThemeConsumer />
