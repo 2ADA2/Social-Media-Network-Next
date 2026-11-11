@@ -1,4 +1,4 @@
-import { createFile } from "@/test/create=file";
+import { createFile } from "@/test/create-file";
 import { DEFAULT_MAX_SIZE, FileInput } from ".";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { render } from "vitest-browser-react";
