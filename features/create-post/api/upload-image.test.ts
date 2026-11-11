@@ -2,7 +2,7 @@ import { apiClient } from "@/shared/api/api-client";
 import { AxiosError } from "axios";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { uploadImage } from "./upload-image";
-import { createFile } from "@/test/create=file";
+import { createFile } from "@/test/create-file";
 
 vi.mock("@/shared/api/api-client", async () => ({
   apiClient: {

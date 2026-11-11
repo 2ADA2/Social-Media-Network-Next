@@ -4,7 +4,7 @@ import { userEvent } from "vitest/browser";
 import { UpdateProfileImageModal } from "./update-profile-image-modal";
 import { useUpdateAvatar } from "@/features/edit-profile/use-update-avatar";
 import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
-import { createFile } from "@/test/create=file";
+import { createFile } from "@/test/create-file";
 
 let user = userEvent.setup();
 
