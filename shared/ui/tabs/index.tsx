@@ -21,6 +21,7 @@ export const Tabs = ({ tabs, activeTab, onChange }: TabsProps) => {
           aria-selected={activeTab === tab.id}
           className={`tab ${activeTab === tab.id ? "tab-active" : ""}`}
           onClick={() => onChange(tab.id)}
+          data-testid="tab"
         >
           {tab.label}
         </button>
