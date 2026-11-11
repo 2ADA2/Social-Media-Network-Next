@@ -64,6 +64,7 @@ export const Notification = ({
           onClick={handleClose}
           className="notification-close"
           aria-label={t("notification.close")}
+          data-testid="notification-delete"
         >
           <CrossIcon />
         </button>
