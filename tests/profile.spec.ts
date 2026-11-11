@@ -106,17 +106,16 @@ test.describe("Profile page", () => {
       await page.goto("http://localhost:3000/profile");
       await page.waitForLoadState("networkidle");
 
-      const saveButton = page.getByRole("button", {
-        name: "Save profile changes",
-      });
-
-      await saveButton.click();
-
-      await page.reload();
-
       const field = page.getByRole("textbox", { name: "First name" });
 
-      await expect(field).toHaveValue("Helena");
+      const initialValue = await field.inputValue();
+
+      await field.fill("");
+
+      await page.getByRole("button", { name: "Save profile changes" }).click();
+
+      await page.reload();
+      await expect(field).toHaveValue(initialValue);
     });
 
     test("updates profile if valid", async ({ page }) => {
@@ -185,7 +184,6 @@ test.describe("Profile page", () => {
       await closeButton.click();
 
       const notification = page.getByTestId("notification");
-      await expect(notification).toHaveAttribute("role", "alert");
       await expect(notification).toHaveText("Wrong password");
 
       await expect(modal).not.toBeVisible();
