@@ -6,7 +6,6 @@ import { apiClient } from "@/shared/api/api-client";
 import { AxiosError } from "axios";
 import { useUpdateAccount } from "./use-update-account";
 import { mockUserResponse } from "@/test/mockUsers";
-import { setCredentials } from "@/entities/user/model/user-slice";
 
 const mockAdd = vi.fn();
 
@@ -34,7 +33,7 @@ vi.mock(
   }),
 );
 
-describe("useDeleteComment", () => {
+describe("useUpdateAccount", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
