@@ -23,8 +23,6 @@ vi.mock(
   }),
 );
 
-vi.mock("apiClie");
-
 describe("useDeleteComment", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
