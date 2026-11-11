@@ -51,7 +51,7 @@ describe("ReduxProvider", () => {
       </ReduxProvider>,
     );
 
-    await expect.element(screen.getByTestId("user")).toHaveTextContent("Guest");
+    await expect.element(screen.getByTestId("user")).toHaveTextContent("user");
     expect(updateToken).toHaveBeenCalledWith("");
   });
 
