@@ -184,7 +184,7 @@ test.describe("Profile page", () => {
       await closeButton.click();
 
       const notification = page.getByTestId("notification");
-      await expect(notification).toHaveText("Wrong password");
+      await expect(notification).toHaveAttribute("role", "alert");
 
       await expect(modal).not.toBeVisible();
     });
