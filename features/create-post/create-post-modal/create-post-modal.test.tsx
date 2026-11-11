@@ -4,7 +4,7 @@ import { userEvent } from "vitest/browser";
 import { CreatePostModal } from "./create-post-modal";
 import { useCreatePost } from "@/features/create-post/hooks/use-create-post";
 import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
-import { createFile } from "@/test/create=file";
+import { createFile } from "@/test/create-file";
 
 let user: ReturnType<typeof userEvent.setup>;
 

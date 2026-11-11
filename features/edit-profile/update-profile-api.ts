@@ -18,7 +18,6 @@ export const updateProfileRequest = async (
 ): Promise<User | undefined> => {
   try {
     const { data } = await apiClient.put<UserResponse>("/api/profile", params);
-
     updateProfileRequestSchema.parse(data);
 
     return mapUser(data);

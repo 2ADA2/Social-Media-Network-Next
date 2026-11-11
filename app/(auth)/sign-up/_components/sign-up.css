@@ -67,8 +67,11 @@
     }
   }
 
-  input {
-    color: var(--color-primary);
+  .input-label {
+    input {
+      color: var(--color-primary);
+    }
+    max-width: calc(100vw - 8px);
   }
 
   .auth-form-footer {
