@@ -73,6 +73,38 @@ describe("EditProfile", () => {
     } as unknown as ReturnType<typeof useNotifications>);
   });
 
+  test("Shows empty fields is user is not exists", async () => {
+    vi.mocked(useUser).mockReturnValue({
+      user: {
+        name: "",
+        surname: "",
+        username: "",
+        email: "",
+        description: "",
+        avatar: "",
+      },
+    } as unknown as ReturnType<typeof useUser>);
+    const screen = await render(<EditProfile />);
+
+    const firstNameField = screen.getByPlaceholder(
+      "editProfile.firstNamePlaceholder",
+    );
+    const secondNameField = screen.getByPlaceholder(
+      "editProfile.secondNamePlaceholder",
+    );
+    const usernameField = screen.getByPlaceholder("@username");
+    const emailField = screen.getByPlaceholder("editProfile.emailPlaceholder");
+    const descriptionField = screen.getByPlaceholder(
+      "editProfile.descriptionPlaceholder",
+    );
+
+    await expect.element(firstNameField).toHaveValue("");
+    await expect.element(secondNameField).toHaveValue("");
+    await expect.element(usernameField).toHaveValue("@");
+    await expect.element(emailField).toHaveValue("");
+    await expect.element(descriptionField).toHaveValue("");
+  });
+
   test("Shows validation error if invalid", async () => {
     const screen = await render(<EditProfile />);
 
