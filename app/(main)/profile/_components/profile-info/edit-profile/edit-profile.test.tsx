@@ -75,14 +75,7 @@ describe("EditProfile", () => {
 
   test("Shows empty fields is user is not exists", async () => {
     vi.mocked(useUser).mockReturnValue({
-      user: {
-        name: "",
-        surname: "",
-        username: "",
-        email: "",
-        description: "",
-        avatar: "",
-      },
+      user: null,
     } as unknown as ReturnType<typeof useUser>);
     const screen = await render(<EditProfile />);
 
