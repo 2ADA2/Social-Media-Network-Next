@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 | File                                                            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s       |
 | --------------------------------------------------------------- | ------- | -------- | ------- | ------- | ----------------------- |
-| All files                                                       | 77.21   | 65.46    | 75.28   | 77.21   |
+| All files                                                       | 80.55   | 70.56    | 80.39   | 80.58   |
 | app/(auth)/sign-in/_components                                  | 90.47   | 50       | 100     | 90      |
 | sign-in-form.tsx                                                | 89.47   | 50       | 100     | 88.88   | 39-40                   |
 | signin-schema.ts                                                | 100     | 100      | 100     | 100     |
@@ -16,11 +16,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 | app/(main)/profile/_components/profile-info                     | 100     | 100      | 100     | 100     |
 | index.tsx                                                       | 100     | 100      | 100     | 100     |
 | logout-button.tsx                                               | 100     | 100      | 100     | 100     |
-| app/(main)/profile/_components/profile-info/edit-profile        | 87.23   | 47.61    | 92.85   | 86.95   |
+| app/(main)/profile/_components/profile-info/edit-profile        | 87.23   | 75       | 92.85   | 86.95   |
 | edit-profile-schema.ts                                          | 100     | 100      | 100     | 100     |
-| index.tsx                                                       | 86.04   | 47.61    | 92.3    | 85.71   | 97-98,102,124,135,142   |
-| app/(main)/profile/_components/profile-info/edit-profile/modals | 69.33   | 33.33    | 81.81   | 68.49   |
-| confirm-password-modal.tsx                                      | 64.86   | 20       | 83.33   | 63.88   | 31-35,49-53,68-84,96-97 |
+| index.tsx                                                       | 86.04   | 75       | 92.3    | 85.71   | 97-98,102,124,135,142   |
+| app/(main)/profile/_components/profile-info/edit-profile/modals | 84      | 83.33    | 81.81   | 83.56   |
+| confirm-password-modal.tsx                                      | 94.59   | 95       | 83.33   | 94.44   | 96-97                   |
 | update-profile-image-modal.tsx                                  | 73.68   | 60       | 80      | 72.97   | 33-35,46-52,61-62,70    |
 | app/(main)/profile/_components/statistics                       | 100     | 72.22    | 100     | 100     |
 | index.tsx                                                       | 100     | 64.28    | 100     | 100     | 27-53                   |
@@ -64,9 +64,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 | user-store.ts                                                   | 100     | 100      | 100     | 100     |
 | entities/comment                                                | 7.69    | 0        | 0       | 7.69    |
 | index.tsx                                                       | 7.69    | 0        | 0       | 7.69    | 10-27                   |
-| entities/post                                                   | 93.84   | 74.13    | 87.5    | 98.24   |
+| entities/post                                                   | 93.84   | 75       | 87.5    | 98.24   |
 | index.tsx                                                       | 90      | 73.17    | 81.81   | 96.96   | 88                      |
-| post-comments.tsx                                               | 100     | 77.77    | 100     | 100     | 1,36                    |
+| post-comments.tsx                                               | 100     | 81.81    | 100     | 100     | 1,36                    |
 | post.styles.tsx                                                 | 100     | 75       | 100     | 100     | 1-68                    |
 | entities/sidebar                                                | 100     | 75       | 100     | 100     |
 | index.tsx                                                       | 100     | 75       | 100     | 100     | 40-60                   |
@@ -96,8 +96,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 | features/create-post/create-post-modal                          | 91.3    | 75       | 88.88   | 90.9    |
 | create-post-modal.tsx                                           | 90.69   | 75       | 87.5    | 90.24   | 59-61,95                |
 | create-post-schema.ts                                           | 100     | 100      | 100     | 100     |
-| features/create-post/hooks                                      | 0       | 0        | 0       | 0       |
-| use-create-post.ts                                              | 0       | 0        | 0       | 0       | 11-20                   |
+| features/create-post/hooks                                      | 60      | 100      | 0       | 60      |
+| use-create-post.ts                                              | 60      | 100      | 0       | 60      | 11-12                   |
 | features/delete-comment                                         | 84.21   | 25       | 100     | 84.21   |
 | delete-comment-api.ts                                           | 62.5    | 25       | 100     | 62.5    | 12-16                   |
 | use-delete-comment.ts                                           | 100     | 100      | 100     | 100     |
@@ -107,27 +107,27 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 | features/delete-post/ui                                         | 93.75   | 100      | 80      | 93.33   |
 | delete-post-button.tsx                                          | 90      | 100      | 66.66   | 88.88   | 20                      |
 | delete-post-modal.tsx                                           | 100     | 100      | 100     | 100     |
-| features/edit-profile                                           | 79.24   | 37.5     | 100     | 79.24   |
-| update-account.ts                                               | 66.66   | 25       | 100     | 66.66   | 31-35                   |
+| features/edit-profile                                           | 73.58   | 31.25    | 100     | 73.58   |
+| update-account.ts                                               | 33.33   | 0        | 100     | 33.33   | 27-35                   |
 | update-profile-api.ts                                           | 72.72   | 25       | 100     | 72.72   | 27-31                   |
 | upload-avatar.ts                                                | 100     | 100      | 100     | 100     |
 | use-update-account.ts                                           | 80      | 50       | 100     | 80      | 17-18                   |
 | use-update-avatar.ts                                            | 90      | 50       | 100     | 90      | 21                      |
 | use-update-profile.ts                                           | 75      | 50       | 100     | 75      | 6,17                    |
-| features/get-comments                                           | 25      | 0        | 18.18   | 25.8    |
-| get-comments.ts                                                 | 33.33   | 0        | 33.33   | 33.33   | 21-40,48                |
-| use-comment-authors.ts                                          | 14.28   | 100      | 12.5    | 15.38   | 8-27                    |
-| features/get-statistics                                         | 23.07   | 100      | 16.66   | 23.07   |
-| stats.ts                                                        | 23.07   | 100      | 16.66   | 23.07   | 9,13-38                 |
+| features/get-comments                                           | 78.12   | 16.66    | 90.9    | 77.41   |
+| get-comments.ts                                                 | 72.22   | 16.66    | 100     | 72.22   | 32-40                   |
+| use-comment-authors.ts                                          | 85.71   | 100      | 87.5    | 84.61   | 9-12                    |
+| features/get-statistics                                         | 92.3    | 100      | 100     | 92.3    |
+| stats.ts                                                        | 92.3    | 100      | 100     | 92.3    | 9                       |
 | features/language-switcher                                      | 100     | 100      | 100     | 100     |
 | index.tsx                                                       | 100     | 100      | 100     | 100     |
-| features/like-post                                              | 46.87   | 14.28    | 33.33   | 46.87   |
+| features/like-post                                              | 68.75   | 28.57    | 100     | 68.75   |
 | like-post-api.ts                                                | 60      | 16.66    | 100     | 60      | 23-31,47-55             |
-| use-like-post.ts                                                | 0       | 0        | 0       | 0       | 12-21                   |
-| features/post-feed                                              | 73.72   | 65.51    | 55.55   | 75.67   |
+| use-like-post.ts                                                | 100     | 100      | 100     | 100     |
+| features/post-feed                                              | 76.27   | 68.96    | 59.25   | 77.47   |
 | posts-list.tsx                                                  | 94.44   | 94.11    | 100     | 94.11   | 47                      |
 | posts-query.ts                                                  | 91.17   | 86.95    | 80      | 91.17   | 144,204-213             |
-| update-posts-cache.ts                                           | 23.33   | 11.11    | 18.18   | 20.83   | 13-17,27-50,67-72       |
+| update-posts-cache.ts                                           | 33.33   | 22.22    | 27.27   | 29.16   | 13-17,29-30,34-50,67-72 |
 | usePosts.ts                                                     | 50      | 100      | 0       | 50      | 5                       |
 | features/theme-switcher                                         | 100     | 100      | 100     | 100     |
 | index.tsx                                                       | 100     | 100      | 100     | 100     |
