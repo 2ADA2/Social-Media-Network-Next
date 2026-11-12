@@ -21,7 +21,7 @@ export const PostComments = React.memo(function PostComments({
   } = useQuery(commentsQueries.forPost(postId));
   const usersMap = useCommentAuthors(comments);
 
-  if (isPending) {
+  if (isPending || usersMap.size !== comments.length) {
     return <Loader isBlock={false} />;
   }
 
