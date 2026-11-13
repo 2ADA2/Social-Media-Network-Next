@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import { renderHook } from "vitest-browser-react";
 import { ReactNode } from "react";
 import { QueryProvider } from "@/app/providers/query-provider";
-import { apiClient } from "@/shared/api/api-client";
+import { apiClient, setTokenRefreshCallback } from "@/shared/api/api-client";
 import { AxiosError } from "axios";
 import { useCreatePost } from "./use-create-post";
 import { createFile } from "@/test/create-file";
@@ -24,6 +24,7 @@ vi.mock("@/shared/api/api-client", async () => ({
   apiClient: {
     post: vi.fn(),
   },
+  setTokenRefreshCallback: vi.fn(),
 }));
 
 vi.mock(

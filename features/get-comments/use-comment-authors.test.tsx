@@ -6,10 +6,6 @@ import { apiClient } from "@/shared/api/api-client";
 import { useCommentAuthors } from "./use-comment-authors";
 import type { CommentInterface, PublicUser } from "@/entities/comment/types";
 
-vi.mock("@/shared/api/api-client", () => ({
-  apiClient: { get: vi.fn() },
-}));
-
 const mockUser1: PublicUser = {
   id: 10,
   username: "user1",
@@ -74,15 +70,15 @@ describe("useCommentAuthors", () => {
     });
 
     await vi.waitFor(() => {
-      expect(result.current.size).toBe(2);
+      expect(result.current.usersMap.size).toBe(2);
     });
 
     expect(apiClient.get).toHaveBeenCalledTimes(2);
     expect(apiClient.get).toHaveBeenCalledWith("/api/users/10");
     expect(apiClient.get).toHaveBeenCalledWith("/api/users/20");
 
-    expect(result.current.get(10)).toEqual(mockUser1);
-    expect(result.current.get(20)).toEqual(mockUser2);
+    expect(result.current.usersMap.get(10)).toEqual(mockUser1);
+    expect(result.current.usersMap.get(20)).toEqual(mockUser2);
   });
 
   test("does not fetch duplicate authors", async () => {
@@ -94,7 +90,7 @@ describe("useCommentAuthors", () => {
     });
 
     await vi.waitFor(() => {
-      expect(result.current.size).toBe(1);
+      expect(result.current.usersMap.size).toBe(1);
     });
 
     expect(apiClient.get).toHaveBeenCalledTimes(1);

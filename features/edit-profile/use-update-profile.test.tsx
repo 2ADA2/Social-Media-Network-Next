@@ -18,21 +18,6 @@ vi.mock("@/entities/user/model/user-slice", async () => ({
   setCredentials: vi.fn(),
 }));
 
-vi.mock("@/shared/api/api-client", async () => ({
-  apiClient: {
-    post: vi.fn(),
-    put: vi.fn().mockResolvedValue({
-      data: {
-        username: "testuser",
-        firstName: "Test",
-        secondName: "User",
-        description: "Test description",
-        profileImage: "https://example.com/avatar.jpg",
-      },
-    }),
-  },
-}));
-
 vi.mock(
   "@/app/providers/notifications-provider/useNotifications",
   async () => ({
@@ -45,6 +30,15 @@ vi.mock(
 describe("useUpdateProfile", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
+    vi.mocked(apiClient.put).mockResolvedValue({
+      data: {
+        username: "testuser",
+        firstName: "Test",
+        secondName: "User",
+        description: "Test description",
+        profileImage: "https://example.com/avatar.jpg",
+      },
+    });
   });
 
   const wrapper = ({ children }: { children: ReactNode }) => (
