@@ -1,5 +1,4 @@
 export default function updateToken(token: string) {
-  (">", token);
   if (token === "") {
     document.cookie = "token=; Max-Age=0; path=/";
   }
