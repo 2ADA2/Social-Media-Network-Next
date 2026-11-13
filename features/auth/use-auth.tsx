@@ -27,10 +27,8 @@ export const useAuth = () => {
     try {
       const { token } = await signinRequest({ email, password });
       await auth(token);
-      localStorage.setItem("token", token);
       updateToken(token);
     } catch (e) {
-      localStorage.removeItem("token");
       updateToken("");
       throw e;
     } finally {
@@ -54,7 +52,6 @@ export const useAuth = () => {
     } catch (err) {
       console.error("Logout request failed:", err);
     } finally {
-      localStorage.removeItem("token");
       dispatch(logoutAction());
       queryClient.clear();
       updateToken("");

@@ -19,9 +19,9 @@ export const PostComments = React.memo(function PostComments({
     isPending,
     isError,
   } = useQuery(commentsQueries.forPost(postId));
-  const usersMap = useCommentAuthors(comments);
+  const { usersMap, authorsCount } = useCommentAuthors(comments);
 
-  if (isPending || usersMap.size !== comments.length) {
+  if (isPending || usersMap.size !== authorsCount) {
     return <Loader isBlock={false} />;
   }
 

@@ -29,10 +29,14 @@ const TestConsumer = () => {
 describe("ReduxProvider", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    localStorage.clear();
+    document.cookie = "token=; Max-Age=0; path=/";
   });
 
-  vi.mocked(apiClient.get).mockResolvedValue({
+  const setTokenCookie = (token: string) => {
+    document.cookie = `token=${encodeURIComponent(token)}; path=/`;
+  };
+
+  const mockUserResponse = {
     data: {
       id: 1,
       username: "testuser",
@@ -42,7 +46,7 @@ describe("ReduxProvider", () => {
       description: "",
       profileImage: null,
     },
-  });
+  };
 
   test("Initializes store without token", async () => {
     const screen = await render(
@@ -56,21 +60,10 @@ describe("ReduxProvider", () => {
   });
 
   test("Fetches user if token exists", async () => {
-    localStorage.setItem("token", "mock-token");
+    setTokenCookie("mock-token");
 
     vi.mocked(useAppSelector).mockImplementation((e) => e);
-
-    vi.mocked(apiClient.get).mockResolvedValue({
-      data: {
-        id: 1,
-        username: "testuser",
-        firstName: "Test",
-        secondName: "User",
-        email: "test@example.com",
-        description: "",
-        profileImage: null,
-      },
-    });
+    vi.mocked(apiClient.get).mockResolvedValue(mockUserResponse);
 
     await render(
       <ReduxProvider>
@@ -83,16 +76,18 @@ describe("ReduxProvider", () => {
   });
 
   test("Logs out and removes token if fetch fails", async () => {
-    localStorage.setItem("token", "mock-token");
+    setTokenCookie("mock-token");
     vi.mocked(apiClient.get).mockRejectedValue(new Error("Network error"));
 
-    const screen = await render(
+    await render(
       <ReduxProvider>
         <TestConsumer />
       </ReduxProvider>,
     );
 
-    expect(localStorage.getItem("token")).toBeNull();
-    expect(updateToken).toHaveBeenCalledWith("");
+    await vi.waitFor(() => {
+      expect(apiClient.get).toHaveBeenCalledWith("/api/me");
+      expect(updateToken).toHaveBeenCalledWith("");
+    });
   });
 });
