@@ -1,5 +1,14 @@
 import Image from "next/image";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+
+const pulse = keyframes`
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+`;
+
+export const SkeletonPulse = styled.div`
+  animation: ${pulse} 1s ease-in-out infinite;
+`;
 
 export const StyledPost = styled.article`
   box-sizing: border-box;

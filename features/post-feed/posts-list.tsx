@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { PropsWithChildren, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Post } from "@/entities/post";
 import { Loader } from "@/shared/ui/loader";
@@ -10,7 +10,7 @@ import { postsQueries } from "@/features/post-feed/posts-query";
 import { useIntersectionObserver } from "@/shared/lib/hooks/use-intersection-observer";
 import "./posts-list.css";
 
-export const PostsList = () => {
+export const PostsList = ({ children }: PropsWithChildren) => {
   const queryClient = useQueryClient();
 
   const {
@@ -40,7 +40,7 @@ export const PostsList = () => {
   const ref = useIntersectionObserver({ onIntersect: loadPosts });
 
   if (isPending && !posts.length) {
-    return <Loader />;
+    return <div className="posts-container">{children}</div>;
   }
 
   if (isError) {
