@@ -1,3 +1,5 @@
+"use client";
+
 import { useLocale, useTranslations } from "next-intl";
 import HeartIcon from "@/shared/assets/icons/heart.svg";
 import CommentIcon from "@/shared/assets/icons/comment.svg";

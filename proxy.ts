@@ -5,7 +5,10 @@ export function proxy(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
   const { pathname } = request.nextUrl;
 
-  if (!token && pathname.startsWith("/profile")) {
+  if (
+    !token &&
+    (pathname.startsWith("/profile") || pathname.startsWith("/posts"))
+  ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
@@ -20,5 +23,10 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/profile/:path*", "/sign-in/:path*", "/sign-up/:path*"],
+  matcher: [
+    "/profile/:path*",
+    "/sign-in/:path*",
+    "/sign-up/:path*",
+    "/posts/:path*",
+  ],
 };

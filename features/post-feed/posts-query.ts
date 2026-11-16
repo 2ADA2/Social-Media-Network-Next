@@ -55,7 +55,7 @@ const likeStatusResponseSchema = z.object({
 
 type LikeStatus = z.infer<typeof likeStatusResponseSchema>;
 
-const ALL_POSTS_QUERY = gql`
+export const ALL_POSTS_QUERY = gql`
   query AllPosts($limit: Int, $offset: Int) {
     allPosts(limit: $limit, offset: $offset) {
       id

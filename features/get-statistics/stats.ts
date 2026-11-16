@@ -17,6 +17,10 @@ export const fetchMyPosts = async (): Promise<Post[]> => {
     cache: "no-store",
   });
 
+  if (res.status === 401) {
+    throw new Error("UNAUTHORIZED");
+  }
+
   if (!res.ok) throw new Error("Failed to fetch posts");
   const data = await res.json();
   return data.items;
@@ -28,6 +32,10 @@ export const fetchMyLikes = async (): Promise<Like[]> => {
     cache: "no-store",
   });
 
+  if (res.status === 401) {
+    throw new Error("UNAUTHORIZED");
+  }
+
   if (!res.ok) throw new Error("Failed to fetch likes");
   return res.json();
 };
@@ -37,6 +45,10 @@ export const fetchMyComments = async (): Promise<Comment[]> => {
     headers: await getAuthHeaders(),
     cache: "no-store",
   });
+
+  if (res.status === 401) {
+    throw new Error("UNAUTHORIZED");
+  }
 
   if (!res.ok) throw new Error("Failed to fetch comments");
   return res.json();

@@ -1,0 +1,104 @@
+import { Metadata } from "next";
+import "./post-page.css";
+import { Post } from "@/entities/post/types";
+import { Avatar } from "@/shared/ui/avatar";
+import { formatRelativeTime } from "@/shared/lib/localization/format-relative-time";
+import { getLocale } from "next-intl/server";
+import { getPostById } from "./get-post-by-id";
+import { redirect } from "next/navigation";
+import Image from "next/image";
+
+interface PostPageProps {
+  params: Promise<{ id: string }>;
+}
+
+export const generateMetadata = async ({
+  params,
+}: PostPageProps): Promise<Metadata> => {
+  const { id } = await params;
+  const post = await getPostById(id);
+
+  if (!post) {
+    return {
+      title: "Post not found | Sidekick Social",
+    };
+  }
+
+  return {
+    title: `${post.author.firstName}: ${post.title} | Sidekick Social`,
+    description: post.content.slice(0, 180),
+    openGraph: {
+      title: post.title,
+      description: post.content.slice(0, 180),
+      images: post.image
+        ? [post.image]
+        : post.author.profileImage
+          ? [post.author.profileImage]
+          : [],
+    },
+  };
+};
+
+const PostPage = async ({ params }: PostPageProps) => {
+  const { id } = await params;
+  const locale = await getLocale();
+  const post: Post | null = await getPostById(id);
+
+  if (post === null) {
+    redirect("/");
+  }
+
+  const date = formatRelativeTime(post.creationDate, locale);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SocialMediaPosting",
+    headline: post.title,
+    articleBody: post.content,
+    image: post.image ?? post.author.profileImage,
+    datePublished: post.creationDate,
+    author: {
+      "@type": "Person",
+      name: post.author?.username || "Unknown",
+    },
+  };
+
+  return (
+    <div className="post-page-container">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <article className="post-page-article">
+        <header className="post-page-header">
+          <Avatar
+            src={post.author.profileImage || ""}
+            alt={`Post ${post.id}`}
+            size={48}
+          />
+          <div className="post-header-info">
+            <div className="post-username">{post.author.username}</div>
+            <div className="post-date">{date}</div>
+          </div>
+        </header>
+        <main>
+          {post.image && (
+            <Image
+              className="post-page-image"
+              src={post.image || ""}
+              width={1920}
+              height={1080}
+              alt={post.title}
+              loading="eager"
+            />
+          )}
+        </main>
+        <p className="post-page-content">{post.content}</p>
+      </article>
+    </div>
+  );
+};
+
+export default PostPage;

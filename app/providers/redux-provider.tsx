@@ -32,7 +32,6 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
           const response = await apiClient.get<UserResponse>("/api/me");
           const user = mapUser(response.data);
           store.dispatch(setCredentials({ user, token }));
-          updateToken(token);
         } catch {
           store.dispatch(logout());
           updateToken("");
