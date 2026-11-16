@@ -20,6 +20,7 @@ export default defineConfig({
       "vitest/internal/browser",
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
+      "next-intl/server",
     ],
   },
   plugins: [

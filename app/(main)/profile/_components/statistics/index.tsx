@@ -1,64 +1,36 @@
-"use client";
-
-import { Toggle } from "@/shared/ui/toggle";
 import "./statistics.css";
-import { lazy, Suspense, useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
-import { useQuery } from "@tanstack/react-query";
 import { countByDay } from "@/shared/lib/stats/count-by-day";
-import { useThemeStore } from "@/app/store/theme-store";
-import { Loader } from "@/shared/ui/loader";
-import { statsQueries } from "@/features/get-statistics/stats";
+import {
+  fetchMyComments,
+  fetchMyLikes,
+  fetchMyPosts,
+} from "@/features/get-statistics/stats";
 import { countByWeek } from "@/shared/lib/stats/date-stats";
 import { StatsCard } from "./stats-card";
-import { TableView } from "./table-view";
+import { getTranslations } from "next-intl/server";
+import { StatisticsClient } from "./statistics-client";
 
-const ChartView = lazy(() => import("./chart-view"));
+export const Statistics = async () => {
+  const t = await getTranslations("profile");
 
-export const Statistics = () => {
-  const t = useTranslations("profile");
-  const [enableChartView, setEnableChartView] = useState(false);
-  const { data: posts } = useQuery(statsQueries.posts());
-  const { data: comments } = useQuery(statsQueries.comments());
-  const { data: likes } = useQuery(statsQueries.likes());
-  const theme = useThemeStore((state) => state.theme);
+  const [posts, likes, comments] = await Promise.all([
+    fetchMyPosts(),
+    fetchMyLikes(),
+    fetchMyComments(),
+  ]);
 
-  const postsStats = useMemo(
-    () => countByWeek((posts ?? []).map((p) => p.creationDate)),
-    [posts],
+  const postsStats = countByWeek(posts.map((p) => p.creationDate));
+  const likesStats = countByWeek(likes.map((l) => l.creationDate));
+  const commentsStats = countByWeek(comments.map((c) => c.creationDate));
+
+  const likesByDay = countByDay(
+    likes.map((l) => l.creationDate),
+    7,
   );
-
-  const likesStats = useMemo(
-    () => countByWeek((likes ?? []).map((l) => l.creationDate)),
-    [likes],
+  const commentsByDay = countByDay(
+    comments.map((c) => c.creationDate),
+    7,
   );
-
-  const commentsStats = useMemo(
-    () => countByWeek((comments ?? []).map((c) => c.creationDate)),
-    [comments],
-  );
-
-  const likesByDay = useMemo(
-    () =>
-      countByDay(
-        (likes ?? []).map((l) => l.creationDate),
-        7,
-      ),
-    [likes],
-  );
-
-  const commentsByDay = useMemo(
-    () =>
-      countByDay(
-        (comments ?? []).map((c) => c.creationDate),
-        7,
-      ),
-    [comments],
-  );
-
-  const switchChartView = () => {
-    setEnableChartView(!enableChartView);
-  };
 
   const stats = [
     {
@@ -89,28 +61,7 @@ export const Statistics = () => {
         ))}
       </div>
 
-      <div className="stats-toggle">
-        <span>{t("stats.tableView")}</span>
-        <Toggle
-          checked={enableChartView}
-          onChange={switchChartView}
-          label={t("stats.switchView")}
-        />
-        <span>{t("stats.enableChartView")}</span>
-      </div>
-
-      {enableChartView && (
-        <Suspense fallback={<Loader />}>
-          <ChartView
-            commentsByDay={commentsByDay}
-            likesByDay={likesByDay}
-            theme={theme}
-          />
-        </Suspense>
-      )}
-      {!enableChartView && (
-        <TableView likesByDay={likesByDay} commentsByDay={commentsByDay} />
-      )}
+      <StatisticsClient likesByDay={likesByDay} commentsByDay={commentsByDay} />
     </section>
   );
 };
