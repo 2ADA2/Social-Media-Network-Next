@@ -1,4 +1,4 @@
-export default function updateToken(token: string) {
+export default function updateToken(token: string = "") {
   if (token === "") {
     document.cookie = "token=; Max-Age=0; path=/";
   }

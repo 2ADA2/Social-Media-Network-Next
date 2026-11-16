@@ -9,10 +9,9 @@ export const graphqlClient = new GraphQLClient(`${API_URL}/graphql`, {
     const token = getCookie("token");
 
     if (token) {
-      request.headers = {
-        ...(request.headers as Record<string, string>),
-        Authorization: `Bearer ${token}`,
-      };
+      const headers = new Headers(request.headers);
+      headers.set("Authorization", `Bearer ${token}`);
+      request.headers = headers;
     }
 
     return request;
