@@ -8,14 +8,10 @@ import type { Post } from "@/entities/post/types";
 const MIN_ID = 100;
 
 export const getPostById = cache(async (id: string): Promise<Post | null> => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-
   const response = await fetch(`${API_URL}/graphql`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
     body: JSON.stringify({
       query: ALL_POSTS_QUERY,
