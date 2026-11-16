@@ -1,5 +1,6 @@
-import { useQueries } from "@tanstack/react-query";
 import { apiClient } from "@/shared/api/api-client";
+import { useQueries } from "@tanstack/react-query";
+
 import type { CommentInterface, PublicUser } from "@/entities/comment/types";
 
 const STALE_TIME = 5 * 60 * 1000;
@@ -20,10 +21,13 @@ export const useCommentAuthors = (comments: CommentInterface[]) => {
     })),
   });
 
-  return new Map(
-    userQueries
-      .map((q) => q.data)
-      .filter((u): u is PublicUser => !!u)
-      .map((u) => [u.id, u]),
-  );
+  return {
+    usersMap: new Map(
+      userQueries
+        .map((q) => q.data)
+        .filter((u): u is PublicUser => !!u)
+        .map((u) => [u.id, u]),
+    ),
+    authorsCount: authorIds.length,
+  };
 };

@@ -72,11 +72,11 @@ export const EditProfile = () => {
   useEffect(() => {
     if (user) {
       reset({
-        firstName: user.name ?? "",
-        secondName: user.surname ?? "",
-        username: "@" + (user.username ?? ""),
-        email: user.email ?? "",
-        description: user.description ?? "",
+        firstName: user.name,
+        secondName: user.surname,
+        username: "@" + user.username,
+        email: user.email,
+        description: user.description,
       });
     }
   }, [user, reset]);

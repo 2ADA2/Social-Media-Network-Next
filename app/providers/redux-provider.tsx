@@ -11,6 +11,7 @@ import {
 import updateToken from "@/shared/lib/update-token";
 import { apiClient } from "@/shared/api/api-client";
 import { UserResponse, mapUser } from "@/entities/user";
+import { getCookie } from "@/shared/lib/get-cookie";
 
 export function ReduxProvider({ children }: { children: React.ReactNode }) {
   const storeRef = useRef<AppStore>(undefined);
@@ -23,7 +24,7 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
     const store = storeRef.current;
     if (!store) return;
 
-    const token = localStorage.getItem("token");
+    const token = getCookie("token");
 
     if (token) {
       (async () => {
@@ -34,7 +35,6 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
           updateToken(token);
         } catch {
           store.dispatch(logout());
-          localStorage.removeItem("token");
           updateToken("");
         } finally {
           store.dispatch(initUserStore());

@@ -18,12 +18,6 @@ vi.mock("@/entities/user/model/user-slice", async () => ({
   setCredentials: vi.fn(),
 }));
 
-vi.mock("@/shared/api/api-client", async () => ({
-  apiClient: {
-    put: vi.fn(),
-  },
-}));
-
 vi.mock(
   "@/app/providers/notifications-provider/useNotifications",
   async () => ({

@@ -3,10 +3,17 @@ import { refreshRequest } from "@/features/auth/refresh";
 import { fetchLogout } from "@/features/auth/logout";
 import { redirect } from "next/navigation";
 import updateToken from "../lib/update-token";
+import { getCookie } from "../lib/get-cookie";
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
+
+export let onTokenRefreshed: (() => void) | null = null;
+
+export const setTokenRefreshCallback = (callback: () => void) => {
+  onTokenRefreshed = callback;
+};
 
 export const apiClient = axios.create({
   baseURL: "/",
@@ -15,7 +22,7 @@ export const apiClient = axios.create({
 
 apiClient.interceptors.request.use((config) => {
   if (typeof window !== "undefined") {
-    const token = localStorage.getItem("token");
+    const token = getCookie("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -29,9 +36,10 @@ const getNewToken = (): Promise<string> => {
   refreshPromise ??= refreshRequest()
     .then((data) => {
       if (typeof window !== "undefined") {
-        localStorage.setItem("token", data.token);
         updateToken(data.token);
+        onTokenRefreshed?.();
       }
+
       return data.token;
     })
     .finally(() => {
@@ -48,7 +56,6 @@ const forceLogout = async () => {
     console.error("Logout request failed:", error);
   } finally {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("token");
       updateToken("");
       redirect("/");
     }

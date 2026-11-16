@@ -45,7 +45,10 @@ describe("PostComments", () => {
   const postId = 1;
 
   beforeEach(() => {
-    vi.mocked(useCommentAuthors).mockReturnValue(new Map());
+    vi.mocked(useCommentAuthors).mockReturnValue({
+      usersMap: new Map(),
+      authorsCount: 0,
+    });
   });
 
   test("shows loader when pending", async () => {
@@ -121,12 +124,13 @@ describe("PostComments", () => {
       isError: false,
     } as ReturnType<typeof useQuery>);
 
-    vi.mocked(useCommentAuthors).mockReturnValue(
-      new Map([
+    vi.mocked(useCommentAuthors).mockReturnValue({
+      usersMap: new Map([
         [10, { id: 10, username: "alice" } as PublicUser],
         [20, { id: 20, username: "bob" } as PublicUser],
       ]),
-    );
+      authorsCount: 2,
+    });
 
     const screen = await render(<PostComments postId={postId} />);
 

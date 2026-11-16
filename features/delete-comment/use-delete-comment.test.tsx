@@ -8,12 +8,6 @@ import { AxiosError } from "axios";
 
 const mockAdd = vi.fn();
 
-vi.mock("@/shared/api/api-client", async () => ({
-  apiClient: {
-    delete: vi.fn(),
-  },
-}));
-
 vi.mock(
   "@/app/providers/notifications-provider/useNotifications",
   async () => ({

@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, vi } from "vitest";
 import { Globals } from "@react-spring/web";
+import { setTokenRefreshCallback } from "./shared/api/api-client";
 
 Globals.assign({
   skipAnimation: true,
@@ -12,14 +13,25 @@ globalThis.process = {
   },
 } as any;
 
-vi.mock("next/navigation", (original) => ({
-  ...original,
-  redirect: vi.fn(),
+vi.mock("@/shared/api/api-client", () => ({
+  apiClient: {
+    get: vi.fn(),
+    post: vi.fn(),
+    put: vi.fn(),
+    patch: vi.fn(),
+    delete: vi.fn(),
+    interceptors: {
+      request: { use: vi.fn() },
+      response: { use: vi.fn() },
+    },
+  },
+  setTokenRefreshCallback: vi.fn(),
 }));
 
 vi.mock("next/navigation", (original) => ({
   ...original,
   redirect: vi.fn(),
+  useRouter: () => vi.fn(),
 }));
 
 vi.mock("@/app/store/hooks", (original) => ({

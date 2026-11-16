@@ -1,7 +1,8 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { render } from "vitest-browser-react";
 import { QueryProvider } from "./query-provider";
+import { useRouter } from "next/router";
 
 const TestConsumer = ({ queryKey = ["test-key"] }: { queryKey?: string[] }) => {
   const { data, isPending } = useQuery({

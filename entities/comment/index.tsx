@@ -25,14 +25,15 @@ export const Comment = (data: CommentInterface) => {
   const date = formatRelativeTime(data.creationDate, locale);
 
   return (
-    <div className="post-comment">
+    <div className="post-comment" data-testid="comment">
       <div className="post-comment-header">
-        {String(data.author?.id) === user?.id && (
+        {String(data.author?.id) === String(user?.id) && (
           <button
             className="comment-delete-button"
             disabled={isPending}
             onClick={handleDelete}
             aria-label={t("comment.delete")}
+            data-testid="comment-delete"
           >
             <TrashCanIcon />
           </button>
