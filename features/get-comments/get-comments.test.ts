@@ -1,7 +1,8 @@
-import { describe, test, expect, vi, beforeEach } from "vitest";
 import { apiClient } from "@/shared/api/api-client";
-import { commentsQueries } from "./get-comments";
 import { AxiosError } from "axios";
+import { beforeEach, describe, expect, test, vi } from "vitest";
+
+import { commentsQueries } from "./get-comments";
 
 vi.mock("@/shared/api/api-client", () => ({
   apiClient: { get: vi.fn() },

@@ -5,7 +5,6 @@ import { QueryProvider } from "@/app/providers/query-provider";
 import { apiClient } from "@/shared/api/api-client";
 import { AxiosError } from "axios";
 import { useLikePost } from "./use-like-post";
-import { useUser } from "@/entities/user/model/use-user";
 
 const { mockAdd } = vi.hoisted(() => ({
   mockAdd: vi.fn(),
