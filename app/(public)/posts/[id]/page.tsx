@@ -8,6 +8,7 @@ import { getPostById } from "./get-post-by-id";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import { PostControl } from "./_components/post-control";
+import { PostImage } from "./_components/post-image";
 
 interface PostPageProps {
   params: Promise<{ id: string }>;
@@ -86,7 +87,7 @@ const PostPage = async ({ params }: PostPageProps) => {
         </header>
         <main>
           {post.image && (
-            <Image
+            <PostImage
               className="post-page-image"
               src={post.image || ""}
               width={1920}
