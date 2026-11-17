@@ -7,6 +7,7 @@ import { getLocale } from "next-intl/server";
 import { getPostById } from "./get-post-by-id";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import { PostControl } from "./_components/post-control";
 
 interface PostPageProps {
   params: Promise<{ id: string }>;
@@ -96,6 +97,11 @@ const PostPage = async ({ params }: PostPageProps) => {
           )}
         </main>
         <p className="post-page-content">{post.content}</p>
+        <PostControl
+          likesCount={post.likesCount}
+          postId={post.id}
+          likedByUsers={post.likedByUsers}
+        ></PostControl>
       </article>
     </div>
   );

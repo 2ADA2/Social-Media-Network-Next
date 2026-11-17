@@ -30,7 +30,8 @@ import { PostComments } from "@/entities/post/post-comments";
 import { animated, useSpring, useTransition } from "@react-spring/web";
 import { formatRelativeTime } from "@/shared/lib/localization/format-relative-time";
 import { DeletePostButton } from "@/features/delete-post";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
+import Link from "next/link";
 
 const MAX_COMMENTS_HEIGHT = 1000;
 const DEFAULT_IMAGE = "/assets/default-image.png";
@@ -43,6 +44,27 @@ interface PostProps {
 const checkLiked = (likes: { id: number }[], userId: number) => {
   if (userId === -1) return false;
   return likes.some((user) => user.id === userId);
+};
+
+const LinkContainer = ({
+  id,
+  children,
+}: {
+  id: number;
+  children: ReactNode;
+}) => {
+  return (
+    <Link
+      href={`/posts/${id}`}
+      style={{
+        display: "block",
+        color: "inherit",
+        textDecoration: "none",
+      }}
+    >
+      {children}
+    </Link>
+  );
 };
 
 export const Post = ({ post, isFirst }: PostProps) => {
@@ -113,35 +135,42 @@ export const Post = ({ post, isFirst }: PostProps) => {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <PostHeader>
-        {isAuth && currentUserId === post.authorId && (
-          <DeletePostButton postId={post.id} />
-        )}
-        <Avatar
-          src={post.author?.profileImage || ""}
-          alt={`Post ${post.id}`}
-          size={48}
-        />
-        <HeaderData>
-          <div>
-            {post.author?.firstName} {post.author?.secondName}
-          </div>
-          <PostDate>{date}</PostDate>
-        </HeaderData>
-      </PostHeader>
+
+      <LinkContainer id={post.id}>
+        <PostHeader>
+          {isAuth && currentUserId === post.authorId && (
+            <DeletePostButton postId={post.id} />
+          )}
+          <Avatar
+            src={post.author?.profileImage || ""}
+            alt={`Post ${post.id}`}
+            size={48}
+          />
+          <HeaderData>
+            <div>
+              {post.author?.firstName} {post.author?.secondName}
+            </div>
+            <PostDate>{date}</PostDate>
+          </HeaderData>
+        </PostHeader>
+      </LinkContainer>
 
       {post.image && (
-        <PostImage
-          src={hasImageError ? DEFAULT_IMAGE : post.image}
-          alt={post.title}
-          width={1920}
-          height={1080}
-          loading={isFirst ? "eager" : "lazy"}
-          onError={onImageError}
-        />
+        <LinkContainer id={post.id}>
+          <PostImage
+            src={hasImageError ? DEFAULT_IMAGE : post.image}
+            alt={post.title}
+            width={1920}
+            height={1080}
+            loading={isFirst ? "eager" : "lazy"}
+            onError={onImageError}
+          />
+        </LinkContainer>
       )}
 
-      <Description>{post.content}</Description>
+      <LinkContainer id={post.id}>
+        <Description>{post.content}</Description>
+      </LinkContainer>
 
       <PostControl $auth={isAuth}>
         <CoverButton
