@@ -17,13 +17,13 @@ export default function ProfileError({ error }: { error: Error }) {
         const data = await refreshRequest();
         updateToken(data.token);
         window.location.reload();
-      } catch (e) {
+      } catch {
         router.push(ROUTES.SIGNIN);
       }
     };
 
     handleRefresh();
-  }, []);
+  }, [error, router]);
 
   if (error.message === "UNAUTHORIZED") {
     return null;

@@ -1,6 +1,5 @@
 "use server";
 import { cache } from "react";
-import { cookies } from "next/headers";
 import { API_URL } from "@/app/lib/config";
 import { ALL_POSTS_QUERY } from "@/features/post-feed/posts-query";
 import type { Post } from "@/entities/post/types";

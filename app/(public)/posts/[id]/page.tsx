@@ -6,7 +6,6 @@ import { formatRelativeTime } from "@/shared/lib/localization/format-relative-ti
 import { getLocale } from "next-intl/server";
 import { getPostById } from "./get-post-by-id";
 import { redirect } from "next/navigation";
-import Image from "next/image";
 import { PostControl } from "./_components/post-control";
 import { PostImage } from "./_components/post-image";
 
