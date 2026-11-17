@@ -1,9 +1,3 @@
-.post-page-container {
-  display: flex;
-  justify-content: center;
-  margin: 16px 0;
-}
-
 .post-page-article {
   box-sizing: border-box;
   display: flex;
@@ -18,6 +12,11 @@
 }
 
 @media (min-width: 768px) {
+  .post-page-container {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0;
+  }
   .post-page-article {
     padding: 24px;
     width: 700px;
