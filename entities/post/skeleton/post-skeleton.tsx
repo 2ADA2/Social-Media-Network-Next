@@ -55,10 +55,11 @@ export const PostSkeleton = ({ hasImage = false }: { hasImage?: boolean }) => {
               backgroundColor: "var(--border-primary)",
               opacity: 0.3,
             }}
+            data-testid="post-skeleton-image"
           />
         )}
 
-        <div>
+        <div data-testid="post-skeleton-text">
           <SkeletonBlock width="100%" height={16} marginBottom={8} />
           <SkeletonBlock width="85%" height={16} marginBottom={8} />
           <SkeletonBlock width="60%" height={16} />
