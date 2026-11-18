@@ -24,9 +24,7 @@ export default function HomePage() {
         <PostSkeleton hasImage />
       </PostsList>
 
-      <div className={"recommend-sidebars"}>
-        <MainSidebar />
-      </div>
+      <MainSidebar />
     </div>
   );
 }

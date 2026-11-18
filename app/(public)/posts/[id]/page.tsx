@@ -10,6 +10,9 @@ import { PostControl } from "./_components/post-control";
 import { PostImage } from "./_components/post-image";
 import Link from "next/link";
 import { ReactNode } from "react";
+import { PostsList } from "@/features/post-feed/posts-list";
+import { PostSkeleton } from "@/entities/post/skeleton/post-skeleton";
+import { MainSidebar } from "@/widgets/main-sidebar";
 
 interface PostPageProps {
   params: Promise<{ id: string }>;
@@ -137,6 +140,13 @@ const PostPage = async ({ params }: PostPageProps) => {
           likedByUsers={post.likedByUsers}
         ></PostControl>
       </article>
+      <PostsList showCreatePost={false} excludeId={post.id}>
+        <PostSkeleton />
+        <PostSkeleton />
+        <PostSkeleton hasImage />
+      </PostsList>
+
+      <MainSidebar />
     </div>
   );
 };

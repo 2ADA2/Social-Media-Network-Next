@@ -1,6 +1,6 @@
 "use client";
 
-import { PropsWithChildren, ReactNode, useCallback } from "react";
+import { ReactNode, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Post } from "@/entities/post";
 import { Loader } from "@/shared/ui/loader";
@@ -13,11 +13,13 @@ import "./posts-list.css";
 interface PostsListProps {
   children: ReactNode;
   authorId?: number;
+  excludeId?: number;
   showCreatePost?: boolean;
 }
 export const PostsList = ({
   children,
   authorId,
+  excludeId,
   showCreatePost = true,
 }: PostsListProps) => {
   const queryClient = useQueryClient();
@@ -64,9 +66,12 @@ export const PostsList = ({
     <>
       {showCreatePost && <CreatePost onAdd={handlePostCreated} />}
       <div className="posts-container">
-        {posts.map((post, index) => (
-          <Post key={post.id} post={post} isFirst={index === 0} />
-        ))}
+        {posts.map(
+          (post, index) =>
+            post.id !== excludeId && (
+              <Post key={post.id} post={post} isFirst={index === 0} />
+            ),
+        )}
         {!isFetchingNextPage && hasNextPage && <div ref={ref} />}
         {isFetchingNextPage && <Loader isBlock={false} />}
       </div>

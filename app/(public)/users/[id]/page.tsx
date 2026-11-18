@@ -5,6 +5,7 @@ import { Avatar } from "@/shared/ui/avatar";
 import "./user-page.css";
 import { PostsList } from "@/features/post-feed/posts-list";
 import { PostSkeleton } from "@/entities/post/skeleton/post-skeleton";
+import { MainSidebar } from "@/widgets/main-sidebar";
 
 interface UserPageProps {
   params: Promise<{ id: string }>;
@@ -87,6 +88,8 @@ const UserPage = async ({ params }: UserPageProps) => {
         <PostSkeleton />
         <PostSkeleton hasImage />
       </PostsList>
+
+      <MainSidebar />
     </div>
   );
 };
