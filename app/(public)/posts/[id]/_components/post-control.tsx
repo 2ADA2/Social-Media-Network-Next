@@ -56,7 +56,8 @@ export const PostControl = ({
 
   useEffect(() => {
     setLiked(checkLiked(likedByUsers, user?.id));
-  }, [likedByUsers, user?.id]);
+    setLikes(likesCount);
+  }, [likedByUsers, likesCount, user?.id]);
 
   const transitions = useTransition(areCommentsOpen, {
     from: { opacity: 0, maxHeight: 0 },
