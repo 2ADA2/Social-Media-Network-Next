@@ -49,6 +49,10 @@ const PostPage = async ({ params }: PostPageProps) => {
     redirect("/");
   }
 
+  if (!post) {
+    return null;
+  }
+
   const date = formatRelativeTime(post.creationDate, locale);
 
   const jsonLd = {
