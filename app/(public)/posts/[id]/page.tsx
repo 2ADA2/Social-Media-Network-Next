@@ -110,7 +110,10 @@ const PostPage = async ({ params }: PostPageProps) => {
           </LinkContainer>
           <LinkContainer id={post.authorId}>
             <div className="post-header-info">
-              <div className="post-username">{post.author.username}</div>
+              <div className="post-username">
+                {`${post.author.firstName} ${post.author.secondName}` ||
+                  `${post.author.username}`}
+              </div>
               <div className="post-date">{date}</div>
             </div>
           </LinkContainer>
