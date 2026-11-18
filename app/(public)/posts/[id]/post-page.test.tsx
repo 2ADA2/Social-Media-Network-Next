@@ -13,8 +13,8 @@ vi.mock("next/navigation", () => ({
   redirect: vi.fn(),
 }));
 
-vi.mock("next-intl/server", () => ({
-  getLocale: vi.fn(async () => "en"),
+vi.mock("@/shared/lib/localization/format-relative-time", () => ({
+  formatRelativeTime: vi.fn(() => "2 hours ago"),
 }));
 
 vi.mock("@/shared/lib/localization/format-relative-time", () => ({
@@ -31,6 +31,16 @@ vi.mock("./_components/post-control", () => ({
 
 vi.mock("./_components/post-image", () => ({
   PostImage: () => <div data-testid="post-image">PostImage</div>,
+}));
+
+vi.mock("@/features/post-feed/posts-list", () => ({
+  PostsList: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="posts-list">{children}</div>
+  ),
+}));
+
+vi.mock("@/widgets/main-sidebar", () => ({
+  MainSidebar: () => <div data-testid="main-sidebar">Sidebar</div>,
 }));
 
 const mockPost = {

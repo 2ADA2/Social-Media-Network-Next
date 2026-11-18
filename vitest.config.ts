@@ -35,7 +35,7 @@ export default defineConfig({
     isolate: true,
     server: {
       deps: {
-        inline: ["styled-components"],
+        inline: ["styled-components", "next-intl"],
       },
     },
     env: {

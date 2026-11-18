@@ -124,7 +124,9 @@ describe("PostsList", () => {
 
   test("invalidates queries when a post is created", async () => {
     const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
-    mockUsePosts({ data: { pages: [{ items: [] }] } });
+    mockUsePosts({
+      data: { pages: [{ items: [{ id: 1 }] }] },
+    });
     const screen = await renderWithClient();
 
     const user = (await import("vitest/browser")).userEvent.setup();
