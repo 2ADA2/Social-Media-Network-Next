@@ -64,8 +64,26 @@ vi.mock("@/features/auth/use-auth", () => ({
 
 vi.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => {
-    return <img {...props} />;
+  default: ({
+    src,
+    alt,
+    onError,
+    ...props
+  }: {
+    src: string;
+    alt: string;
+    onError?: () => void;
+    [key: string]: unknown;
+  }) => {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        data-testid="image"
+        onError={onError}
+        {...props}
+      />
+    );
   },
 }));
 
