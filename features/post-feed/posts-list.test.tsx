@@ -4,6 +4,7 @@ import { PostsList } from "./posts-list";
 import { usePosts } from "./usePosts";
 import { postsQueries } from "./posts-query";
 import { renderWithRouter } from "@/test/render-with-router";
+import { userEvent } from "vitest/browser";
 
 vi.mock("./usePosts", () => ({
   usePosts: vi.fn(),
@@ -129,7 +130,8 @@ describe("PostsList", () => {
     });
     const screen = await renderWithClient();
 
-    const user = (await import("vitest/browser")).userEvent.setup();
+    const user = userEvent.setup();
+
     await user.click(screen.getByTestId("mock-create-post"));
 
     expect(invalidateSpy).toHaveBeenCalledWith({

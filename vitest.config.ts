@@ -21,6 +21,7 @@ export default defineConfig({
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
       "next-intl/server",
+      "next-intl",
     ],
   },
   plugins: [

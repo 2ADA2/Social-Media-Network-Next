@@ -43,6 +43,16 @@ vi.mock("@/widgets/main-sidebar", () => ({
   MainSidebar: () => <div data-testid="main-sidebar">Sidebar</div>,
 }));
 
+vi.mock("@/features/post-feed/posts-list", () => ({
+  PostsList: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="posts-list">{children}</div>
+  ),
+}));
+
+vi.mock("@/widgets/main-sidebar", () => ({
+  MainSidebar: () => <div data-testid="main-sidebar">Sidebar</div>,
+}));
+
 const mockPost = {
   id: 1,
   title: "Test post title",
@@ -75,6 +85,8 @@ describe("PostPage", () => {
     await expect.element(screen.getByTestId("avatar")).toBeVisible();
     await expect.element(screen.getByTestId("post-control")).toBeVisible();
     await expect.element(screen.getByTestId("post-image")).toBeVisible();
+    await expect.element(screen.getByTestId("posts-list")).toBeVisible();
+    await expect.element(screen.getByTestId("main-sidebar")).toBeVisible();
   });
 
   test("Redirects to home if post is not found", async () => {

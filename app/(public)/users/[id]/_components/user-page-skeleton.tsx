@@ -15,7 +15,7 @@ const SkeletonBlock = ({
 
 export const UserPageSkeleton = () => {
   return (
-    <div className="user-page-container">
+    <div className="user-page-container" data-testid="user-page-skeleton">
       <article className="user-page-article">
         <header className="user-page-header">
           <div className="skeleton-avatar skeleton-block" />
