@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { getUserById } from "./get-user-by-id";
 import { Avatar } from "@/shared/ui/avatar";
 import "./user-page.css";
+import { PostsList } from "@/features/post-feed/posts-list";
+import { PostSkeleton } from "@/entities/post/skeleton/post-skeleton";
 
 interface UserPageProps {
   params: Promise<{ id: string }>;
@@ -77,6 +79,14 @@ const UserPage = async ({ params }: UserPageProps) => {
           <p className="user-description">{user.description}</p>
         )}
       </article>
+      <PostsList showCreatePost={false} authorId={+user.id}>
+        <PostSkeleton />
+        <PostSkeleton />
+        <PostSkeleton hasImage />
+        <PostSkeleton />
+        <PostSkeleton />
+        <PostSkeleton hasImage />
+      </PostsList>
     </div>
   );
 };

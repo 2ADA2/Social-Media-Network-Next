@@ -1,6 +1,6 @@
 "use client";
 
-import { PropsWithChildren, useCallback } from "react";
+import { PropsWithChildren, ReactNode, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Post } from "@/entities/post";
 import { Loader } from "@/shared/ui/loader";
@@ -10,7 +10,16 @@ import { postsQueries } from "@/features/post-feed/posts-query";
 import { useIntersectionObserver } from "@/shared/lib/hooks/use-intersection-observer";
 import "./posts-list.css";
 
-export const PostsList = ({ children }: PropsWithChildren) => {
+interface PostsListProps {
+  children: ReactNode;
+  authorId?: number;
+  showCreatePost?: boolean;
+}
+export const PostsList = ({
+  children,
+  authorId,
+  showCreatePost = true,
+}: PostsListProps) => {
   const queryClient = useQueryClient();
 
   const {
@@ -21,7 +30,7 @@ export const PostsList = ({ children }: PropsWithChildren) => {
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
-  } = usePosts();
+  } = usePosts(authorId);
 
   const posts = data?.pages.flatMap((page) => page.items) ?? [];
 
@@ -49,7 +58,7 @@ export const PostsList = ({ children }: PropsWithChildren) => {
 
   return (
     <>
-      <CreatePost onAdd={handlePostCreated} />
+      {showCreatePost && <CreatePost onAdd={handlePostCreated} />}
       <div className="posts-container">
         {posts.map((post, index) => (
           <Post key={post.id} post={post} isFirst={index === 0} />
