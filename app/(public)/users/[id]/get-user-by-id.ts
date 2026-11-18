@@ -1,15 +1,20 @@
 import { cache } from "react";
 import { API_URL } from "@/app/lib/config";
-import { User } from "@/entities/user";
+import { mapUser, User } from "@/entities/user";
 
 export const MIN_ID = 100;
 
-export const getUser = cache(async (id: string): Promise<User | null> => {
+export const getUserById = cache(async (id: string): Promise<User | null> => {
   try {
     const response = await fetch(`${API_URL}/users/${id}`);
+
+    if (!response.ok) {
+      return null;
+    }
+
     const user = await response.json();
 
-    return user;
+    return mapUser(user) || null;
   } catch {
     return null;
   }

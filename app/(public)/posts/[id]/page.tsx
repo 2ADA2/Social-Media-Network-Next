@@ -8,6 +8,8 @@ import { getPostById } from "./get-post-by-id";
 import { redirect } from "next/navigation";
 import { PostControl } from "./_components/post-control";
 import { PostImage } from "./_components/post-image";
+import Link from "next/link";
+import { ReactNode } from "react";
 
 interface PostPageProps {
   params: Promise<{ id: string }>;
@@ -38,6 +40,27 @@ export const generateMetadata = async ({
           : [],
     },
   };
+};
+
+const LinkContainer = ({
+  id,
+  children,
+}: {
+  id: number;
+  children: ReactNode;
+}) => {
+  return (
+    <Link
+      href={`/users/${id}`}
+      style={{
+        display: "block",
+        color: "inherit",
+        textDecoration: "none",
+      }}
+    >
+      {children}
+    </Link>
+  );
 };
 
 const PostPage = async ({ params }: PostPageProps) => {
@@ -78,15 +101,19 @@ const PostPage = async ({ params }: PostPageProps) => {
       />
       <article className="post-page-article">
         <header className="post-page-header">
-          <Avatar
-            src={post.author.profileImage || ""}
-            alt={`Post ${post.id}`}
-            size={48}
-          />
-          <div className="post-header-info">
-            <div className="post-username">{post.author.username}</div>
-            <div className="post-date">{date}</div>
-          </div>
+          <LinkContainer id={post.authorId}>
+            <Avatar
+              src={post.author.profileImage || ""}
+              alt={`Post ${post.id}`}
+              size={48}
+            />
+          </LinkContainer>
+          <LinkContainer id={post.authorId}>
+            <div className="post-header-info">
+              <div className="post-username">{post.author.username}</div>
+              <div className="post-date">{date}</div>
+            </div>
+          </LinkContainer>
         </header>
         <main>
           {post.image && (
