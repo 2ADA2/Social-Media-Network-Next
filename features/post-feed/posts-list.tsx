@@ -56,6 +56,10 @@ export const PostsList = ({
     throw new Error(error.message);
   }
 
+  if (!posts.length) {
+    return null;
+  }
+
   return (
     <>
       {showCreatePost && <CreatePost onAdd={handlePostCreated} />}
