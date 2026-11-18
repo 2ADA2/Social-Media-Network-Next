@@ -12,6 +12,7 @@ export const SkeletonPulse = styled.div`
 
 export const StyledPost = styled.article`
   box-sizing: border-box;
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -19,6 +20,12 @@ export const StyledPost = styled.article`
   padding: 12px;
   border-bottom: 2px solid var(--border-primary);
   color: var(--color-primary);
+
+  .delete-post-button {
+    top: 12px;
+    right: 12px;
+    z-index: 100;
+  }
 
   &:hover .delete-post-button {
     opacity: 1;

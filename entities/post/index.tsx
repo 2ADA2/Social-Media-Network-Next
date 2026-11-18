@@ -135,12 +135,11 @@ export const Post = ({ post, isFirst }: PostProps) => {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-
+      {isAuth && currentUserId === post.authorId && (
+        <DeletePostButton postId={post.id} />
+      )}
       <LinkContainer id={post.id}>
         <PostHeader>
-          {isAuth && currentUserId === post.authorId && (
-            <DeletePostButton postId={post.id} />
-          )}
           <Avatar
             src={post.author?.profileImage || ""}
             alt={`Post ${post.id}`}

@@ -1,4 +1,3 @@
-"use server";
 import { cache } from "react";
 import { API_URL } from "@/app/lib/config";
 import { ALL_POSTS_QUERY } from "@/features/post-feed/posts-query";
