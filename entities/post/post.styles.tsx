@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styled, { css, keyframes } from "styled-components";
 
 const pulse = keyframes`
@@ -15,6 +16,7 @@ export const StyledPost = styled.article`
   position: relative;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   gap: 16px;
   width: 100%;
   padding: 12px;
@@ -35,6 +37,15 @@ export const StyledPost = styled.article`
     padding: 24px;
     width: 700px;
     background: var(--bg-primary);
+  }
+`;
+
+export const AuthorLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
 

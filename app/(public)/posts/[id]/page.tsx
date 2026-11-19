@@ -53,14 +53,7 @@ const LinkContainer = ({
   children: ReactNode;
 }) => {
   return (
-    <Link
-      href={`/users/${id}`}
-      style={{
-        display: "block",
-        color: "inherit",
-        textDecoration: "none",
-      }}
-    >
+    <Link href={`/users/${id}`} className="post-page-link">
       {children}
     </Link>
   );
@@ -111,18 +104,20 @@ const PostPage = async ({ params }: PostPageProps) => {
               size={48}
             />
           </LinkContainer>
-          <LinkContainer id={post.authorId}>
-            <div className="post-header-info">
+
+          <div className="post-header-info">
+            <LinkContainer id={post.authorId}>
               <div className="post-username">
                 {`${post.author.firstName} ${post.author.secondName}` ||
                   `${post.author.username}`}
               </div>
-              <div className="post-date">{date}</div>
-            </div>
-          </LinkContainer>
+            </LinkContainer>
+            <div className="post-date">{date}</div>
+          </div>
         </header>
-        <main>
-          {post.image && (
+
+        {post.image && (
+          <main>
             <PostImage
               className="post-page-image"
               src={post.image || ""}
@@ -131,8 +126,9 @@ const PostPage = async ({ params }: PostPageProps) => {
               alt={post.title}
               loading="eager"
             />
-          )}
-        </main>
+          </main>
+        )}
+
         <p className="post-page-content">{post.content}</p>
         <PostControl
           likesCount={post.likesCount}

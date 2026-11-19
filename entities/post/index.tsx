@@ -21,6 +21,7 @@ import {
   StyledArrowIcon,
   StyledPost,
   StyledSVG,
+  AuthorLink,
 } from "./post.styles";
 import type { Post as PostType } from "@/entities/post/types";
 import { useLikePost } from "@/features/like-post/use-like-post";
@@ -30,8 +31,8 @@ import { PostComments } from "@/entities/post/post-comments";
 import { animated, useSpring, useTransition } from "@react-spring/web";
 import { formatRelativeTime } from "@/shared/lib/localization/format-relative-time";
 import { DeletePostButton } from "@/features/delete-post";
-import { ReactNode, useState } from "react";
-import Link from "next/link";
+import { MouseEvent, ReactNode, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const MAX_COMMENTS_HEIGHT = 1000;
 const DEFAULT_IMAGE = "/assets/default-image.png";
@@ -46,7 +47,7 @@ const checkLiked = (likes: { id: number }[], userId: number) => {
   return likes.some((user) => user.id === userId);
 };
 
-const LinkContainer = ({
+const AuthorLinkContainer = ({
   id,
   children,
 }: {
@@ -54,22 +55,16 @@ const LinkContainer = ({
   children: ReactNode;
 }) => {
   return (
-    <Link
-      href={`/posts/${id}`}
-      style={{
-        display: "block",
-        color: "inherit",
-        textDecoration: "none",
-      }}
-    >
+    <AuthorLink href={`/users/${id}`} className="author-link-container">
       {children}
-    </Link>
+    </AuthorLink>
   );
 };
 
 export const Post = ({ post, isFirst }: PostProps) => {
   const t = useTranslations("main");
   const locale = useLocale();
+  const router = useRouter();
   const { isAuth } = useAuth();
   const [showComments, setShowComments] = useState(false);
   const currentUserId = Number(useAppSelector(selectUserId)) || -1;
@@ -96,7 +91,8 @@ export const Post = ({ post, isFirst }: PostProps) => {
     config: { tension: 200, friction: 25 },
   });
 
-  const handleLike = () => {
+  const handleLike = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     if (!isAuth || isLiking) return;
 
     setLikes((prev) => (liked ? prev - 1 : prev + 1));
@@ -104,7 +100,8 @@ export const Post = ({ post, isFirst }: PostProps) => {
     toggleLike({ postId: post.id, liked });
   };
 
-  const toggleComments = () => {
+  const toggleComments = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     setShowComments((prev) => !prev);
   };
 
@@ -127,8 +124,12 @@ export const Post = ({ post, isFirst }: PostProps) => {
     },
   };
 
+  const handlePostClick = () => {
+    router.push(`/posts/${post.id}`);
+  };
+
   return (
-    <StyledPost>
+    <StyledPost onClick={handlePostClick}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -138,38 +139,36 @@ export const Post = ({ post, isFirst }: PostProps) => {
       {isAuth && currentUserId === post.authorId && (
         <DeletePostButton postId={post.id} />
       )}
-      <LinkContainer id={post.id}>
-        <PostHeader>
+      <PostHeader>
+        <AuthorLinkContainer id={post.authorId}>
           <Avatar
             src={post.author?.profileImage || ""}
             alt={`Post ${post.id}`}
             size={48}
           />
-          <HeaderData>
-            <div>
+        </AuthorLinkContainer>
+        <HeaderData>
+          <div>
+            <AuthorLinkContainer id={post.authorId}>
               {post.author?.firstName} {post.author?.secondName}
-            </div>
-            <PostDate>{date}</PostDate>
-          </HeaderData>
-        </PostHeader>
-      </LinkContainer>
+            </AuthorLinkContainer>
+          </div>
+          <PostDate>{date}</PostDate>
+        </HeaderData>
+      </PostHeader>
 
       {post.image && (
-        <LinkContainer id={post.id}>
-          <PostImage
-            src={hasImageError ? DEFAULT_IMAGE : post.image}
-            alt={post.title}
-            width={1920}
-            height={1080}
-            loading={isFirst ? "eager" : "lazy"}
-            onError={onImageError}
-          />
-        </LinkContainer>
+        <PostImage
+          src={hasImageError ? DEFAULT_IMAGE : post.image}
+          alt={post.title}
+          width={1920}
+          height={1080}
+          loading={isFirst ? "eager" : "lazy"}
+          onError={onImageError}
+        />
       )}
 
-      <LinkContainer id={post.id}>
-        <Description>{post.content}</Description>
-      </LinkContainer>
+      <Description>{post.content}</Description>
 
       <PostControl $auth={isAuth}>
         <CoverButton
