@@ -2,6 +2,7 @@ import { API_URL } from "@/app/lib/config";
 import { Sidebar } from "@/entities/sidebar";
 import { getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
+import "./main-sidebar.css";
 
 export const MainSidebar = async () => {
   const t = await getTranslations("main");
@@ -28,9 +29,9 @@ export const MainSidebar = async () => {
   const communities = communitiesRes.ok ? await communitiesRes.json() : [];
 
   return (
-    <>
+    <div className={"recommend-sidebars"}>
       <Sidebar title={t("sidebar.suggestedPeople")} users={suggestedPeople} />
       <Sidebar title={t("sidebar.communities")} users={communities} />
-    </>
+    </div>
   );
 };

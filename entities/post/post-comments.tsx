@@ -5,7 +5,7 @@ import { commentsQueries } from "@/features/get-comments/get-comments";
 import { useCommentAuthors } from "@/features/get-comments/use-comment-authors";
 import { Loader } from "@/shared/ui/loader";
 import { Comment } from "@/entities/comment";
-import React from "react";
+import React, { useRef } from "react";
 
 interface PostCommentsProps {
   postId: number;
@@ -14,6 +14,7 @@ interface PostCommentsProps {
 export const PostComments = React.memo(function PostComments({
   postId,
 }: PostCommentsProps) {
+  const wasLoaded = useRef(false);
   const {
     data: comments = [],
     isPending,
@@ -21,10 +22,11 @@ export const PostComments = React.memo(function PostComments({
   } = useQuery(commentsQueries.forPost(postId));
   const { usersMap, authorsCount } = useCommentAuthors(comments);
 
-  if (isPending || usersMap.size !== authorsCount) {
+  if (!wasLoaded.current && (isPending || usersMap.size !== authorsCount)) {
     return <Loader isBlock={false} />;
+  } else {
+    wasLoaded.current = true;
   }
-
   return (
     <>
       <PostCommentsContainer>

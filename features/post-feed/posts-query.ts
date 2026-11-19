@@ -55,7 +55,7 @@ const likeStatusResponseSchema = z.object({
 
 type LikeStatus = z.infer<typeof likeStatusResponseSchema>;
 
-const ALL_POSTS_QUERY = gql`
+export const ALL_POSTS_QUERY = gql`
   query AllPosts($limit: Int, $offset: Int) {
     allPosts(limit: $limit, offset: $offset) {
       id
@@ -195,7 +195,7 @@ const fetchPost = async (id: number): Promise<Post | null> => {
 };
 
 export const postsQueries = {
-  infinite: () =>
+  infinite: (authorId?: number) =>
     infiniteQueryOptions({
       queryKey: ["posts"],
       queryFn: ({ pageParam = 0 }) => fetchPostsFromEnd(POSTS_LIMIT, pageParam),
@@ -214,6 +214,16 @@ export const postsQueries = {
       },
       staleTime: CACHE_TIME,
       gcTime: CACHE_TIME,
+      select: (data) => {
+        if (!authorId) return data;
+        return {
+          ...data,
+          pages: data.pages.map((page) => ({
+            ...page,
+            items: page.items.filter((p) => p.authorId === authorId),
+          })),
+        };
+      },
     }),
 
   byId: (id: number) =>

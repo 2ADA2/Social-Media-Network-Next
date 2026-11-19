@@ -56,12 +56,6 @@
   color: var(--color-primary);
 }
 
-.stats-table {
-  background: var(--bg-secondary);
-  border: 1px solid var(--bg-border);
-  overflow: hidden;
-}
-
 .stats-toggle {
   display: flex;
   gap: 8px;

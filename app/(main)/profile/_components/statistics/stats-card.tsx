@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 interface StatsCardProps {
   title: string;
@@ -6,8 +6,8 @@ interface StatsCardProps {
   percents: number;
 }
 
-export const StatsCard = ({ title, value, percents }: StatsCardProps) => {
-  const t = useTranslations("profile");
+export const StatsCard = async ({ title, value, percents }: StatsCardProps) => {
+  const t = await getTranslations("profile");
 
   return (
     <div className="stats-card">

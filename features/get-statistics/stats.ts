@@ -1,43 +1,55 @@
-import { queryOptions } from "@tanstack/react-query";
-import { apiClient } from "@/shared/api/api-client";
-import type { Like, Post, Comment } from "@/entities/post/types.ts";
+import type { Like, Post, Comment } from "@/entities/post/types";
+import { API_URL } from "@/app/lib/config";
+import { cookies } from "next/headers";
 
-const fetchMyPosts = async (): Promise<Post[]> => {
-  const { data } = await apiClient.get<{ items: Post[] }>("/api/me/posts", {
-    params: { limit: 100, offset: 0 },
+const getAuthHeaders = async (): Promise<Record<string, string>> => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  if (!token) return {};
+
+  return { Authorization: `Bearer ${token}` };
+};
+
+export const fetchMyPosts = async (): Promise<Post[]> => {
+  const res = await fetch(`${API_URL}/me/posts?limit=100&offset=0`, {
+    headers: await getAuthHeaders(),
+    cache: "no-store",
   });
+
+  if (res.status === 401) {
+    throw new Error("UNAUTHORIZED");
+  }
+
+  if (!res.ok) throw new Error("Failed to fetch posts");
+  const data = await res.json();
   return data.items;
 };
 
-const fetchMyLikes = async (): Promise<Like[]> => {
-  const { data } = await apiClient.get<Like[]>("/api/me/likes");
-  return data;
+export const fetchMyLikes = async (): Promise<Like[]> => {
+  const res = await fetch(`${API_URL}/me/likes`, {
+    headers: await getAuthHeaders(),
+    cache: "no-store",
+  });
+
+  if (res.status === 401) {
+    throw new Error("UNAUTHORIZED");
+  }
+
+  if (!res.ok) throw new Error("Failed to fetch likes");
+  return res.json();
 };
 
-const fetchMyComments = async (): Promise<Comment[]> => {
-  const { data } = await apiClient.get<Comment[]>("/api/me/comments");
-  return data;
-};
+export const fetchMyComments = async (): Promise<Comment[]> => {
+  const res = await fetch(`${API_URL}/me/comments`, {
+    headers: await getAuthHeaders(),
+    cache: "no-store",
+  });
 
-export const statsQueries = {
-  posts: () =>
-    queryOptions({
-      queryKey: ["stats", "posts"],
-      queryFn: fetchMyPosts,
-      staleTime: 0,
-    }),
+  if (res.status === 401) {
+    throw new Error("UNAUTHORIZED");
+  }
 
-  likes: () =>
-    queryOptions({
-      queryKey: ["stats", "likes"],
-      queryFn: fetchMyLikes,
-      staleTime: 0,
-    }),
-
-  comments: () =>
-    queryOptions({
-      queryKey: ["stats", "comments"],
-      queryFn: fetchMyComments,
-      staleTime: 0,
-    }),
+  if (!res.ok) throw new Error("Failed to fetch comments");
+  return res.json();
 };

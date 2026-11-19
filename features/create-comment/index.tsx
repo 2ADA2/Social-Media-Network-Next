@@ -1,11 +1,12 @@
 import { TextArea } from "@/shared/ui/text-area";
 import { Button } from "@/shared/ui/button";
 import PenIcon from "@/shared/assets/icons/pen.svg";
-import { type ChangeEvent, useState } from "react";
+import { type ChangeEvent, MouseEvent, useState } from "react";
 import { useTranslations } from "next-intl";
 import "./create-comment.css";
 import { useCreateComment } from "@/features/create-comment/use-create-comment";
 import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
+import stopPropogation from "@/shared/lib/stop-propogation";
 
 interface CreateCommentProps {
   postId: number;
@@ -33,7 +34,8 @@ export const CreateComment = ({ postId }: CreateCommentProps) => {
     check(e.target.value.length);
   };
 
-  const createComment = () => {
+  const createComment = (e: MouseEvent) => {
+    e.stopPropagation();
     if (check(comment.length)) {
       requestCreateComment(
         { text: comment, postId: postId },
@@ -60,6 +62,7 @@ export const CreateComment = ({ postId }: CreateCommentProps) => {
         value={comment}
         errorMessage={error}
         disabled={isPending}
+        onClick={stopPropogation}
       />
       <Button disabled={isPending} type="button" onClick={createComment}>
         {t("comment.submit")}

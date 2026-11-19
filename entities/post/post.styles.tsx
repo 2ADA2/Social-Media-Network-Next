@@ -1,15 +1,33 @@
 import Image from "next/image";
-import styled, { css } from "styled-components";
+import Link from "next/link";
+import styled, { css, keyframes } from "styled-components";
+
+const pulse = keyframes`
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+`;
+
+export const SkeletonPulse = styled.div`
+  animation: ${pulse} 1s ease-in-out infinite;
+`;
 
 export const StyledPost = styled.article`
   box-sizing: border-box;
+  position: relative;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   gap: 16px;
   width: 100%;
   padding: 12px;
   border-bottom: 2px solid var(--border-primary);
   color: var(--color-primary);
+
+  .delete-post-button {
+    top: 12px;
+    right: 12px;
+    z-index: 100;
+  }
 
   &:hover .delete-post-button {
     opacity: 1;
@@ -19,6 +37,15 @@ export const StyledPost = styled.article`
     padding: 24px;
     width: 700px;
     background: var(--bg-primary);
+  }
+`;
+
+export const AuthorLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
@@ -78,6 +105,10 @@ export const ControlContainer = styled.div`
   gap: 8px;
   min-width: 80px;
   align-items: center;
+
+  &:hover span {
+    text-decoration: underline;
+  }
 `;
 
 export const ControlText = styled.span`

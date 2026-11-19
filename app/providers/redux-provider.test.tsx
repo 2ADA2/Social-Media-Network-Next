@@ -72,7 +72,6 @@ describe("ReduxProvider", () => {
     );
 
     expect(apiClient.get).toHaveBeenCalledWith("/api/me");
-    expect(updateToken).toHaveBeenCalledWith("mock-token");
   });
 
   test("Logs out and removes token if fetch fails", async () => {

@@ -1,0 +1,69 @@
+.user-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 16px;
+  padding: 0 12px;
+}
+
+.user-page-article {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 12px;
+  color: var(--color-primary);
+  border: 2px solid var(--border-primary);
+}
+
+@media (min-width: 768px) {
+  .user-page-article {
+    padding: 24px;
+    width: 700px;
+    background: var(--bg-primary);
+  }
+}
+
+.user-page-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.user-username {
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.user-description {
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.user-email {
+  font-size: 14px;
+  color: var(--color-muted);
+  border-top: 1px solid var(--border-primary);
+  padding-top: 16px;
+}
+
+.user-email-label {
+  font-weight: 600;
+  color: var(--color-primary);
+}

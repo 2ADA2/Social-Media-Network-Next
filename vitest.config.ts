@@ -20,6 +20,8 @@ export default defineConfig({
       "vitest/internal/browser",
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
+      "next-intl/server",
+      "next-intl",
     ],
   },
   plugins: [
@@ -34,7 +36,7 @@ export default defineConfig({
     isolate: true,
     server: {
       deps: {
-        inline: ["styled-components"],
+        inline: ["styled-components", "next-intl"],
       },
     },
     env: {

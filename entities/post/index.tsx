@@ -1,3 +1,5 @@
+"use client";
+
 import { useLocale, useTranslations } from "next-intl";
 import HeartIcon from "@/shared/assets/icons/heart.svg";
 import CommentIcon from "@/shared/assets/icons/comment.svg";
@@ -19,6 +21,7 @@ import {
   StyledArrowIcon,
   StyledPost,
   StyledSVG,
+  AuthorLink,
 } from "./post.styles";
 import type { Post as PostType } from "@/entities/post/types";
 import { useLikePost } from "@/features/like-post/use-like-post";
@@ -28,7 +31,9 @@ import { PostComments } from "@/entities/post/post-comments";
 import { animated, useSpring, useTransition } from "@react-spring/web";
 import { formatRelativeTime } from "@/shared/lib/localization/format-relative-time";
 import { DeletePostButton } from "@/features/delete-post";
-import { useState } from "react";
+import { MouseEvent, ReactNode, useState } from "react";
+import { useRouter } from "next/navigation";
+import stopPropagation from "@/shared/lib/stop-propogation";
 
 const MAX_COMMENTS_HEIGHT = 1000;
 const DEFAULT_IMAGE = "/assets/default-image.png";
@@ -43,9 +48,28 @@ const checkLiked = (likes: { id: number }[], userId: number) => {
   return likes.some((user) => user.id === userId);
 };
 
+const AuthorLinkContainer = ({
+  id,
+  children,
+}: {
+  id: number;
+  children: ReactNode;
+}) => {
+  return (
+    <AuthorLink
+      href={`/users/${id}`}
+      className="author-link-container"
+      onClick={stopPropagation}
+    >
+      {children}
+    </AuthorLink>
+  );
+};
+
 export const Post = ({ post, isFirst }: PostProps) => {
   const t = useTranslations("main");
   const locale = useLocale();
+  const router = useRouter();
   const { isAuth } = useAuth();
   const [showComments, setShowComments] = useState(false);
   const currentUserId = Number(useAppSelector(selectUserId)) || -1;
@@ -72,7 +96,8 @@ export const Post = ({ post, isFirst }: PostProps) => {
     config: { tension: 200, friction: 25 },
   });
 
-  const handleLike = () => {
+  const handleLike = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     if (!isAuth || isLiking) return;
 
     setLikes((prev) => (liked ? prev - 1 : prev + 1));
@@ -80,7 +105,8 @@ export const Post = ({ post, isFirst }: PostProps) => {
     toggleLike({ postId: post.id, liked });
   };
 
-  const toggleComments = () => {
+  const toggleComments = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     setShowComments((prev) => !prev);
   };
 
@@ -103,26 +129,34 @@ export const Post = ({ post, isFirst }: PostProps) => {
     },
   };
 
+  const handlePostClick = () => {
+    router.push(`/posts/${post.id}`);
+  };
+
   return (
-    <StyledPost>
+    <StyledPost onClick={handlePostClick}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
+      {isAuth && currentUserId === post.authorId && (
+        <DeletePostButton postId={post.id} />
+      )}
       <PostHeader>
-        {isAuth && currentUserId === post.authorId && (
-          <DeletePostButton postId={post.id} />
-        )}
-        <Avatar
-          src={post.author?.profileImage || ""}
-          alt={`Post ${post.id}`}
-          size={48}
-        />
+        <AuthorLinkContainer id={post.authorId}>
+          <Avatar
+            src={post.author?.profileImage || ""}
+            alt={`Post ${post.id}`}
+            size={48}
+          />
+        </AuthorLinkContainer>
         <HeaderData>
           <div>
-            {post.author?.firstName} {post.author?.secondName}
+            <AuthorLinkContainer id={post.authorId}>
+              {post.author?.firstName} {post.author?.secondName}
+            </AuthorLinkContainer>
           </div>
           <PostDate>{date}</PostDate>
         </HeaderData>
@@ -192,7 +226,10 @@ export const Post = ({ post, isFirst }: PostProps) => {
         transitions(
           (style, item) =>
             item && (
-              <animated.div style={{ ...style, overflow: "hidden" }}>
+              <animated.div
+                style={{ ...style, overflow: "hidden", cursor: "default" }}
+                onClick={stopPropagation}
+              >
                 <PostComments postId={post.id} />
               </animated.div>
             ),

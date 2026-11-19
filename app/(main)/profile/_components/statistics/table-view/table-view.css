@@ -1,6 +1,8 @@
 .stats-table {
   background: var(--bg-primary);
   padding: 24px;
+  border: 1px solid var(--bg-border);
+  overflow: hidden;
 
   table {
     width: 100%;

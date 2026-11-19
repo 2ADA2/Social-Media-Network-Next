@@ -4,6 +4,7 @@ import { PostsList } from "./posts-list";
 import { usePosts } from "./usePosts";
 import { postsQueries } from "./posts-query";
 import { renderWithRouter } from "@/test/render-with-router";
+import { userEvent } from "vitest/browser";
 
 vi.mock("./usePosts", () => ({
   usePosts: vi.fn(),
@@ -57,7 +58,9 @@ describe("PostsList", () => {
   const renderWithClient = async () =>
     renderWithRouter(
       <QueryClientProvider client={queryClient}>
-        <PostsList />
+        <PostsList>
+          <div data-testid="skeleton">skeleton</div>
+        </PostsList>
       </QueryClientProvider>,
     );
 
@@ -69,12 +72,10 @@ describe("PostsList", () => {
     mockUsePosts();
   });
 
-  test("renders block loader while pending and no posts", async () => {
+  test("renders skeleton while pending and no posts", async () => {
     mockUsePosts({ isPending: true, data: undefined });
     const screen = await renderWithClient();
-    await expect
-      .element(screen.getByTestId("loader-block"))
-      .toBeInTheDocument();
+    await expect.element(screen.getByTestId("skeleton")).toBeVisible();
   });
 
   test("renders posts", async () => {
@@ -124,10 +125,13 @@ describe("PostsList", () => {
 
   test("invalidates queries when a post is created", async () => {
     const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
-    mockUsePosts({ data: { pages: [{ items: [] }] } });
+    mockUsePosts({
+      data: { pages: [{ items: [{ id: 1 }] }] },
+    });
     const screen = await renderWithClient();
 
-    const user = (await import("vitest/browser")).userEvent.setup();
+    const user = userEvent.setup();
+
     await user.click(screen.getByTestId("mock-create-post"));
 
     expect(invalidateSpy).toHaveBeenCalledWith({

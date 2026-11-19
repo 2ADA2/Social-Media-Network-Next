@@ -2,31 +2,35 @@ import { describe, expect, test, vi, beforeEach } from "vitest";
 import { render } from "vitest-browser-react";
 import { userEvent } from "vitest/browser";
 import { Statistics } from ".";
-import { useQuery } from "@tanstack/react-query";
+import { StatisticsClient } from "./statistics-client";
+import {
+  fetchMyPosts,
+  fetchMyLikes,
+  fetchMyComments,
+} from "@/features/get-statistics/stats";
 
 let user = userEvent.setup();
 
-const mockCountByWeek = vi.fn();
-const mockCountByDay = vi.fn();
+vi.mock("next-intl/server", () => ({
+  getTranslations: vi.fn(async () => (key: string) => key),
+}));
 
-vi.mock("@tanstack/react-query", () => ({
-  useQuery: vi.fn(),
+vi.mock("next-intl", () => ({
+  useTranslations: () => (key: string) => key,
 }));
 
 vi.mock("@/features/get-statistics/stats", () => ({
-  statsQueries: {
-    posts: () => ({ queryKey: ["posts-stats"] }),
-    comments: () => ({ queryKey: ["comments-stats"] }),
-    likes: () => ({ queryKey: ["likes-stats"] }),
-  },
+  fetchMyPosts: vi.fn(),
+  fetchMyLikes: vi.fn(),
+  fetchMyComments: vi.fn(),
 }));
 
 vi.mock("@/shared/lib/stats/date-stats", () => ({
-  countByWeek: (...args: unknown[]) => mockCountByWeek(...args),
+  countByWeek: vi.fn(() => ({ current: 5, percents: 10 })),
 }));
 
 vi.mock("@/shared/lib/stats/count-by-day", () => ({
-  countByDay: (...args: unknown[]) => mockCountByDay(...args),
+  countByDay: vi.fn(() => []),
 }));
 
 vi.mock("./stats-card", () => ({
@@ -49,29 +53,32 @@ vi.mock("@/shared/ui/loader", () => ({
   Loader: () => <div data-testid="loader">Loading...</div>,
 }));
 
+vi.mock("@/app/store/theme-store", () => ({
+  useThemeStore: (selector: (state: { theme: string }) => string) =>
+    selector({ theme: "light" }),
+}));
+
 describe("Statistics", () => {
   beforeEach(() => {
     user = userEvent.setup();
-    mockCountByWeek.mockReset();
-    mockCountByDay.mockReset();
+    vi.clearAllMocks();
 
-    mockCountByWeek.mockReturnValue({ current: 5, percents: 10 });
-    mockCountByDay.mockReturnValue([]);
+    vi.mocked(fetchMyPosts).mockResolvedValue([
+      { creationDate: "2024-01-01" },
+    ] as unknown as Awaited<ReturnType<typeof fetchMyPosts>>);
 
-    vi.mocked(useQuery).mockImplementation((options) => {
-      const key = (options as { queryKey: string[] }).queryKey?.[0];
-      if (key === "posts-stats")
-        return { data: [{ creationDate: "2024-01-01" }] } as never;
-      if (key === "comments-stats")
-        return { data: [{ creationDate: "2024-01-02" }] } as never;
-      if (key === "likes-stats")
-        return { data: [{ creationDate: "2024-01-03" }] } as never;
-      return { data: undefined } as never;
-    });
+    vi.mocked(fetchMyLikes).mockResolvedValue([
+      { creationDate: "2024-01-02" },
+    ] as unknown as Awaited<ReturnType<typeof fetchMyLikes>>);
+
+    vi.mocked(fetchMyComments).mockResolvedValue([
+      { creationDate: "2024-01-03" },
+    ] as unknown as Awaited<ReturnType<typeof fetchMyComments>>);
   });
 
   test("Renders stats cards", async () => {
-    const screen = await render(<Statistics />);
+    const element = await Statistics();
+    const screen = await render(element);
 
     await expect.element(screen.getByText("stats.likes: 5")).toBeVisible();
     await expect.element(screen.getByText("stats.comments: 5")).toBeVisible();
@@ -79,7 +86,9 @@ describe("Statistics", () => {
   });
 
   test("Click on toggle switches view", async () => {
-    const screen = await render(<Statistics />);
+    const screen = await render(
+      <StatisticsClient likesByDay={[]} commentsByDay={[]} />,
+    );
 
     await expect.element(screen.getByTestId("table-view")).toBeVisible();
     await expect

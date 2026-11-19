@@ -1,0 +1,81 @@
+.post-control {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.post-control-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.post-control-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-primary);
+  font-size: 10px;
+  min-width: 60px;
+  text-align: start;
+}
+
+.post-control-button:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.post-control-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 16px;
+}
+
+.post-control-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.post-control-icon path {
+  stroke: var(--color-primary);
+}
+
+.post-control-icon.liked svg {
+  fill: red;
+}
+
+.post-control-icon.liked path {
+  stroke: red;
+}
+
+.post-control-comments {
+  border-top: 1px solid var(--border-primary);
+  padding-top: 16px;
+}
+
+.post-control-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+
+    path {
+      fill: var(--color-primary);
+      stroke: var(--bg-secondary);
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .post-control-button {
+    font-size: 14px;
+  }
+}

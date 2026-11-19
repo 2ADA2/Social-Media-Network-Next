@@ -39,8 +39,16 @@ vi.mock("@/app/store/hooks", (original) => ({
   useAppSelector: (fn: () => unknown) => fn(),
 }));
 
-vi.mock("@/entities/user/model/selectors", (original) => ({
-  ...original,
+vi.mock("next-intl/server", () => ({
+  getTranslations: vi.fn(async () => (key: string) => key),
+  getLocale: vi.fn(async () => "en"),
+}));
+
+vi.mock("@/entities/user/model/selectors", () => ({
+  selectUser: (state: any) => state.user.userData,
+  selectUserId: (state: any) => state.user.userData?.id,
+  selectToken: (state: any) => state.user.token,
+  selectIsAuthenticated: (state: any) => state.user.isAuth,
   selectIsInit: () => true,
 }));
 
@@ -64,8 +72,26 @@ vi.mock("@/features/auth/use-auth", () => ({
 
 vi.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => {
-    return <img {...props} />;
+  default: ({
+    src,
+    alt,
+    onError,
+    ...props
+  }: {
+    src: string;
+    alt: string;
+    onError?: () => void;
+    [key: string]: unknown;
+  }) => {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        data-testid="image"
+        onError={onError}
+        {...props}
+      />
+    );
   },
 }));
 

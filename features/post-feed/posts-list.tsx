@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { ReactNode, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Post } from "@/entities/post";
 import { Loader } from "@/shared/ui/loader";
@@ -10,7 +10,18 @@ import { postsQueries } from "@/features/post-feed/posts-query";
 import { useIntersectionObserver } from "@/shared/lib/hooks/use-intersection-observer";
 import "./posts-list.css";
 
-export const PostsList = () => {
+interface PostsListProps {
+  children: ReactNode;
+  authorId?: number;
+  excludeId?: number;
+  showCreatePost?: boolean;
+}
+export const PostsList = ({
+  children,
+  authorId,
+  excludeId,
+  showCreatePost = true,
+}: PostsListProps) => {
   const queryClient = useQueryClient();
 
   const {
@@ -21,7 +32,7 @@ export const PostsList = () => {
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
-  } = usePosts();
+  } = usePosts(authorId);
 
   const posts = data?.pages.flatMap((page) => page.items) ?? [];
 
@@ -40,20 +51,27 @@ export const PostsList = () => {
   const ref = useIntersectionObserver({ onIntersect: loadPosts });
 
   if (isPending && !posts.length) {
-    return <Loader />;
+    return <div className="posts-container">{children}</div>;
   }
 
   if (isError) {
     throw new Error(error.message);
   }
 
+  if (!posts.length) {
+    return null;
+  }
+
   return (
     <>
-      <CreatePost onAdd={handlePostCreated} />
+      {showCreatePost && <CreatePost onAdd={handlePostCreated} />}
       <div className="posts-container">
-        {posts.map((post, index) => (
-          <Post key={post.id} post={post} isFirst={index === 0} />
-        ))}
+        {posts.map(
+          (post, index) =>
+            post.id !== excludeId && (
+              <Post key={post.id} post={post} isFirst={index === 0} />
+            ),
+        )}
         {!isFetchingNextPage && hasNextPage && <div ref={ref} />}
         {isFetchingNextPage && <Loader isBlock={false} />}
       </div>
