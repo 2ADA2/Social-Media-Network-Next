@@ -15,6 +15,7 @@
   width: 100%;
   padding: 12px;
   color: var(--color-primary);
+  border: 2px solid var(--border-primary);
 }
 
 @media (min-width: 768px) {

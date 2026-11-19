@@ -106,7 +106,7 @@ export const ControlContainer = styled.div`
   min-width: 80px;
   align-items: center;
 
-  & :hover {
+  &:hover span {
     text-decoration: underline;
   }
 `;

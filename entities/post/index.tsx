@@ -56,7 +56,11 @@ const AuthorLinkContainer = ({
   children: ReactNode;
 }) => {
   return (
-    <AuthorLink href={`/users/${id}`} className="author-link-container">
+    <AuthorLink
+      href={`/users/${id}`}
+      className="author-link-container"
+      onClick={stopPropagation}
+    >
       {children}
     </AuthorLink>
   );
