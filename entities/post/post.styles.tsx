@@ -105,6 +105,10 @@ export const ControlContainer = styled.div`
   gap: 8px;
   min-width: 80px;
   align-items: center;
+
+  & :hover {
+    text-decoration: underline;
+  }
 `;
 
 export const ControlText = styled.span`

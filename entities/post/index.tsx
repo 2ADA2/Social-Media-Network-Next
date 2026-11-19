@@ -33,6 +33,7 @@ import { formatRelativeTime } from "@/shared/lib/localization/format-relative-ti
 import { DeletePostButton } from "@/features/delete-post";
 import { MouseEvent, ReactNode, useState } from "react";
 import { useRouter } from "next/navigation";
+import stopPropagation from "@/shared/lib/stop-propogation";
 
 const MAX_COMMENTS_HEIGHT = 1000;
 const DEFAULT_IMAGE = "/assets/default-image.png";
@@ -221,7 +222,10 @@ export const Post = ({ post, isFirst }: PostProps) => {
         transitions(
           (style, item) =>
             item && (
-              <animated.div style={{ ...style, overflow: "hidden" }}>
+              <animated.div
+                style={{ ...style, overflow: "hidden", cursor: "default" }}
+                onClick={stopPropagation}
+              >
                 <PostComments postId={post.id} />
               </animated.div>
             ),

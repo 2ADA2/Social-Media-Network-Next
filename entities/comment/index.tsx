@@ -6,6 +6,7 @@ import TrashCanIcon from "@/shared/assets/icons/trashcan.svg";
 import { useUser } from "@/entities/user/model/use-user";
 import { formatRelativeTime } from "@/shared/lib/localization/format-relative-time";
 import { useLocale, useTranslations } from "next-intl";
+import Link from "next/link";
 
 export const Comment = (data: CommentInterface) => {
   const t = useTranslations("main");
@@ -38,12 +39,17 @@ export const Comment = (data: CommentInterface) => {
             <TrashCanIcon />
           </button>
         )}
-        <Avatar src={avatarUrl} size={32} />
+        <Link href={`/users/${data.authorId}`}>
+          <Avatar src={avatarUrl} size={32} />
+        </Link>
+
         <div className="post-comment-info">
-          <span>
-            {firstName} {secondName}
-          </span>
-          <span>{date}</span>
+          <Link href={`/users/${data.authorId}`}>
+            <span>
+              {firstName} {secondName}
+            </span>
+          </Link>
+          <span className="comment-date">{date}</span>
         </div>
       </div>
       <p className="post-comment-body">{data.text}</p>
