@@ -1,6 +1,5 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
 import { getPostById } from "./get-post-by-id";
-import { API_URL } from "@/app/lib/config";
 
 vi.mock("@/app/lib/config", () => ({
   API_URL: "http://localhost:4000",
