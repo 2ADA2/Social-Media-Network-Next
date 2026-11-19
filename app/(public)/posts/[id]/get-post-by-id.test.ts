@@ -1,5 +1,5 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
-import { getPostById, MIN_ID } from "./get-post-by-id";
+import { getPostById } from "./get-post-by-id";
 import { API_URL } from "@/app/lib/config";
 
 vi.mock("@/app/lib/config", () => ({
@@ -29,36 +29,10 @@ describe("getPostById", () => {
       json: async () => ({ data: { allPosts: [mockPost] } }),
     });
 
-    const result = await getPostById("101");
+    const result = await getPostById(101);
 
     expect(result).toEqual(mockPost);
     expect(fetchMock).toHaveBeenCalledTimes(1);
-  });
-
-  test("Sends correct variables based on id", async () => {
-    fetchMock.mockResolvedValue({
-      ok: true,
-      json: async () => ({ data: { allPosts: [] } }),
-    });
-
-    await getPostById("105");
-
-    expect(fetchMock).toHaveBeenCalledWith(
-      `${API_URL}/graphql`,
-      expect.objectContaining({
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: expect.any(String),
-      }),
-    );
-
-    const callArgs = fetchMock.mock.calls[0][1];
-    const body = JSON.parse(callArgs.body);
-
-    expect(body.variables).toEqual({
-      limit: 1,
-      offset: 105 - MIN_ID - 1,
-    });
   });
 
   test("Returns null if response is not ok", async () => {
@@ -66,7 +40,7 @@ describe("getPostById", () => {
       ok: false,
     });
 
-    const result = await getPostById("102");
+    const result = await getPostById(102);
 
     expect(result).toBeNull();
   });
@@ -77,7 +51,7 @@ describe("getPostById", () => {
       json: async () => ({ data: { allPosts: [] } }),
     });
 
-    const result = await getPostById("103");
+    const result = await getPostById(103);
 
     expect(result).toBeNull();
   });
@@ -88,7 +62,7 @@ describe("getPostById", () => {
       json: async () => ({}),
     });
 
-    const result = await getPostById("104");
+    const result = await getPostById(104);
 
     expect(result).toBeNull();
   });

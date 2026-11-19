@@ -3,9 +3,10 @@ import { API_URL } from "@/app/lib/config";
 import { ALL_POSTS_QUERY } from "@/features/post-feed/posts-query";
 import type { Post } from "@/entities/post/types";
 
-export const MIN_ID = 100;
+export const LIMIT = 100;
 
-export const getPostById = cache(async (id: string): Promise<Post | null> => {
+// TODO: use GET /api/post/[id]
+export const getPostById = cache(async (id: number): Promise<Post | null> => {
   const response = await fetch(`${API_URL}/graphql`, {
     method: "POST",
     headers: {
@@ -13,7 +14,7 @@ export const getPostById = cache(async (id: string): Promise<Post | null> => {
     },
     body: JSON.stringify({
       query: ALL_POSTS_QUERY,
-      variables: { limit: 1, offset: Number(id) - MIN_ID - 1 },
+      variables: { limit: LIMIT, offset: 0 },
     }),
     cache: "no-store",
   });
@@ -21,5 +22,10 @@ export const getPostById = cache(async (id: string): Promise<Post | null> => {
   if (!response.ok) return null;
 
   const json = await response.json();
-  return json.data?.allPosts?.[0] ?? null;
+
+  const currentPost: Post[] | null = json?.data?.allPosts.filter(
+    (post: Post) => post.id === id,
+  );
+
+  return currentPost?.[0] ?? null;
 });

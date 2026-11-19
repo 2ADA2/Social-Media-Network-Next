@@ -22,7 +22,7 @@ export const generateMetadata = async ({
   params,
 }: PostPageProps): Promise<Metadata> => {
   const { id } = await params;
-  const post = await getPostById(id);
+  const post = await getPostById(Number(id));
 
   if (!post) {
     return {
@@ -69,7 +69,7 @@ const LinkContainer = ({
 const PostPage = async ({ params }: PostPageProps) => {
   const { id } = await params;
   const locale = await getLocale();
-  const post: Post | null = await getPostById(id);
+  const post: Post | null = await getPostById(Number(id));
 
   if (post === null) {
     redirect("/");
