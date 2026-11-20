@@ -49,4 +49,12 @@ describe("refreshRequest", () => {
 
     await expect(refreshRequest()).rejects.toThrow("schema error");
   });
+
+  test("throws unknown error when non-Error is thrown", async () => {
+    vi.spyOn(globalThis, "fetch").mockImplementation(() => {
+      throw null;
+    });
+
+    await expect(refreshRequest()).rejects.toThrow("unknown error");
+  });
 });

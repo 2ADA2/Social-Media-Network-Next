@@ -31,7 +31,10 @@ const monthsLabels: Record<string, Record<string, string>> = {
   },
 };
 
-const getMonthName = (dateStr: string | undefined, lng: string): string => {
+export const getMonthName = (
+  dateStr: string | undefined,
+  lng: string,
+): string => {
   if (!dateStr) {
     return "";
   }
