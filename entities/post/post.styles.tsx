@@ -24,8 +24,8 @@ export const StyledPost = styled.article`
   color: var(--color-primary);
 
   .delete-post-button {
-    top: 12px;
-    right: 12px;
+    top: 16px;
+    right: 16px;
     z-index: 100;
   }
 
