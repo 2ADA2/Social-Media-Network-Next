@@ -4,6 +4,8 @@ import "./delete-post-button.css";
 import { useDeletePost } from "@/features/delete-post/use-delete-post";
 import { DeletePostModal } from "@/features/delete-post/ui/delete-post-modal";
 import { useModal } from "@/shared/lib/hooks/use-modal";
+import stopPropagation from "@/shared/lib/stop-propogation";
+import { MouseEvent } from "react";
 
 export interface DeletePostButtonProps {
   postId: number;
@@ -22,6 +24,11 @@ export const DeletePostButton = ({ postId }: DeletePostButtonProps) => {
     });
   };
 
+  const handleOpen = (e: MouseEvent) => {
+    stopPropagation(e);
+    open();
+  };
+
   return (
     <>
       <DeletePostModal
@@ -34,7 +41,7 @@ export const DeletePostButton = ({ postId }: DeletePostButtonProps) => {
         type="button"
         className="delete-post-button"
         disabled={isPending}
-        onClick={open}
+        onClick={handleOpen}
         aria-label={t("post.delete")}
       >
         <TrashCanIcon aria-hidden="true" />

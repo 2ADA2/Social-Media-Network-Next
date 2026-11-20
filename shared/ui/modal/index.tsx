@@ -6,6 +6,7 @@ import CrossIcon from "@/shared/assets/icons/cross.svg";
 import { useFocusTrap } from "@/shared/lib/hooks/use-focus-trap";
 import { useBlockScroll } from "@/shared/lib/hooks/use-block-scroll";
 import { useTranslations } from "next-intl";
+import stopPropagation from "@/shared/lib/stop-propogation";
 
 export interface ModalProps {
   children?: React.ReactNode;
@@ -60,6 +61,7 @@ export const Modal = ({
       {transitions((style, item) =>
         item ? (
           <animated.div
+            onClick={stopPropagation}
             className="modal-overlay"
             style={{ opacity: style.opacity }}
           >
