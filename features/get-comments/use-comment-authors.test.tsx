@@ -6,6 +6,15 @@ import { apiClient } from "@/shared/api/api-client";
 import { AxiosError } from "axios";
 import { useCreateComment } from "../create-comment/use-create-comment";
 
+const mockComment = {
+  id: 1,
+  text: "Hello",
+  postId: 5,
+  authorId: 1,
+  creationDate: "2026-01-01T00:00:00.000Z",
+  modifiedDate: "2026-01-01T00:00:00.000Z",
+};
+
 describe("useCreateComment", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
@@ -16,7 +25,7 @@ describe("useCreateComment", () => {
   );
 
   test("Returns success on create", async () => {
-    vi.mocked(apiClient.post).mockResolvedValue({ data: {} });
+    vi.mocked(apiClient.post).mockResolvedValue({ data: mockComment });
 
     const { result } = await renderHook(() => useCreateComment(), { wrapper });
 
