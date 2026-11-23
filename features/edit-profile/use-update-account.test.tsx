@@ -36,10 +36,14 @@ describe("useUpdateAccount", () => {
     <QueryProvider>{children}</QueryProvider>
   );
 
-  test("Returns responce on success and shows message", async () => {
+  test("Returns response on success and shows message", async () => {
     vi.mocked(apiClient.put).mockResolvedValue({
-      data: { user: mockUserResponse },
+      data: {
+        message: "Account updated",
+        user: mockUserResponse,
+      },
     });
+
     const { result } = await renderHook(() => useUpdateAccount(), { wrapper });
 
     result.current.mutate({
@@ -51,6 +55,8 @@ describe("useUpdateAccount", () => {
     await vi.waitFor(() => {
       expect(result.current.isSuccess).toBe(true);
     });
+
+    expect(result.current.data?.message).toBe("Account updated");
   });
 
   test("Returns error on fail and shows message", async () => {
@@ -69,5 +75,25 @@ describe("useUpdateAccount", () => {
     await vi.waitFor(() => {
       expect(result.current.isError).toBe(true);
     });
+
+    expect(result.current.error?.message).toBe(
+      "request error : Request failed with status code 500",
+    );
+  });
+
+  test("Returns schema error if response is invalid", async () => {
+    vi.mocked(apiClient.put).mockResolvedValue({
+      data: { user: mockUserResponse },
+    });
+
+    const { result } = await renderHook(() => useUpdateAccount(), { wrapper });
+
+    result.current.mutate({ currentPassword: "123" });
+
+    await vi.waitFor(() => {
+      expect(result.current.isError).toBe(true);
+    });
+
+    expect(result.current.error?.message).toContain("schema error");
   });
 });
