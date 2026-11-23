@@ -4,7 +4,7 @@ import { queryOptions } from "@tanstack/react-query";
 import z from "zod";
 import { AxiosError } from "axios";
 
-const userResponseSchema = z.object({
+export const userResponseSchema = z.object({
   id: z.number(),
   username: z.string(),
   email: z.string(),

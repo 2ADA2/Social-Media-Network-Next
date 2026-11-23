@@ -1,12 +1,11 @@
 import "./profile-page.css";
 import { Metadata } from "next";
 import ProfilePage from "./_components/profile-page";
-import { API_URL } from "@/app/lib/config";
 import { cookies } from "next/headers";
-import { UserResponse } from "@/entities/user";
 import { redirect } from "next/navigation";
 import { ProfileInfo } from "./_components/profile-info";
 import { Statistics } from "./_components/statistics";
+import { fetchUser } from "./_components/fetchUser";
 
 export const metadata: Metadata = {
   title: "Profile | Sidekick Social",
@@ -18,48 +17,33 @@ export const metadata: Metadata = {
 };
 
 export default async function Profile() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
+  const token = (await cookies()).get("token")?.value;
 
   if (!token) {
     redirect("/sign-in");
   }
 
-  const response = await fetch(`${API_URL}/me`, {
-    headers: { Authorization: `Bearer ${token}` },
-    cache: "no-store",
-  });
+  const user = await fetchUser(token);
 
-  const renderJSONLD = async () => {
-    if (!response.ok) {
-      return null;
-    }
-
-    const user: UserResponse = await response.json();
-
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: user.firstName,
-      alternateName: user.username,
-      image: user.profileImage,
-      description: user.description,
-    };
-    return (
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
-    );
+  const jsonLd = user && {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: user.firstName,
+    alternateName: user.username,
+    image: user.profileImage,
+    description: user.description,
   };
-
-  const jsonLDScript = await renderJSONLD();
 
   return (
     <div className="profile-page">
-      {jsonLDScript}
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      )}
       <ProfilePage Statistics={<Statistics />} ProfileInfo={<ProfileInfo />} />
     </div>
   );

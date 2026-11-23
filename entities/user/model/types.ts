@@ -12,8 +12,8 @@ export interface UserResponse {
   id: number;
   username: string;
   email: string;
-  profileImage: string;
-  bio: string;
+  profileImage: string | null;
+  bio: string | null;
   firstName: string;
   secondName: string;
   description: string;

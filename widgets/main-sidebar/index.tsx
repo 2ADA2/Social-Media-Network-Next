@@ -1,35 +1,31 @@
-import { API_URL } from "@/app/lib/config";
-import { Sidebar } from "@/entities/sidebar";
 import { getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
+import { Sidebar } from "@/entities/sidebar";
 import "./main-sidebar.css";
+import { fetchCommunities, fetchSuggestedPeople } from "./main-sidebar-api";
 
 export const MainSidebar = async () => {
   const t = await getTranslations("main");
+  const token = (await cookies()).get("token")?.value;
 
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
+  if (!token) return null;
 
-  if (!token) {
-    return null;
-  }
-
-  const [peopleRes, communitiesRes] = await Promise.all([
-    fetch(`${API_URL}/getSuggested`, {
-      headers: { Authorization: `Bearer ${token}` },
-      next: { revalidate: 60 },
-    }),
-    fetch(`${API_URL}/groups`, {
-      headers: { Authorization: `Bearer ${token}` },
-      next: { revalidate: 60 },
-    }),
+  const [peopleRes, communitiesRes] = await Promise.allSettled([
+    fetchSuggestedPeople(token),
+    fetchCommunities(token),
   ]);
 
-  const suggestedPeople = peopleRes.ok ? await peopleRes.json() : [];
-  const communities = communitiesRes.ok ? await communitiesRes.json() : [];
+  if (peopleRes.status === "rejected") console.error(peopleRes.reason);
+  if (communitiesRes.status === "rejected")
+    console.error(communitiesRes.reason);
+
+  const suggestedPeople =
+    peopleRes.status === "fulfilled" ? peopleRes.value : [];
+  const communities =
+    communitiesRes.status === "fulfilled" ? communitiesRes.value : [];
 
   return (
-    <div className={"recommend-sidebars"}>
+    <div className="recommend-sidebars">
       <Sidebar title={t("sidebar.suggestedPeople")} users={suggestedPeople} />
       <Sidebar title={t("sidebar.communities")} users={communities} />
     </div>
