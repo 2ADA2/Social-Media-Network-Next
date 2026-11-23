@@ -33,6 +33,7 @@ export default defineConfig({
     }),
   ],
   test: {
+    api: 3123,
     isolate: true,
     server: {
       deps: {

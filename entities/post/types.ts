@@ -42,3 +42,5 @@ export interface PostsPage {
   limit: number;
   offset: number;
 }
+
+export type MyPost = Omit<Post, "author" | "likedByUsers">;

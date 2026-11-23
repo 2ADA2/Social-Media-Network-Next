@@ -9,9 +9,8 @@ import {
   setCredentials,
 } from "@/entities/user/model/user-slice";
 import updateToken from "@/shared/lib/update-token";
-import { apiClient } from "@/shared/api/api-client";
-import { UserResponse, mapUser } from "@/entities/user";
 import { getCookie } from "@/shared/lib/get-cookie";
+import { fetchMe } from "@/features/auth/me";
 
 export function ReduxProvider({ children }: { children: React.ReactNode }) {
   const storeRef = useRef<AppStore>(undefined);
@@ -29,8 +28,7 @@ export function ReduxProvider({ children }: { children: React.ReactNode }) {
     if (token) {
       (async () => {
         try {
-          const response = await apiClient.get<UserResponse>("/api/me");
-          const user = mapUser(response.data);
+          const user = await fetchMe();
           store.dispatch(setCredentials({ user, token }));
         } catch {
           store.dispatch(logout());
