@@ -11,13 +11,13 @@ export interface User {
 export interface UserResponse {
   id: number;
   username: string;
-  email: string;
+  email?: string;
   profileImage: string | null;
   bio: string | null;
   firstName: string;
   secondName: string;
   description: string;
-  lastLogin: string;
-  creationDate: string;
-  modifiedDate: string;
+  lastLogin?: string;
+  creationDate?: string;
+  modifiedDate?: string;
 }

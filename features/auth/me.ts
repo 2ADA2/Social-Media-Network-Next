@@ -7,16 +7,16 @@ import { AxiosError } from "axios";
 export const userResponseSchema = z.object({
   id: z.number(),
   username: z.string(),
-  email: z.string(),
+  email: z.string().optional(),
   profileImage: z.string().nullable(),
   bio: z.string().nullable(),
   firstName: z.string(),
   secondName: z.string(),
   description: z.string(),
-  lastLogin: z.string(),
-  creationDate: z.string(),
-  modifiedDate: z.string(),
-});
+  lastLogin: z.string().optional(),
+  creationDate: z.string().optional(),
+  modifiedDate: z.string().optional(),
+}) satisfies z.ZodType<UserResponse>;
 
 export const fetchMe = async (): Promise<User> => {
   try {
