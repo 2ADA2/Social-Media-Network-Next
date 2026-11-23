@@ -1,6 +1,8 @@
-import type { Like, Post, Comment } from "@/entities/post/types";
-import { API_URL } from "@/app/lib/config";
 import { cookies } from "next/headers";
+import type z from "zod";
+import { API_URL } from "@/app/lib/config";
+import type { Comment, Like, MyPost } from "@/entities/post/types";
+import { commentsSchema, likesSchema, myPostsPageSchema } from "./schemas";
 
 const getAuthHeaders = async (): Promise<Record<string, string>> => {
   const cookieStore = await cookies();
@@ -11,45 +13,56 @@ const getAuthHeaders = async (): Promise<Record<string, string>> => {
   return { Authorization: `Bearer ${token}` };
 };
 
-export const fetchMyPosts = async (): Promise<Post[]> => {
-  const res = await fetch(`${API_URL}/me/posts?limit=100&offset=0`, {
-    headers: await getAuthHeaders(),
-    cache: "no-store",
-  });
+const errorMessage = (e: unknown) =>
+  e instanceof Error ? e.message : "unknown";
+
+const request = async (path: string): Promise<unknown> => {
+  const headers = await getAuthHeaders();
+  let res: Response;
+
+  try {
+    res = await fetch(`${API_URL}${path}`, { headers, cache: "no-store" });
+  } catch (e) {
+    throw new Error(`request error : ${errorMessage(e)}`);
+  }
 
   if (res.status === 401) {
     throw new Error("UNAUTHORIZED");
   }
 
-  if (!res.ok) throw new Error("Failed to fetch posts");
-  const data = await res.json();
-  return data.items;
+  if (!res.ok) {
+    throw new Error(`request error : ${res.status} ${res.statusText}`);
+  }
+
+  try {
+    return await res.json();
+  } catch (e) {
+    throw new Error(`parse error : ${errorMessage(e)}`);
+  }
+};
+
+const parseResponse = <T>(schema: z.ZodType<T>, data: unknown): T => {
+  try {
+    return schema.parse(data);
+  } catch (e) {
+    throw new Error(`schema error: ${errorMessage(e)}`);
+  }
+};
+
+export const fetchMyPosts = async (): Promise<MyPost[]> => {
+  const data = await request("/me/posts?limit=100&offset=0");
+
+  return parseResponse(myPostsPageSchema, data).items;
 };
 
 export const fetchMyLikes = async (): Promise<Like[]> => {
-  const res = await fetch(`${API_URL}/me/likes`, {
-    headers: await getAuthHeaders(),
-    cache: "no-store",
-  });
+  const data = await request("/me/likes");
 
-  if (res.status === 401) {
-    throw new Error("UNAUTHORIZED");
-  }
-
-  if (!res.ok) throw new Error("Failed to fetch likes");
-  return res.json();
+  return parseResponse(likesSchema, data);
 };
 
 export const fetchMyComments = async (): Promise<Comment[]> => {
-  const res = await fetch(`${API_URL}/me/comments`, {
-    headers: await getAuthHeaders(),
-    cache: "no-store",
-  });
+  const data = await request("/me/comments");
 
-  if (res.status === 401) {
-    throw new Error("UNAUTHORIZED");
-  }
-
-  if (!res.ok) throw new Error("Failed to fetch comments");
-  return res.json();
+  return parseResponse(commentsSchema, data);
 };
