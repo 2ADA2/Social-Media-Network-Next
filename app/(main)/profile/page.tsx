@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ProfileInfo } from "./_components/profile-info";
 import { Statistics } from "./_components/statistics";
-import { fetchUser } from "./_components/fetchUser";
+import { fetchUser } from "./_components/fetch-user";
 
 export const metadata: Metadata = {
   title: "Profile | Sidekick Social",
