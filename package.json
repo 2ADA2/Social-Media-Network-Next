@@ -19,7 +19,8 @@
     "docker:run": "docker run -d -p 3000:3000 -p 4000:4000 --name social-next social-next",
     "docker:stop": "docker rm -f social-next",
     "docker:up": "docker compose up -d --build",
-    "docker:down": "docker compose down"
+    "docker:down": "docker compose down",
+    "start:all": "concurrently -n next,api \"npm run start\" \"npm run backend\""
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
