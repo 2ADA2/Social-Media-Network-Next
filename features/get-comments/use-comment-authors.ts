@@ -20,7 +20,7 @@ export const publicUserSchema = z.object({
 
 const fetchUser = async (id: number): Promise<PublicUser | undefined> => {
   try {
-    const { data } = await apiClient.get<PublicUser>(`/api/users/${id}`);
+    const { data } = await apiClient.get<PublicUser>(`/users/${id}`);
 
     publicUserSchema.parse(data);
 

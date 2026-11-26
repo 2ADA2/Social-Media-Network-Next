@@ -5,7 +5,7 @@ export const deleteCommentRequest = async (
   commentId: number,
 ): Promise<void> => {
   try {
-    await apiClient.delete(`/api/comments/${commentId}`);
+    await apiClient.delete(`/comments/${commentId}`);
   } catch (e) {
     if (e instanceof AxiosError) {
       throw new Error(`Request error: Failed to delete comment. ${e.message}`);

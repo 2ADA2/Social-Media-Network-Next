@@ -89,7 +89,7 @@ describe("useAuth", () => {
 
     await result.current.auth("token");
 
-    expect(apiClient.get).toHaveBeenCalledWith("/api/me");
+    expect(apiClient.get).toHaveBeenCalledWith("/me");
     expect(mockSetCredentials).toHaveBeenCalledWith(credentials);
     expect(mockDispatch).toHaveBeenCalledWith({
       type: "user/setCredentials",

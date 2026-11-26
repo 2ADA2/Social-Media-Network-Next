@@ -35,7 +35,7 @@ describe("fetchMe", () => {
 
     const result = await fetchMe();
 
-    expect(apiClient.get).toHaveBeenCalledWith("/api/me");
+    expect(apiClient.get).toHaveBeenCalledWith("/me");
 
     expect(result).toEqual({
       id: "1",

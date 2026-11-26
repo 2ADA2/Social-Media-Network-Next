@@ -20,7 +20,7 @@ export const createPostRequest = async (
   params: CreatePostParams,
 ): Promise<Post> => {
   try {
-    const { data } = await apiClient.post<Post>("/api/posts", params);
+    const { data } = await apiClient.post<Post>("/posts", params);
 
     createPostResponseSchema.parse(data);
 

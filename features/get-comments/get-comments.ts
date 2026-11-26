@@ -20,7 +20,7 @@ const commentsResponseSchema = z.array(commentResponseSchema);
 const fetchComments = async (postId: number): Promise<CommentInterface[]> => {
   try {
     const { data } = await apiClient.get<CommentInterface[]>(
-      `/api/posts/${postId}/comments`,
+      `/posts/${postId}/comments`,
     );
 
     commentsResponseSchema.parse(data);

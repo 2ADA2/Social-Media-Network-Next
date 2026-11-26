@@ -71,7 +71,7 @@ describe("ReduxProvider", () => {
       </ReduxProvider>,
     );
 
-    expect(apiClient.get).toHaveBeenCalledWith("/api/me");
+    expect(apiClient.get).toHaveBeenCalledWith("/me");
   });
 
   test("Logs out and removes token if fetch fails", async () => {
@@ -85,7 +85,7 @@ describe("ReduxProvider", () => {
     );
 
     await vi.waitFor(() => {
-      expect(apiClient.get).toHaveBeenCalledWith("/api/me");
+      expect(apiClient.get).toHaveBeenCalledWith("/me");
       expect(updateToken).toHaveBeenCalledWith("");
     });
   });

@@ -31,7 +31,7 @@ export const updateAccountRequest = async (
 ): Promise<UpdateAccountResponse> => {
   try {
     const { data } = await apiClient.put<UpdateAccountResponse>(
-      "/api/account",
+      "/account",
       params,
     );
 

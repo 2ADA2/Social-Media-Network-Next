@@ -237,7 +237,7 @@ export const postsQueries = {
 
 export const likePost = async (postId: number): Promise<LikeStatus> => {
   try {
-    const { data } = await apiClient.post<LikeStatus>("/api/like", {
+    const { data } = await apiClient.post<LikeStatus>("/like", {
       postId,
     });
 
@@ -257,7 +257,7 @@ export const likePost = async (postId: number): Promise<LikeStatus> => {
 
 export const dislikePost = async (postId: number): Promise<LikeStatus> => {
   try {
-    const { data } = await apiClient.post<LikeStatus>("/api/dislike", {
+    const { data } = await apiClient.post<LikeStatus>("/dislike", {
       postId,
     });
 

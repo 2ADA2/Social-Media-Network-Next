@@ -39,7 +39,7 @@ describe("signinRequest", () => {
 
     const result = await signinRequest(params);
 
-    expect(fetchMock).toHaveBeenCalledWith("/api/login", {
+    expect(fetchMock).toHaveBeenCalledWith("/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

@@ -16,7 +16,7 @@ export const uploadAvatar = async (file: File): Promise<string> => {
 
   try {
     const { data } = await apiClient.post<UploadImageResponse>(
-      "/api/upload-image",
+      "/upload-image",
       formData,
       { headers: { "Content-Type": "multipart/form-data" } },
     );

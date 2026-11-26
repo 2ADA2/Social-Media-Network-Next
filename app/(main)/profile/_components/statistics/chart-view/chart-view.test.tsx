@@ -23,14 +23,16 @@ const commentsByDay = [
 describe("ChartView", () => {
   beforeEach(() => {
     mockBuildOptions.mockReset();
-    mockBuildOptions.mockImplementation((categories, theme, id, type) => ({
-      chart: { id, type },
-      xaxis: { categories },
-      theme: { mode: theme },
-    }));
+    mockBuildOptions.mockImplementation(
+      (categories: string[], theme: string, id: string, type: string) => ({
+        chart: { id, type },
+        xaxis: { categories },
+        theme: { mode: theme },
+      }),
+    );
   });
 
-  test("Resnders both charts with data", async () => {
+  test("Renders both charts with data", async () => {
     const screen = await render(
       <ChartView
         likesByDay={likesByDay}
@@ -45,13 +47,12 @@ describe("ChartView", () => {
     await expect
       .element(screen.getByRole("heading", { name: "stats.comments" }))
       .toBeVisible();
+
     await vi.waitFor(() => {
       expect(
         screen.container.querySelectorAll(".apexcharts-canvas"),
       ).toHaveLength(2);
     });
-    const charts = screen.container.querySelectorAll(".apexcharts-canvas");
-    expect(charts).toHaveLength(2);
   });
 
   test("Calls build options with correct data", async () => {

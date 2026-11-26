@@ -29,7 +29,7 @@ describe("uploadImage", () => {
     const url = await uploadImage(file);
 
     expect(apiClient.post).toHaveBeenCalledWith(
-      "/api/upload-image",
+      "/upload-image",
       expect.any(FormData),
       { headers: { "Content-Type": "multipart/form-data" } },
     );

@@ -1,3 +1,4 @@
+import { API_URL } from "@/app/lib/config";
 import z from "zod";
 
 const userSchema = z.object({
@@ -32,7 +33,7 @@ export const signupRequest = async (
   params: SignupParams,
 ): Promise<SignupResponse> => {
   try {
-    const res = await fetch("/api/signup", {
+    const res = await fetch(`${API_URL}/signup`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

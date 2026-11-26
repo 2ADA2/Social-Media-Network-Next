@@ -34,7 +34,7 @@ describe("createPostRequest", () => {
       content: "Content",
     });
 
-    expect(apiClient.post).toHaveBeenCalledWith("/api/posts", {
+    expect(apiClient.post).toHaveBeenCalledWith("/posts", {
       title: "My post",
       content: "Content",
     });

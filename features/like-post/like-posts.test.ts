@@ -31,7 +31,7 @@ describe("likePost", () => {
 
     const result = await likePost(42);
 
-    expect(apiClient.post).toHaveBeenCalledWith("/api/like", { postId: 42 });
+    expect(apiClient.post).toHaveBeenCalledWith("/like", { postId: 42 });
     expect(result).toEqual(mockLikeResponse);
   });
 
@@ -54,7 +54,7 @@ describe("dislikePost", () => {
 
     const result = await dislikePost(42);
 
-    expect(apiClient.post).toHaveBeenCalledWith("/api/dislike", {
+    expect(apiClient.post).toHaveBeenCalledWith("/dislike", {
       postId: 42,
     });
     expect(result).toEqual(mockDislikeResponse);

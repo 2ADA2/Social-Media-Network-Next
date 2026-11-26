@@ -1,3 +1,4 @@
+import { API_URL } from "@/app/lib/config";
 import z from "zod";
 
 const refreshResponseSchema = z.object({
@@ -10,7 +11,7 @@ type RefreshResponse = z.infer<typeof refreshResponseSchema>;
 
 export const refreshRequest = async (): Promise<RefreshResponse> => {
   try {
-    const res = await fetch("/api/refresh", {
+    const res = await fetch(`${API_URL}/refresh`, {
       method: "POST",
       credentials: "include",
     });

@@ -39,7 +39,7 @@ describe("createCommentApi", () => {
 
     const result = await createCommentApi({ postId: 42, text: "Hello" });
 
-    expect(apiClient.post).toHaveBeenCalledWith("/api/comments", {
+    expect(apiClient.post).toHaveBeenCalledWith("/comments", {
       postId: 42,
       text: "Hello",
     });

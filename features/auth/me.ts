@@ -20,7 +20,7 @@ export const userResponseSchema = z.object({
 
 export const fetchMe = async (): Promise<User> => {
   try {
-    const { data } = await apiClient.get<UserResponse>("/api/me");
+    const { data } = await apiClient.get<UserResponse>("/me");
 
     userResponseSchema.parse(data);
 
