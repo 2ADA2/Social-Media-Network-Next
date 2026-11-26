@@ -34,7 +34,7 @@ export const createCommentApi = async (
 ): Promise<CommentInterface> => {
   try {
     const { data } = await apiClient.post<CommentInterface>(
-      "/api/comments",
+      "/comments",
       params,
     );
 

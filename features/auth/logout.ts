@@ -1,5 +1,7 @@
+import { API_URL } from "@/app/lib/config";
+
 export const fetchLogout = async () => {
-  const res = await fetch("/api/logout", {
+  const res = await fetch(`${API_URL}/logout`, {
     method: "POST",
     credentials: "include",
   });

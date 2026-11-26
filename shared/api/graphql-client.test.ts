@@ -1,5 +1,9 @@
 import { beforeEach, afterEach, describe, expect, test, vi } from "vitest";
 
+vi.mock("@/app/lib/config", () => ({
+  API_URL: "http://localhost:4000",
+}));
+
 vi.mock("../lib/get-cookie", () => ({
   getCookie: vi.fn(),
 }));
@@ -23,6 +27,7 @@ describe("graphqlClient", () => {
   });
 
   afterEach(() => {
+    vi.unstubAllGlobals();
     vi.restoreAllMocks();
   });
 
@@ -34,24 +39,23 @@ describe("graphqlClient", () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
 
     const [url, options] = fetchMock.mock.calls[0];
-    expect(url.toString()).toBe("http://localhost:4000/api/graphql");
+
+    expect(String(url)).toBe("http://localhost:4000/graphql");
     expect(options.method).toBe("POST");
 
-    const headers = options.headers as Headers;
+    const headers = new Headers(options.headers);
     expect(headers.get("Authorization")).toBe("Bearer my-secret-token");
     expect(headers.get("Content-Type")).toBe("application/json");
-    expect(JSON.parse(options.body)).toEqual({
-      query: "query { hello }",
-    });
+    expect(JSON.parse(options.body)).toEqual({ query: "query { hello }" });
   });
 
-  test("Doesn't add authorizations if token is not exists", async () => {
+  test("Doesn't add authorization if token does not exist", async () => {
     vi.mocked(getCookie).mockReturnValue(undefined);
 
     await graphqlClient.request("query { hello }");
 
     const [, options] = fetchMock.mock.calls[0];
 
-    expect(options.headers?.Authorization).toBeUndefined();
+    expect(new Headers(options.headers).get("Authorization")).toBeNull();
   });
 });

@@ -90,12 +90,12 @@ describe("useCreatePost", () => {
 
     expect(apiClient.post).toHaveBeenNthCalledWith(
       1,
-      "/api/upload-image",
+      "/upload-image",
       expect.any(FormData),
       { headers: { "Content-Type": "multipart/form-data" } },
     );
 
-    expect(apiClient.post).toHaveBeenNthCalledWith(2, "/api/posts", {
+    expect(apiClient.post).toHaveBeenNthCalledWith(2, "/posts", {
       title: "title",
       content: "content",
       image: "url",

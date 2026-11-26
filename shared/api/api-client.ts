@@ -4,6 +4,7 @@ import { fetchLogout } from "@/features/auth/logout";
 import { redirect } from "next/navigation";
 import updateToken from "../lib/update-token";
 import { getCookie } from "../lib/get-cookie";
+import { API_URL } from "@/app/lib/config";
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -16,7 +17,7 @@ export const setTokenRefreshCallback = (callback: () => void) => {
 };
 
 export const apiClient = axios.create({
-  baseURL: "/",
+  baseURL: API_URL,
   withCredentials: true,
 });
 

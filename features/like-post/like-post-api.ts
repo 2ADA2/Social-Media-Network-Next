@@ -12,7 +12,7 @@ export type LikeStatus = z.infer<typeof likeStatusResponseSchema>;
 
 export const likePost = async (postId: number): Promise<LikeStatus> => {
   try {
-    const { data } = await apiClient.post<LikeStatus>("/api/like", { postId });
+    const { data } = await apiClient.post<LikeStatus>("/like", { postId });
 
     likeStatusResponseSchema.parse(data);
 
@@ -34,7 +34,7 @@ export const likePost = async (postId: number): Promise<LikeStatus> => {
 
 export const dislikePost = async (postId: number): Promise<LikeStatus> => {
   try {
-    const { data } = await apiClient.post<LikeStatus>("/api/dislike", {
+    const { data } = await apiClient.post<LikeStatus>("/dislike", {
       postId,
     });
 

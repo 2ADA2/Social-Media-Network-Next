@@ -8,10 +8,6 @@ vi.mock("./options", () => ({
   buildOptions: (...args: unknown[]) => mockBuildOptions(...args),
 }));
 
-vi.mock("i18next", () => ({
-  default: { language: "en" },
-}));
-
 const likesByDay = [
   { date: "2024-01-01", count: 5 },
   { date: "2024-01-02", count: 0 },
@@ -27,15 +23,16 @@ const commentsByDay = [
 describe("ChartView", () => {
   beforeEach(() => {
     mockBuildOptions.mockReset();
-    mockBuildOptions.mockImplementation((categories, theme, id, type) => ({
-      categories,
-      theme,
-      id,
-      type,
-    }));
+    mockBuildOptions.mockImplementation(
+      (categories: string[], theme: string, id: string, type: string) => ({
+        chart: { id, type },
+        xaxis: { categories },
+        theme: { mode: theme },
+      }),
+    );
   });
 
-  test("Resnders both charts with data", async () => {
+  test("Renders both charts with data", async () => {
     const screen = await render(
       <ChartView
         likesByDay={likesByDay}
@@ -51,8 +48,11 @@ describe("ChartView", () => {
       .element(screen.getByRole("heading", { name: "stats.comments" }))
       .toBeVisible();
 
-    const charts = screen.container.querySelectorAll(".apexcharts-canvas");
-    expect(charts).toHaveLength(2);
+    await vi.waitFor(() => {
+      expect(
+        screen.container.querySelectorAll(".apexcharts-canvas"),
+      ).toHaveLength(2);
+    });
   });
 
   test("Calls build options with correct data", async () => {

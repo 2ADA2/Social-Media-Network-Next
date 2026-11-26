@@ -60,7 +60,7 @@ describe("useLikePost", () => {
       expect(result.current.isSuccess).toBe(true);
     });
 
-    expect(apiClient.post).toHaveBeenNthCalledWith(1, "/api/like", {
+    expect(apiClient.post).toHaveBeenNthCalledWith(1, "/like", {
       postId: 1,
     });
   });
@@ -82,7 +82,7 @@ describe("useLikePost", () => {
       expect(result.current.isError).toBe(true);
     });
 
-    expect(apiClient.post).toHaveBeenNthCalledWith(1, "/api/like", {
+    expect(apiClient.post).toHaveBeenNthCalledWith(1, "/like", {
       postId: 1,
     });
   });
@@ -106,7 +106,7 @@ describe("useLikePost", () => {
       expect(result.current.isSuccess).toBe(true);
     });
 
-    expect(apiClient.post).toHaveBeenNthCalledWith(1, "/api/dislike", {
+    expect(apiClient.post).toHaveBeenNthCalledWith(1, "/dislike", {
       postId: 1,
     });
   });
@@ -128,7 +128,7 @@ describe("useLikePost", () => {
       expect(result.current.isError).toBe(true);
     });
 
-    expect(apiClient.post).toHaveBeenNthCalledWith(1, "/api/dislike", {
+    expect(apiClient.post).toHaveBeenNthCalledWith(1, "/dislike", {
       postId: 1,
     });
   });

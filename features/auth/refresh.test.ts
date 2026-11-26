@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
+import { API_URL } from "@/app/lib/config";
 import { refreshRequest } from "./refresh";
 
 const mockRefreshResponse = {
@@ -20,7 +21,7 @@ describe("refreshRequest", () => {
 
     const result = await refreshRequest();
 
-    expect(fetchMock).toHaveBeenCalledWith("/api/refresh", {
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/refresh`, {
       method: "POST",
       credentials: "include",
     });

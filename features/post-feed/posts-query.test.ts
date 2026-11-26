@@ -207,7 +207,7 @@ describe("likePost", () => {
 
     const result = await likePost(1);
 
-    expect(mockedApiPost).toHaveBeenCalledWith("/api/like", {
+    expect(mockedApiPost).toHaveBeenCalledWith("/like", {
       postId: 1,
     });
 
@@ -257,7 +257,7 @@ describe("dislikePost", () => {
 
     const result = await dislikePost(1);
 
-    expect(mockedApiPost).toHaveBeenCalledWith("/api/dislike", {
+    expect(mockedApiPost).toHaveBeenCalledWith("/dislike", {
       postId: 1,
     });
 

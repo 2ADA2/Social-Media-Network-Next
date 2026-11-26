@@ -26,7 +26,7 @@ describe("deleteCommentApi", () => {
   test("Sends DELETE request with correct params", async () => {
     await deleteCommentRequest(1);
 
-    expect(apiClient.delete).toHaveBeenCalledWith("/api/comments/1");
+    expect(apiClient.delete).toHaveBeenCalledWith("/comments/1");
   });
 
   test("throws error when request fails", async () => {

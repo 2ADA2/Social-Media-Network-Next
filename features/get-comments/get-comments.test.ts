@@ -30,7 +30,7 @@ describe("getComments", () => {
     const options = commentsQueries.forPost(5);
     const result = await options.queryFn!({} as never);
 
-    expect(apiClient.get).toHaveBeenCalledWith("/api/posts/5/comments");
+    expect(apiClient.get).toHaveBeenCalledWith("/posts/5/comments");
     expect(result).toEqual([mockComment]);
   });
 
