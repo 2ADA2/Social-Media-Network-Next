@@ -1,6 +1,5 @@
 import { Avatar } from "@/shared/ui/avatar";
 import "./user-card.css";
-import { MouseEvent } from "react";
 import Link from "next/link";
 
 export interface UserCardProps {
