@@ -17,7 +17,7 @@ export const UserCard = ({
   href,
 }: UserCardProps) => {
   return (
-    <Link href={href || ""} className="user-card-link">
+    <Link href={href || ""} replace className="user-card-link">
       <div className="user-card">
         <Avatar src={avatarUrl} size={48} />
         <div className="user-card-info">
