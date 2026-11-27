@@ -27,6 +27,7 @@ export const PostComments = React.memo(function PostComments({
   } else {
     wasLoaded.current = true;
   }
+
   return (
     <>
       <PostCommentsContainer>
