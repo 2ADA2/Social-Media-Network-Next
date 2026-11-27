@@ -1,6 +1,6 @@
 "use client";
 
-import { lazy, Profiler, Suspense, useState } from "react";
+import { Activity, lazy, Profiler, Suspense, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Toggle } from "@/shared/ui/toggle";
 import { Loader } from "@/shared/ui/loader";
@@ -50,7 +50,7 @@ export const StatisticsClient = ({
         <span>{t("stats.enableChartView")}</span>
       </div>
 
-      {enableChartView && (
+      <Activity mode={enableChartView ? "visible" : "hidden"}>
         <Suspense fallback={<Loader />}>
           <Profiler id="chart-view-profiler" onRender={onRender}>
             <ChartView
@@ -60,11 +60,13 @@ export const StatisticsClient = ({
             />
           </Profiler>
         </Suspense>
-      )}
+      </Activity>
 
-      {!enableChartView && (
-        <TableView likesByDay={likesByDay} commentsByDay={commentsByDay} />
-      )}
+      <Activity mode={!enableChartView ? "visible" : "hidden"}>
+        {!enableChartView && (
+          <TableView likesByDay={likesByDay} commentsByDay={commentsByDay} />
+        )}
+      </Activity>
     </>
   );
 };
