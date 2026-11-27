@@ -50,7 +50,7 @@ export const StatisticsClient = ({
         <span>{t("stats.enableChartView")}</span>
       </div>
 
-      <Activity mode={enableChartView ? "visible" : "hidden"}>
+      {enableChartView && (
         <Suspense fallback={<Loader />}>
           <Profiler id="chart-view-profiler" onRender={onRender}>
             <ChartView
@@ -60,7 +60,7 @@ export const StatisticsClient = ({
             />
           </Profiler>
         </Suspense>
-      </Activity>
+      )}
 
       <Activity mode={!enableChartView ? "visible" : "hidden"}>
         {!enableChartView && (
