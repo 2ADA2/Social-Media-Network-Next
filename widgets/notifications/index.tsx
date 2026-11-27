@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { use, useEffect, useState } from "react";
+import { browser, createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import "./notifications.css";
 import { useNotifications } from "@/app/providers/notifications-provider/useNotifications";
@@ -21,17 +21,9 @@ const Notification = dynamic(
 );
 
 export const Notifications = ({ onDelete }: NotificationsProps) => {
+  use(browser());
   const t = useTranslations("common");
   const { notifications } = useNotifications();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
 
   return createPortal(
     <div

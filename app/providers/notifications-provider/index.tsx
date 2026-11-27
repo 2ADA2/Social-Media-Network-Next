@@ -1,6 +1,12 @@
 "use client";
 
-import { type PropsWithChildren, useCallback, useRef, useState } from "react";
+import {
+  type PropsWithChildren,
+  Suspense,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import { type AddNotificationProps, NotificationsContext } from "./context";
 import { Notifications } from "@/widgets/notifications";
 
@@ -24,7 +30,9 @@ export const NotificationsProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <NotificationsContext.Provider value={{ notifications, addNotification }}>
-      <Notifications onDelete={deleteNotification} />
+      <Suspense>
+        <Notifications onDelete={deleteNotification} />
+      </Suspense>
       {children}
     </NotificationsContext.Provider>
   );

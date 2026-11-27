@@ -34,7 +34,7 @@ export const Sidebar = ({ title, users }: SidebarProps) => {
         <h2>{title}</h2>
         {users.map((user) => (
           <UserCard
-            href={`users/${user.id}`}
+            href={`/users/${user.id}`}
             key={user.id}
             {...user}
             title={

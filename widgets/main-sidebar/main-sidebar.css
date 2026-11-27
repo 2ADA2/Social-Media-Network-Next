@@ -6,7 +6,7 @@
   .recommend-sidebars {
     width: 250px;
     position: absolute;
-    left: calc(50vw + 340px);
+    left: calc(50vw + 350px);
     top: 84px;
 
     display: flex;

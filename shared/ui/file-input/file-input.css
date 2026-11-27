@@ -21,6 +21,7 @@
     line-height: 20px;
 
     .close-button {
+      width: 24px;
       border: none;
       background: none;
       cursor: pointer;

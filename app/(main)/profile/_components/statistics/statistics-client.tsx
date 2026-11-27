@@ -1,6 +1,6 @@
 "use client";
 
-import { lazy, Suspense, useState } from "react";
+import { Activity, lazy, Profiler, Suspense, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Toggle } from "@/shared/ui/toggle";
 import { Loader } from "@/shared/ui/loader";
@@ -27,6 +27,17 @@ export const StatisticsClient = ({
     setEnableChartView((prev) => !prev);
   };
 
+  const onRender = (
+    id: string,
+    _phase: string,
+    _actualDuration: number,
+    _baseDuration: number,
+    startTime: number,
+    commitTime: number,
+  ) => {
+    console.log(id, commitTime - startTime, "ms");
+  };
+
   return (
     <>
       <div className="stats-toggle">
@@ -41,17 +52,21 @@ export const StatisticsClient = ({
 
       {enableChartView && (
         <Suspense fallback={<Loader />}>
-          <ChartView
-            commentsByDay={commentsByDay}
-            likesByDay={likesByDay}
-            theme={theme}
-          />
+          <Profiler id="chart-view-profiler" onRender={onRender}>
+            <ChartView
+              commentsByDay={commentsByDay}
+              likesByDay={likesByDay}
+              theme={theme}
+            />
+          </Profiler>
         </Suspense>
       )}
 
-      {!enableChartView && (
-        <TableView likesByDay={likesByDay} commentsByDay={commentsByDay} />
-      )}
+      <Activity mode={!enableChartView ? "visible" : "hidden"}>
+        {!enableChartView && (
+          <TableView likesByDay={likesByDay} commentsByDay={commentsByDay} />
+        )}
+      </Activity>
     </>
   );
 };

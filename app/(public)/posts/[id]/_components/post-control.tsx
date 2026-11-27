@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Activity, useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { animated, useSpring, useTransition } from "@react-spring/web";
 import { useAuth } from "@/features/auth/use-auth";
@@ -128,9 +128,11 @@ export const PostControl = ({
         transitions(
           (style, item) =>
             item && (
-              <animated.div style={{ ...style, overflow: "hidden" }}>
-                <PostComments postId={postId} />
-              </animated.div>
+              <Activity mode={areCommentsOpen ? "visible" : "hidden"}>
+                <animated.div style={{ ...style, overflow: "hidden" }}>
+                  <PostComments postId={postId} />
+                </animated.div>
+              </Activity>
             ),
         )}
     </footer>

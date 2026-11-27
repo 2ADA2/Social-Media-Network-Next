@@ -1,5 +1,5 @@
 import "./modal.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { Activity, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTransition, animated } from "@react-spring/web";
 import CrossIcon from "@/shared/assets/icons/cross.svg";
@@ -57,7 +57,7 @@ export const Modal = ({
   }
 
   return createPortal(
-    <>
+    <Activity mode={isOpen ? "visible" : "hidden"}>
       {transitions((style, item) =>
         item ? (
           <animated.div
@@ -90,7 +90,7 @@ export const Modal = ({
           </animated.div>
         ) : null,
       )}
-    </>,
+    </Activity>,
     document.body,
   );
 };
